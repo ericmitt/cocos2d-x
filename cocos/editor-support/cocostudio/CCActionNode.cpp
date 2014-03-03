@@ -329,7 +329,12 @@ void ActionNode::playAction()
 		_action->release();
 	}
 
-	_action = Sequence::create(_actionSpawn, nullptr);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+	_action = Sequence::create(_actionSpawn, NULL);
+#else
+    _action = Sequence::create(_actionSpawn, nullptr);
+
+#endif
 	_action->retain();
 
 	this->runAction();
