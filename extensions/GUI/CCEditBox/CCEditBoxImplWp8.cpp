@@ -24,16 +24,19 @@ THE SOFTWARE.
 
 #include "CCEditBoxImplWp8.h"
 #include "CCEditBox.h"
-
+#include "CCGLView.h"
+#include "CCGeometry.h"
+#include "CCScriptSupport.h"
+#include "ccUTF8.h"
 
 NS_CC_EXT_BEGIN
 
-EditBoxImpl* __createSystemEditBox(CCEditBox* pEditBox)
+EditBoxImpl* __createSystemEditBox(EditBox* pEditBox)
 {
 	return new CCEditBoxImplWp8(pEditBox);
 }
 
-CCEditBoxImplWp8::CCEditBoxImplWp8( CCEditBox* pEditText )
+CCEditBoxImplWp8::CCEditBoxImplWp8( EditBox* pEditText )
 	: EditBoxImpl(pEditText)
 	, m_pLabel(NULL)
 	, m_pLabelPlaceHolder(NULL)
@@ -54,16 +57,17 @@ CCEditBoxImplWp8::~CCEditBoxImplWp8()
 
 void CCEditBoxImplWp8::openKeyboard()
 {
-	if (m_pDelegate != NULL)
+	if (_delegate != NULL)
 	{
-		m_pDelegate->editBoxEditingDidBegin(m_pEditBox);
+		_delegate->editBoxEditingDidBegin(_editBox);
 	}
 
-	CCEditBox* pEditBox = this->getCCEditBox();
+	EditBox* pEditBox = this->getEditBox();
 	if (NULL != pEditBox && 0 != pEditBox->getScriptEditBoxHandler())
 	{
-		cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
-		pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "began",pEditBox);
+        CommonScriptData data(pEditBox->getScriptEditBoxHandler(), "began",pEditBox);
+        ScriptEvent event(kCommonEvent,(void*)&data);
+        ScriptEngineManager::getInstance()->getScriptEngine()->sendEvent(&event);
 	}
 
 	std::string placeHolder = m_pLabelPlaceHolder->getString();
@@ -79,14 +83,14 @@ void CCEditBoxImplWp8::openKeyboard()
 		[this](Platform::Object^ sender, Platform::String^ arg)
 	{
 		setText(PlatformStringTostring(arg).c_str());
-		if (m_pDelegate != NULL) {
-			m_pDelegate->editBoxTextChanged(m_pEditBox, getText());
-			m_pDelegate->editBoxEditingDidEnd(m_pEditBox);
-			m_pDelegate->editBoxReturn(m_pEditBox);
+		if (_delegate != NULL) {
+			_delegate->editBoxTextChanged(_editBox, getText());
+			_delegate->editBoxEditingDidEnd(_editBox);
+			_delegate->editBoxReturn(_editBox);
 		}
 	});
 
-    CCGLView::sharedOpenGLView()->OpenXamlEditBox(stringToPlatformString(placeHolder), stringToPlatformString(getText()), m_nMaxLength, m_eEditBoxInputMode, m_eEditBoxInputFlag, receiveHandler);
+    GLView::sharedOpenGLView()->OpenXamlEditBox(stringToPlatformString(placeHolder), stringToPlatformString(getText()), m_nMaxLength, (int)m_eEditBoxInputMode, (int)m_eEditBoxInputFlag, receiveHandler);
 }
 
 bool CCEditBoxImplWp8::initWithSize( const Size& size )
@@ -94,18 +98,18 @@ bool CCEditBoxImplWp8::initWithSize( const Size& size )
 	//! int fontSize = getFontSizeAccordingHeightJni(size.height-12);
 	m_pLabel = LabelTTF::create("", "", size.height-12);
 	// align the text vertically center
-	m_pLabel->setAnchorPoint(ccp(0, 0.5f));
-	m_pLabel->setPosition(ccp(5, size.height / 2.0f));
+	m_pLabel->setAnchorPoint(Point(0.0f, 0.5f));
+	m_pLabel->setPosition(Point(5.0, size.height / 2.0f));
 	m_pLabel->setColor(m_colText);
-	m_pEditBox->addChild(m_pLabel);
+	_editBox->addChild(m_pLabel);
 
 	m_pLabelPlaceHolder = LabelTTF::create("", "", size.height-12);
 	// align the text vertically center
-	m_pLabelPlaceHolder->setAnchorPoint(ccp(0, 0.5f));
-	m_pLabelPlaceHolder->setPosition(ccp(5, size.height / 2.0f));
+	m_pLabelPlaceHolder->setAnchorPoint(Point(0.0f, 0.5f));
+	m_pLabelPlaceHolder->setPosition(Point(5.0f, size.height / 2.0f));
 	m_pLabelPlaceHolder->setVisible(false);
 	m_pLabelPlaceHolder->setColor(m_colPlaceHolder);
-	m_pEditBox->addChild(m_pLabelPlaceHolder);
+	_editBox->addChild(m_pLabelPlaceHolder);
 
 	m_EditSize = size;
 	return true;
@@ -186,7 +190,7 @@ void CCEditBoxImplWp8::setText( const char* pText )
 
 			std::string strToShow;
 
-			if (kEditBoxInputFlagPassword == m_eEditBoxInputFlag)
+			if (EditBox::InputFlag::PASSWORD == m_eEditBoxInputFlag)
 			{
 				long length = cc_utf8_strlen(m_strText.c_str(), -1);
 				for (long i = 0; i < length; i++)

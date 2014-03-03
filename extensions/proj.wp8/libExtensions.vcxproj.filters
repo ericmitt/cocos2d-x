@@ -69,9 +69,6 @@
     <ClCompile Include="..\GUI\CCEditBox\CCEditBox.cpp">
       <Filter>GUI\CCEditBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets-manager\AssetsManager.cpp">
-      <Filter>AssetsManager</Filter>
-    </ClCompile>
     <ClCompile Include="..\physics-nodes\CCPhysicsDebugNode.cpp">
       <Filter>physics_nodes</Filter>
     </ClCompile>
@@ -141,9 +138,6 @@
     </ClInclude>
     <ClInclude Include="..\GUI\CCEditBox\CCEditBoxImpl.h">
       <Filter>GUI\CCEditBox</Filter>
-    </ClInclude>
-    <ClInclude Include="..\assets-manager\AssetsManager.h">
-      <Filter>AssetsManager</Filter>
     </ClInclude>
     <ClInclude Include="..\physics-nodes\CCPhysicsDebugNode.h">
       <Filter>physics_nodes</Filter>

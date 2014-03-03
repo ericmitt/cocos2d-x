@@ -34,7 +34,7 @@ class CCEditBox;
 class CCEditBoxImplWp8 : public EditBoxImpl
 {
 public:
-	CCEditBoxImplWp8(CCEditBox* pEditText);
+	CCEditBoxImplWp8(EditBox* pEditText);
 	virtual ~CCEditBoxImplWp8();
 
 	virtual bool initWithSize(const Size& size);
