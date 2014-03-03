@@ -16,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libchipmunk", "..\external\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libLocalStorage", "..\cocos\storage\local-storage\proj.wp8\libLocalStorage.vcxproj", "{88982C27-5A7B-40A8-86E7-B3187B44B322}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CocosDenshion.win32", "..\cocos\audio\proj.wp8\CocosDenshion.vcxproj", "{DF125891-EEE9-4466-B903-F828FD272158}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -122,6 +124,18 @@ Global
 		{88982C27-5A7B-40A8-86E7-B3187B44B322}.Release|Win32.Build.0 = Release|Win32
 		{88982C27-5A7B-40A8-86E7-B3187B44B322}.Release|x64.ActiveCfg = Release|x64
 		{88982C27-5A7B-40A8-86E7-B3187B44B322}.Release|x64.Build.0 = Release|x64
+		{DF125891-EEE9-4466-B903-F828FD272158}.Debug|ARM.ActiveCfg = Debug|ARM
+		{DF125891-EEE9-4466-B903-F828FD272158}.Debug|ARM.Build.0 = Debug|ARM
+		{DF125891-EEE9-4466-B903-F828FD272158}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DF125891-EEE9-4466-B903-F828FD272158}.Debug|Win32.Build.0 = Debug|Win32
+		{DF125891-EEE9-4466-B903-F828FD272158}.Debug|x64.ActiveCfg = Debug|x64
+		{DF125891-EEE9-4466-B903-F828FD272158}.Debug|x64.Build.0 = Debug|x64
+		{DF125891-EEE9-4466-B903-F828FD272158}.Release|ARM.ActiveCfg = Release|ARM
+		{DF125891-EEE9-4466-B903-F828FD272158}.Release|ARM.Build.0 = Release|ARM
+		{DF125891-EEE9-4466-B903-F828FD272158}.Release|Win32.ActiveCfg = Release|Win32
+		{DF125891-EEE9-4466-B903-F828FD272158}.Release|Win32.Build.0 = Release|Win32
+		{DF125891-EEE9-4466-B903-F828FD272158}.Release|x64.ActiveCfg = Release|x64
+		{DF125891-EEE9-4466-B903-F828FD272158}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
