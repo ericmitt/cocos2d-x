@@ -26,13 +26,27 @@
 #ifndef _FontFreetype_h_
 #define _FontFreetype_h_
 
+
+
+
 #include "CCFont.h"
 #include "CCData.h"
 
 #include <string>
 #include <ft2build.h>
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+#define generic GenericFromFreeTypeLibrary
+#define internal InternalFromFreeTypeLibrary
+#endif
+
 #include FT_FREETYPE_H
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+#undef generic
+#undef internal
+#endif
+
 
 NS_CC_BEGIN
 
