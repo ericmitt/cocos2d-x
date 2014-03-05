@@ -149,6 +149,7 @@
     <ClCompile Include="..\base\CCAffineTransform.cpp" />
     <ClCompile Include="..\base\CCArray.cpp" />
     <ClCompile Include="..\base\CCAutoreleasePool.cpp" />
+    <ClCompile Include="..\base\CCConsole.cpp" />
     <ClCompile Include="..\base\CCData.cpp" />
     <ClCompile Include="..\base\CCDataVisitor.cpp" />
     <ClCompile Include="..\base\CCDictionary.cpp" />
@@ -296,8 +297,6 @@
     <ClCompile Include="platform\wp8\CCGLView.cpp" />
     <ClCompile Include="platform\wp8\Direct3DBase.cpp" />
     <ClCompile Include="platform\wp8\DirectXBase.cpp" />
-    <ClCompile Include="platform\wp8\ModalLayer.cpp" />
-    <ClCompile Include="platform\wp8\WP8Keyboard.cpp" />
     <ClCompile Include="renderer\CCBatchCommand.cpp" />
     <ClCompile Include="renderer\CCCustomCommand.cpp" />
     <ClCompile Include="renderer\CCFrustum.cpp" />
@@ -321,6 +320,7 @@
     <ClInclude Include="..\base\CCArray.h" />
     <ClInclude Include="..\base\CCAutoreleasePool.h" />
     <ClInclude Include="..\base\CCBool.h" />
+    <ClInclude Include="..\base\CCConsole.h" />
     <ClInclude Include="..\base\CCData.h" />
     <ClInclude Include="..\base\CCDataVisitor.h" />
     <ClInclude Include="..\base\CCDictionary.h" />
@@ -502,8 +502,6 @@
     <ClInclude Include="platform\wp8\CCGLView.h" />
     <ClInclude Include="platform\wp8\Direct3DBase.h" />
     <ClInclude Include="platform\wp8\DirectXBase.h" />
-    <ClInclude Include="platform\wp8\ModalLayer.h" />
-    <ClInclude Include="platform\wp8\WP8Keyboard.h" />
     <ClInclude Include="renderer\CCBatchCommand.h" />
     <ClInclude Include="renderer\CCCustomCommand.h" />
     <ClInclude Include="renderer\CCFrustum.h" />
