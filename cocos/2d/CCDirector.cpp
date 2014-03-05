@@ -157,8 +157,10 @@ bool Director::init(void)
     initTextureCache();
 
     _renderer = new Renderer;
-    _console = new Console;
 
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
+    _console = new Console;
+#endif
     return true;
 }
 
@@ -182,7 +184,10 @@ Director::~Director(void)
     delete _eventProjectionChanged;
 
     delete _renderer;
+
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
     delete _console;
+#endif
 
     // clean auto release pool
     PoolManager::destroyInstance();

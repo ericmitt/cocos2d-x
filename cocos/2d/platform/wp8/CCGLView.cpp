@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "CCIMEDispatcher.h"
 #include "CCApplication.h"
 #include "CCWinRTUtils.h"
-#include "WP8Keyboard.h"
 #include "CCNotificationCenter.h"
 
 using namespace Platform;
