@@ -108,8 +108,6 @@ public:
     */
 	static GLView* sharedOpenGLView();
 
-    friend class GLViewEventHandler;
-
 protected:
     GLView();
     virtual ~GLView();
