@@ -1,5 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cocos2d_wp8", "..\cocos\2d\cocos2d_wp8.vcxproj", "{B5AF91B3-64EA-44E1-84B0-D759E93758FB}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libGUI", "..\cocos\gui\proj.wp8\libGUI.vcxproj", "{08FB23E4-1517-4EDC-B682-DA238CDAA83D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSpine", "..\cocos\editor-support\spine\proj.wp8\libSpine.vcxproj", "{7D4FC6EB-9497-4804-98F3-3EAEDC896154}"
@@ -28,6 +30,16 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB}.Debug|ARM.ActiveCfg = Debug|ARM
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB}.Debug|ARM.Build.0 = Debug|ARM
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB}.Debug|Win32.Build.0 = Debug|Win32
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB}.Debug|x64.ActiveCfg = Debug|Win32
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB}.Release|ARM.ActiveCfg = Release|ARM
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB}.Release|ARM.Build.0 = Release|ARM
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB}.Release|Win32.ActiveCfg = Release|Win32
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB}.Release|Win32.Build.0 = Release|Win32
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB}.Release|x64.ActiveCfg = Release|Win32
 		{08FB23E4-1517-4EDC-B682-DA238CDAA83D}.Debug|ARM.ActiveCfg = Debug|ARM
 		{08FB23E4-1517-4EDC-B682-DA238CDAA83D}.Debug|ARM.Build.0 = Debug|ARM
 		{08FB23E4-1517-4EDC-B682-DA238CDAA83D}.Debug|Win32.ActiveCfg = Debug|Win32
