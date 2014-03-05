@@ -31,9 +31,6 @@
     <Filter Include="platform">
       <UniqueIdentifier>{926fc31c-8742-4984-9940-c972dd02fc8a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="platform\win32">
-      <UniqueIdentifier>{9428f8e6-4ce3-4596-b8af-14d70b7c5b5d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sprite_nodes">
       <UniqueIdentifier>{755e5282-111e-46a5-9169-7c12b37f5ffc}</UniqueIdentifier>
     </Filter>
@@ -347,9 +344,6 @@
     </ClCompile>
     <ClCompile Include="..\base\etc1.cpp">
       <Filter>platform\etc</Filter>
-    </ClCompile>
-    <ClCompile Include="platform\win32\CCStdC.cpp">
-      <Filter>platform\win32</Filter>
     </ClCompile>
     <ClCompile Include="platform\CCGLViewProtocol.cpp">
       <Filter>platform</Filter>
@@ -867,9 +861,6 @@
     </ClInclude>
     <ClInclude Include="..\base\etc1.h">
       <Filter>platform\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="platform\win32\CCStdC.h">
-      <Filter>platform\win32</Filter>
     </ClInclude>
     <ClInclude Include="platform\CCApplicationProtocol.h">
       <Filter>platform</Filter>

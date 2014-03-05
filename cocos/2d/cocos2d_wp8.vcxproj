@@ -288,7 +288,6 @@
     <ClCompile Include="platform\CCImage.cpp" />
     <ClCompile Include="platform\CCSAXParser.cpp" />
     <ClCompile Include="platform\CCThread.cpp" />
-    <ClCompile Include="platform\win32\CCStdC.cpp" />
     <ClCompile Include="platform\winrt\CCApplication.cpp" />
     <ClCompile Include="platform\winrt\CCCommon.cpp" />
     <ClCompile Include="platform\winrt\CCDevice.cpp" />
@@ -494,7 +493,6 @@
     <ClInclude Include="platform\CCImage.h" />
     <ClInclude Include="platform\CCSAXParser.h" />
     <ClInclude Include="platform\CCThread.h" />
-    <ClInclude Include="platform\win32\CCStdC.h" />
     <ClInclude Include="platform\winrt\CCApplication.h" />
     <ClInclude Include="platform\winrt\CCFileUtilsWinRT.h" />
     <ClInclude Include="platform\winrt\CCGL.h" />

@@ -47,28 +47,11 @@ THE SOFTWARE.
 NS_CC_BEGIN
 
 class GLView;
-ref class WP8Keyboard;
-
-ref class WP8Window sealed
-{
-public:
-
-	WP8Window(Windows::UI::Core::CoreWindow^ parentWindow);
-
-protected:
-    void OnOrientationChanged(Platform::Object^ sender);
-
-private:
-    Platform::Agile<Windows::UI::Core::CoreWindow> m_window;
-
-};
 
 
 class CC_DLL GLView : public Ref, public GLViewProtocol
 {
 public:
-    GLView();
-    virtual ~GLView();
 
     /* override functions */
     virtual bool isOpenGLReady();
@@ -85,9 +68,6 @@ public:
 	void ShowKeyboard(Windows::Foundation::Rect r);
 	void HideKeyboard(Windows::Foundation::Rect r);
 
-    // WP8 C++ app
-    virtual bool Create(Windows::UI::Core::CoreWindow^ window);
-
     // WP8 XAML app
     virtual bool Create(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface, float width, float height);
     virtual void UpdateDevice(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface);
@@ -103,7 +83,6 @@ public:
 	void OnWindowClosed(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::CoreWindowEventArgs^ args);
 	void OnResuming(Platform::Object^ sender, Platform::Object^ args);
 	void OnSuspending(Platform::Object^ sender, Windows::ApplicationModel::SuspendingEventArgs^ args);
-    void OnOrientationChanged();
     
     void SetXamlEventDelegate(PhoneDirect3DXamlAppComponent::Cocos2dEventDelegate^ delegate) { m_delegate = delegate; };
     void SetXamlMessageBoxDelegate(PhoneDirect3DXamlAppComponent::Cocos2dMessageBoxDelegate^ delegate) { m_messageBoxDelegate = delegate; };
@@ -112,16 +91,11 @@ public:
     bool ShowMessageBox(Platform::String^ title, Platform::String^ message);
     bool OpenXamlEditBox(Platform::String^ strPlaceHolder, Platform::String^ strText, int maxLength, int inputMode, int inputFlag, Windows::Foundation::EventHandler<Platform::String^>^ receiveHandler);
 
-	Windows::UI::Core::CoreWindow^ getWindow() { return m_window.Get(); };
-	
 	int Run();
 	void Render();
 
     void resize(int width, int height);
-    /* 
-     * Set zoom factor for frame. This method is for debugging big resolution (e.g.new ipad) app on desktop.
-     */
-    void setFrameZoomFactor(float fZoomFactor);
+
 	float getFrameZoomFactor();
     void centerWindow();
 
@@ -134,17 +108,33 @@ public:
     */
 	static GLView* sharedOpenGLView();
 
+    friend class GLViewEventHandler;
+
 protected:
+    GLView();
+    virtual ~GLView();
+
+    /*
+     * Set zoom factor for frame. This method is for debugging big resolution (e.g.new ipad) app on desktop.
+     */
+    void setFrameZoomFactor(float zoomFactor);
+
+    inline bool isRetina() { return _isRetina; };
+
+    float _frameZoomFactor;
+    bool _supportTouch;
+    bool _isRetina;
+
 
 private:
+    CC_DISALLOW_COPY_AND_ASSIGN(GLView);
+
 	void OnRendering();
-	void UpdateForWindowSizeChange();
 	void UpdateWindowSize();
     void UpdateOrientationMatrix();
 
-	void ValidateDevice();
-    Point TransformToOrientation(Windows::Foundation::Point point);
- 	Point GetCCPoint(Windows::UI::Core::PointerEventArgs^ args);
+    cocos2d::Point TransformToOrientation(Windows::Foundation::Point point);
+ 	cocos2d::Point  GetPoint(Windows::UI::Core::PointerEventArgs^ args);
        
     Windows::Foundation::Rect m_windowBounds;
 	Windows::Foundation::EventRegistrationToken m_eventToken;
@@ -153,7 +143,6 @@ private:
     float m_width;
     float m_height;
 
-    Platform::Agile<Windows::UI::Core::CoreWindow> m_window;
     Windows::Graphics::Display::DisplayOrientations m_orientation;
 	Windows::Foundation::Rect m_keyboardRect;
 
@@ -162,20 +151,16 @@ private:
 	bool m_windowVisible;
     kmMat4 m_orientationMatrix;
     kmMat4 m_reverseOrientationMatrix;
-    
+
+
     bool m_running;
 	bool m_initialized;
-    bool m_bSupportTouch;
-    float m_fFrameZoomFactor;
 
 	Microsoft::WRL::ComPtr<IWinrtEglWindow> m_eglWindow;
 
-    WP8Keyboard^ mKeyboard;
-    WP8Window^ m_wp8Window;
 	EGLDisplay m_eglDisplay;
 	EGLContext m_eglContext;
 	EGLSurface m_eglSurface;
-    bool m_isXamlWindow;
     PhoneDirect3DXamlAppComponent::Cocos2dEventDelegate^ m_delegate;
     PhoneDirect3DXamlAppComponent::Cocos2dMessageBoxDelegate^ m_messageBoxDelegate;
     PhoneDirect3DXamlAppComponent::Cocos2dEditBoxDelegate^ m_editBoxDelegate;

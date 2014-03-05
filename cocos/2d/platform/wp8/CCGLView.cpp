@@ -28,10 +28,7 @@ THE SOFTWARE.
 #include "ccMacros.h"
 #include "CCDirector.h"
 #include "CCTouch.h"
-#include "CCTouchDispatcher.h"
 #include "CCIMEDispatcher.h"
-#include "CCKeypadDispatcher.h"
-#include "CCPointExtension.h"
 #include "CCApplication.h"
 #include "CCWinRTUtils.h"
 #include "WP8Keyboard.h"
@@ -58,43 +55,30 @@ using namespace PhoneDirect3DXamlAppComponent;
 
 NS_CC_BEGIN
 
-static CCGLView* s_pEglView = NULL;
+static GLView* s_pEglView = NULL;
 
-WP8Window::WP8Window(CoreWindow^ window)
-{
-	m_window = window;
-    DisplayProperties::OrientationChanged += ref new DisplayPropertiesEventHandler(this, &WP8Window::OnOrientationChanged);
-}
-
-void WP8Window::OnOrientationChanged(Platform::Object^ sender)
-{
-    CCGLView::sharedOpenGLView()->OnOrientationChanged();
-}
-
-CCGLView::CCGLView()
-	: m_window(nullptr)
-	, m_fFrameZoomFactor(1.0f)
-	, m_bSupportTouch(false)
+GLView::GLView()
+	: _frameZoomFactor(1.0f)
+	, _supportTouch(true)
+    , _isRetina(false)
 	, m_lastPointValid(false)
 	, m_running(false)
 	, m_initialized(false)
 	, m_windowClosed(false)
 	, m_windowVisible(true)
-    , mKeyboard(nullptr)
     , m_width(0)
     , m_height(0)
     , m_eglDisplay(nullptr)
     , m_eglContext(nullptr)
     , m_eglSurface(nullptr)
-    , m_isXamlWindow(false)
     , m_delegate(nullptr)
     , m_messageBoxDelegate(nullptr)
 {
 	s_pEglView = this;
-    strcpy_s(m_szViewName, "Cocos2dxWP8");
+    _viewName =  "cocos2dx";
 }
 
-CCGLView::~CCGLView()
+GLView::~GLView()
 {
 	CC_ASSERT(this == s_pEglView);
     s_pEglView = NULL;
@@ -102,55 +86,17 @@ CCGLView::~CCGLView()
 	// TODO: cleanup 
 }
 
-bool CCGLView::Create(CoreWindow^ window)
+bool GLView::Create(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface, float width, float height)
 {
-    bool bRet = false;
-	m_window = window;
-	m_bSupportTouch = true;
-
- 	esInitContext ( &m_esContext );
-
-	HRESULT result = CreateWinrtEglWindow(WINRT_EGL_IUNKNOWN(window), ANGLE_D3D_FEATURE_LEVEL::ANGLE_D3D_FEATURE_LEVEL_9_3, m_eglWindow.GetAddressOf());
-
-	if (SUCCEEDED(result))
-	{
-		m_esContext.hWnd = m_eglWindow;
-		esCreateWindow ( &m_esContext, TEXT("Cocos2d-x"), 0, 0, ES_WINDOW_RGB | ES_WINDOW_ALPHA | ES_WINDOW_DEPTH | ES_WINDOW_STENCIL );
-
-		m_wp8Window = ref new WP8Window(window);
-		m_orientation = DisplayOrientations::Portrait;
-		m_initialized = false;
-
-        m_eglContext =    m_esContext.eglContext;
-        m_eglSurface = m_esContext.eglSurface;
-        m_eglDisplay = m_esContext.eglDisplay;
-
-		UpdateForWindowSizeChange();
-		bRet = true;
-	}
-	else
-	{
-		CCLOG("Unable to create Angle EGL Window: %d", result);
-	}
-
-    return bRet;
-}
-
-bool CCGLView::Create(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface, float width, float height)
-{
-	m_bSupportTouch = true;
-    m_isXamlWindow = true;
     m_eglDisplay = eglDisplay;
     m_eglContext = eglContext;
     m_eglSurface = eglSurface;
     UpdateForWindowSizeChange(width, height);
-
     return true;
 }
 
-void CCGLView::UpdateDevice(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface)
+void GLView::UpdateDevice(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface)
 {
-	m_bSupportTouch = true;
     m_eglDisplay = eglDisplay;
     m_eglContext = eglContext;
     m_eglSurface = eglSurface;
@@ -158,7 +104,7 @@ void CCGLView::UpdateDevice(EGLDisplay eglDisplay, EGLContext eglContext, EGLSur
     //UpdateForWindowSizeChange(width, height);
 }
 
-void CCGLView::setIMEKeyboardState(bool bOpen)
+void GLView::setIMEKeyboardState(bool bOpen)
 {
     if(m_delegate)
     {
@@ -171,85 +117,75 @@ void CCGLView::setIMEKeyboardState(bool bOpen)
             m_delegate->Invoke(Cocos2dEvent::HideKeyboard);
         }
     }
-    else
-    {
-        if(!mKeyboard)
-            mKeyboard = ref new WP8Keyboard(m_window.Get());
-        mKeyboard->SetFocus(bOpen);
-    }
 }
 
-void CCGLView::swapBuffers()
+void GLView::swapBuffers()
 {
     eglSwapBuffers(m_eglDisplay, m_eglSurface);  
 }
 
 
-bool CCGLView::isOpenGLReady()
+bool GLView::isOpenGLReady()
 {
 	// TODO: need to revisit this
-    return ((m_window.Get() || m_eglDisplay) && m_orientation != DisplayOrientations::None);
+    return (m_eglDisplay && m_orientation != DisplayOrientations::None);
 }
 
-void CCGLView::end()
+void GLView::end()
 {
 	m_windowClosed = true;
 }
 
-void CCGLView::OnOrientationChanged()
-{
-    UpdateForWindowSizeChange();
-}
 
-void CCGLView::OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)
+void GLView::OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)
 {
 }
 
-void CCGLView::OnResuming(Platform::Object^ sender, Platform::Object^ args)
+void GLView::OnResuming(Platform::Object^ sender, Platform::Object^ args)
 {
 }
 
 
-void CCGLView::OnPointerPressed(CoreWindow^ sender, PointerEventArgs^ args)
+void GLView::OnPointerPressed(CoreWindow^ sender, PointerEventArgs^ args)
 {
     OnPointerPressed(args);
 }
 
-void CCGLView::OnPointerPressed(PointerEventArgs^ args)
+void GLView::OnPointerPressed(PointerEventArgs^ args)
 {
     int id = args->CurrentPoint->PointerId;
-    CCPoint pt = GetCCPoint(args);
+    Point pt = GetPoint(args);
     handleTouchesBegin(1, &id, &pt.x, &pt.y);
 }
 
 
-void CCGLView::OnPointerWheelChanged(CoreWindow^ sender, PointerEventArgs^ args)
+void GLView::OnPointerWheelChanged(CoreWindow^ sender, PointerEventArgs^ args)
 {
     float direction = (float)args->CurrentPoint->Properties->MouseWheelDelta;
     int id = 0;
-    CCPoint p(0.0f,0.0f);
+    Point p(0.0f,0.0f);
     handleTouchesBegin(1, &id, &p.x, &p.y);
     p.y += direction;
     handleTouchesMove(1, &id, &p.x, &p.y);
     handleTouchesEnd(1, &id, &p.x, &p.y);
 }
 
-void CCGLView::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEventArgs^ args)
+void GLView::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEventArgs^ args)
 {
 	m_windowVisible = args->Visible;
 }
 
-void CCGLView::OnWindowClosed(CoreWindow^ sender, CoreWindowEventArgs^ args)
+void GLView::OnWindowClosed(CoreWindow^ sender, CoreWindowEventArgs^ args)
 {
 	m_windowClosed = true;
 }
 
-void CCGLView::OnPointerMoved(CoreWindow^ sender, PointerEventArgs^ args)
+void GLView::OnPointerMoved(CoreWindow^ sender, PointerEventArgs^ args)
 {
     OnPointerMoved(args);   
 }
 
-void CCGLView::OnPointerMoved( PointerEventArgs^ args)
+void GLView::OnPointerMoved( PointerEventArgs^ args)
 {
 	auto currentPoint = args->CurrentPoint;
 	if (currentPoint->IsInContact)
@@ -257,7 +193,7 @@ void CCGLView::OnPointerMoved( PointerEventArgs^ args)
 		if (m_lastPointValid)
 		{
 			int id = args->CurrentPoint->PointerId;
-			CCPoint p = GetCCPoint(args);
+			Point p = GetPoint(args);
 			handleTouchesMove(1, &id, &p.x, &p.y);
 		}
 		m_lastPoint = currentPoint->Position;
@@ -269,134 +205,70 @@ void CCGLView::OnPointerMoved( PointerEventArgs^ args)
 	}
 }
 
-void CCGLView::OnPointerReleased(CoreWindow^ sender, PointerEventArgs^ args)
+void GLView::OnPointerReleased(CoreWindow^ sender, PointerEventArgs^ args)
 {
     OnPointerReleased(args);
 }
 
-void CCGLView::OnPointerReleased(PointerEventArgs^ args)
+void GLView::OnPointerReleased(PointerEventArgs^ args)
 {
     int id = args->CurrentPoint->PointerId;
-    CCPoint pt = GetCCPoint(args);
+    Point pt = GetPoint(args);
     handleTouchesEnd(1, &id, &pt.x, &pt.y);
 }
 
 
 
-void CCGLView::resize(int width, int height)
+void GLView::resize(int width, int height)
 {
 
 }
 
-void CCGLView::setFrameZoomFactor(float fZoomFactor)
+void GLView::setFrameZoomFactor(float fZoomFactor)
 {
-    m_fFrameZoomFactor = fZoomFactor;
-    resize(m_obScreenSize.width * fZoomFactor, m_obScreenSize.height * fZoomFactor);
-    centerWindow();
-
-
-
-    CCDirector::sharedDirector()->setProjection(CCDirector::sharedDirector()->getProjection());
+    _frameZoomFactor = fZoomFactor;
+    Director::getInstance()->setProjection(Director::getInstance()->getProjection());
+    //resize(m_obScreenSize.width * fZoomFactor, m_obScreenSize.height * fZoomFactor);
 }
 
-float CCGLView::getFrameZoomFactor()
+float GLView::getFrameZoomFactor()
 {
-    return m_fFrameZoomFactor;
+    return _frameZoomFactor;
 }
 
-
-
-void CCGLView::centerWindow()
+void GLView::centerWindow()
 {
 	// not implemented in WinRT. Window is always full screen
 }
 
-
-
-CCGLView* CCGLView::sharedOpenGLView()
+GLView* GLView::sharedOpenGLView()
 {
     return s_pEglView;
 }
 
-int CCGLView::Run() 
+int GLView::Run() 
 {
-	m_running = true; 
-
     // XAML version does not have a run loop
-    if(m_isXamlWindow)
-        return 0;
-
-	while (!m_windowClosed)
-	{
-		if (m_windowVisible)
-		{
-			CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
-			OnRendering();
-		}
-		else
-		{
-			CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessOneAndAllPending);
-		}
-	}
-	return 0;
+	m_running = true; 
+    return 0;
 };
 
-void CCGLView::Render()
+void GLView::Render()
 {
     OnRendering();
 }
 
-void CCGLView::OnRendering()
+void GLView::OnRendering()
 {
 	if(m_running && m_initialized)
 	{
-		CCDirector::sharedDirector()->mainLoop();
+        Director::getInstance()->mainLoop();
 	}
 }
 
-void CCGLView::HideKeyboard(Rect r)
-{
-    return; // not yet implemented
-	int height = m_keyboardRect.Height;
-	float factor = m_fScaleY / CC_CONTENT_SCALE_FACTOR();
-	height = (float)height / factor;
 
-	CCRect rect_end(0, 0, 0, 0);
-	CCRect rect_begin(0, 0, m_obScreenSize.width / factor, height);
 
-    CCIMEKeyboardNotificationInfo info;
-    info.begin = rect_begin;
-    info.end = rect_end;
-    info.duration = 0;
-    CCIMEDispatcher::sharedDispatcher()->dispatchKeyboardWillHide(info);
-    CCIMEDispatcher::sharedDispatcher()->dispatchKeyboardDidHide(info);
-}
-
-void CCGLView::ShowKeyboard(Rect r)
-{
-    return; // not yet implemented
-	int height = r.Height;
-	float factor = m_fScaleY / CC_CONTENT_SCALE_FACTOR();
-	height = (float)height / factor;
-
-	CCRect rect_begin(0, 0 - height, m_obScreenSize.width / factor, height);
-	CCRect rect_end(0, 0, m_obScreenSize.width / factor, height);
-
-    CCIMEKeyboardNotificationInfo info;
-    info.begin = rect_begin;
-    info.end = rect_end;
-    info.duration = 0;
-    CCIMEDispatcher::sharedDispatcher()->dispatchKeyboardWillShow(info);
-    CCIMEDispatcher::sharedDispatcher()->dispatchKeyboardDidShow(info);
-	m_keyboardRect = r;
-}
-
-void CCGLView::ValidateDevice()
-{
-
-}
-
-bool CCGLView::ShowMessageBox(Platform::String^ title, Platform::String^ message)
+bool GLView::ShowMessageBox(Platform::String^ title, Platform::String^ message)
 {
     if(m_messageBoxDelegate)
     {
@@ -406,7 +278,7 @@ bool CCGLView::ShowMessageBox(Platform::String^ title, Platform::String^ message
     return false;
 }
 
-bool CCGLView::OpenXamlEditBox(Platform::String^ strPlaceHolder, Platform::String^ strText, int maxLength, int inputMode, int inputFlag, Windows::Foundation::EventHandler<Platform::String^>^ receiveHandler)
+bool GLView::OpenXamlEditBox(Platform::String^ strPlaceHolder, Platform::String^ strText, int maxLength, int inputMode, int inputFlag, Windows::Foundation::EventHandler<Platform::String^>^ receiveHandler)
 {
     if(m_editBoxDelegate)
     {
@@ -419,7 +291,7 @@ bool CCGLView::OpenXamlEditBox(Platform::String^ strPlaceHolder, Platform::Strin
 
 
 // called by orientation change from WP8 XAML
-void CCGLView::UpdateOrientation(DisplayOrientations orientation)
+void GLView::UpdateOrientation(DisplayOrientations orientation)
 {
     if(m_orientation != orientation)
     {
@@ -429,23 +301,31 @@ void CCGLView::UpdateOrientation(DisplayOrientations orientation)
 }
 
 // called by size change from WP8 XAML
-void CCGLView::UpdateForWindowSizeChange(float width, float height)
+void GLView::UpdateForWindowSizeChange(float width, float height)
 {
     m_width = width;
     m_height = height;
     UpdateWindowSize();
 }
 
-void CCGLView::UpdateForWindowSizeChange()
-{
-    m_orientation = DisplayProperties::CurrentOrientation;
-    m_width = ConvertDipsToPixels(m_window->Bounds.Width);
-    m_height = ConvertDipsToPixels(m_window->Bounds.Height);
- 
-    UpdateWindowSize();
-}
+#if 0
+win32 version
 
-void CCGLView::UpdateWindowSize()
+void GLViewEventHandler::OnGLFWWindowSizeFunCallback(GLFWwindow *windows, int width, int height)
+{	
+	auto view = Director::getInstance()->getOpenGLView();
+	if(view && view->getResolutionPolicy() != ResolutionPolicy::UNKNOWN)
+	{
+		Size resSize=view->getDesignResolutionSize();
+		ResolutionPolicy resPolicy=view->getResolutionPolicy();
+		view->setFrameSize(width, height);
+ 		view->setDesignResolutionSize(resSize.width, resSize.height, resPolicy);
+		Director::getInstance()->setViewport();
+	}
+}
+#endif
+
+void GLView::UpdateWindowSize()
 {
     float width, height;
 
@@ -466,22 +346,22 @@ void CCGLView::UpdateWindowSize()
     if(!m_initialized)
     {
         m_initialized = true;
-        CCGLViewProtocol::setFrameSize(width, height);
+        GLViewProtocol::setFrameSize(width, height);
     }
-    else
-    {
-        m_obScreenSize = CCSizeMake(width, height);
-        CCSize designSize = getDesignResolutionSize();
-        if(m_eResolutionPolicy == kResolutionUnKnown)
-        {
-            m_eResolutionPolicy = kResolutionShowAll;
-        }
-        CCGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, m_eResolutionPolicy);
-        CCDirector::sharedDirector()->setProjection(CCDirector::sharedDirector()->getProjection());
-   }
+
+    auto view = Director::getInstance()->getOpenGLView();
+	if(view && view->getResolutionPolicy() != ResolutionPolicy::UNKNOWN)
+	{
+		Size resSize=view->getDesignResolutionSize();
+		ResolutionPolicy resPolicy=view->getResolutionPolicy();
+		view->setFrameSize(width, height);
+ 		view->setDesignResolutionSize(resSize.width, resSize.height, resPolicy);
+		Director::getInstance()->setViewport();
+        Director::sharedDirector()->setProjection(Director::sharedDirector()->getProjection());
+	}
 }
 
-void CCGLView::UpdateOrientationMatrix()
+void GLView::UpdateOrientationMatrix()
 {
     kmMat4Identity(&m_orientationMatrix);
     kmMat4Identity(&m_reverseOrientationMatrix);
@@ -507,37 +387,31 @@ void CCGLView::UpdateOrientationMatrix()
 	}
 }
 
-CCPoint CCGLView::TransformToOrientation(Point p)
+cocos2d::Point GLView::TransformToOrientation(Windows::Foundation::Point p)
 {
-    CCPoint returnValue;
+    cocos2d::Point returnValue;
 
     float x = p.X;
     float y = p.Y;  
- 
-    if(!m_isXamlWindow)
-    {
-        x = getScaledDPIValue(p.X);
-        y = getScaledDPIValue(p.Y);  
-    }
 
     switch (m_orientation)
     {
         case DisplayOrientations::Portrait:
         default:
-            returnValue = CCPoint(x, y);
+            returnValue = Point(x, y);
             break;
         case DisplayOrientations::Landscape:
-            returnValue = CCPoint(y, m_width - x);
+            returnValue = Point(y, m_width - x);
             break;
         case DisplayOrientations::PortraitFlipped:
-            returnValue = CCPoint(m_width - x, m_height - y);
+            returnValue = Point(m_width - x, m_height - y);
             break;
         case DisplayOrientations::LandscapeFlipped:
-            returnValue = CCPoint(m_height - y, x);
+            returnValue = Point(m_height - y, x);
             break;
     }
 
-	float zoomFactor = CCGLView::sharedOpenGLView()->getFrameZoomFactor();
+	float zoomFactor = GLView::sharedOpenGLView()->getFrameZoomFactor();
 	if(zoomFactor > 0.0f) {
 		returnValue.x /= zoomFactor;
 		returnValue.y /= zoomFactor;
@@ -548,50 +422,50 @@ CCPoint CCGLView::TransformToOrientation(Point p)
     return returnValue;
 }
 
-CCPoint CCGLView::GetCCPoint(PointerEventArgs^ args) {
+Point GLView::GetPoint(PointerEventArgs^ args) {
 
 	return TransformToOrientation(args->CurrentPoint->Position);
 
 }
 
 
-void CCGLView::setViewPortInPoints(float x , float y , float w , float h)
+void GLView::setViewPortInPoints(float x , float y , float w , float h)
 {
     switch(m_orientation)
 	{
 		case DisplayOrientations::Landscape:
 		case DisplayOrientations::LandscapeFlipped:
-            glViewport((GLint)(y * m_fScaleY + m_obViewPortRect.origin.y),
-                       (GLint)(x * m_fScaleX + m_obViewPortRect.origin.x),
-                       (GLsizei)(h * m_fScaleY),
-                       (GLsizei)(w * m_fScaleX));
+            glViewport((GLint)(y * _scaleY + _viewPortRect.origin.y),
+                       (GLint)(x * _scaleX + _viewPortRect.origin.x),
+                       (GLsizei)(h * _scaleY),
+                       (GLsizei)(w * _scaleX));
 			break;
 
         default:
-            glViewport((GLint)(x * m_fScaleX + m_obViewPortRect.origin.x),
-                       (GLint)(y * m_fScaleY + m_obViewPortRect.origin.y),
-                       (GLsizei)(w * m_fScaleX),
-                       (GLsizei)(h * m_fScaleY));
+            glViewport((GLint)(x * _scaleX + _viewPortRect.origin.x),
+                       (GLint)(y * _scaleY + _viewPortRect.origin.y),
+                       (GLsizei)(w * _scaleX),
+                       (GLsizei)(h * _scaleY));
 	}
 }
 
-void CCGLView::setScissorInPoints(float x , float y , float w , float h)
+void GLView::setScissorInPoints(float x , float y , float w , float h)
 {
     switch(m_orientation)
 	{
 		case DisplayOrientations::Landscape:
 		case DisplayOrientations::LandscapeFlipped:
-            glScissor((GLint)(y * m_fScaleY + m_obViewPortRect.origin.y),
-                       (GLint)((m_obViewPortRect.size.width - ((x + w) * m_fScaleX)) + m_obViewPortRect.origin.x),
-                       (GLsizei)(h * m_fScaleY),
-                       (GLsizei)(w * m_fScaleX));
+            glScissor((GLint)(y * _scaleX + _viewPortRect.origin.y),
+                       (GLint)((_viewPortRect.size.width - ((x + w) * _scaleX)) + _viewPortRect.origin.x),
+                       (GLsizei)(h * _scaleY),
+                       (GLsizei)(w * _scaleX));
 			break;
 
         default:
-            glScissor((GLint)(x * m_fScaleX + m_obViewPortRect.origin.x),
-                       (GLint)(y * m_fScaleY + m_obViewPortRect.origin.y),
-                       (GLsizei)(w * m_fScaleX),
-                       (GLsizei)(h * m_fScaleY));
+            glScissor((GLint)(x * _scaleX + _viewPortRect.origin.x),
+                       (GLint)(y * _scaleY + _viewPortRect.origin.y),
+                       (GLsizei)(w * _scaleX),
+                       (GLsizei)(h * _scaleY));
 	}
 }
 
