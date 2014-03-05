@@ -25,6 +25,9 @@ THE SOFTWARE.
 #ifndef __CCPLATFORMDEFINE_H__
 #define __CCPLATFORMDEFINE_H__
 
+#include "CCPlatformConfig.h"
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+
 #if 0
 #if defined(_USRDLL)
 #define CC_DLL     __declspec(dllexport)
@@ -54,6 +57,7 @@ THE SOFTWARE.
 #endif
 #endif
 
+#endif // CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_WP8
 
 
 #endif /* __CCPLATFORMDEFINE_H__*/

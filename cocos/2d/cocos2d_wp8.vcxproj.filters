@@ -348,12 +348,6 @@
     <ClCompile Include="..\base\etc1.cpp">
       <Filter>platform\etc</Filter>
     </ClCompile>
-    <ClCompile Include="platform\win32\CCDevice.cpp">
-      <Filter>platform\win32</Filter>
-    </ClCompile>
-    <ClCompile Include="platform\win32\CCFileUtilsWin32.cpp">
-      <Filter>platform\win32</Filter>
-    </ClCompile>
     <ClCompile Include="platform\win32\CCStdC.cpp">
       <Filter>platform\win32</Filter>
     </ClCompile>
@@ -871,9 +865,6 @@
     <ClInclude Include="..\base\etc1.h">
       <Filter>platform\etc</Filter>
     </ClInclude>
-    <ClInclude Include="platform\win32\CCFileUtilsWin32.h">
-      <Filter>platform\win32</Filter>
-    </ClInclude>
     <ClInclude Include="platform\win32\CCGL.h">
       <Filter>platform\win32</Filter>
     </ClInclude>
@@ -1228,6 +1219,15 @@
       <Filter>platform\winrt</Filter>
     </ClInclude>
     <ClInclude Include="platform\winrt\CCFileUtilsWinRT.h">
+      <Filter>platform\winrt</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\winrt\CCGL.h">
+      <Filter>platform\winrt</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\winrt\CCGL_Angle.h">
+      <Filter>platform\winrt</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\winrt\CCPlatformDefine.h">
       <Filter>platform\winrt</Filter>
     </ClInclude>
   </ItemGroup>
