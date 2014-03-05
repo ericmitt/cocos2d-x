@@ -25,7 +25,6 @@ THE SOFTWARE.
 #include "CCFileUtilsWinRT.h"
 #include "CCWinRTUtils.h"
 #include "platform/CCCommon.h"
-//#include <Shlobj.h>
 #include <Windows.h>
 
 using namespace std;
@@ -43,15 +42,21 @@ static void _checkPath()
     }
 }
 
-CCFileUtils* CCFileUtils::sharedFileUtils()
+FileUtils* FileUtils::getInstance()
 {
     if (s_sharedFileUtils == NULL)
     {
         s_sharedFileUtils = new CCFileUtilsWinRT();
-        s_sharedFileUtils->init();
+        if(!s_sharedFileUtils->init())
+        {
+          delete s_sharedFileUtils;
+          s_sharedFileUtils = NULL;
+          CCLOG("ERROR: Could not init CCFileUtilsWinRT");
+        }
     }
     return s_sharedFileUtils;
 }
+
 
 CCFileUtilsWinRT::CCFileUtilsWinRT()
 {
@@ -60,12 +65,12 @@ CCFileUtilsWinRT::CCFileUtilsWinRT()
 bool CCFileUtilsWinRT::init()
 {
     _checkPath();
-    m_strDefaultResRootPath = s_pszResourcePath;
-    return CCFileUtils::init();
+    _defaultResRootPath = s_pszResourcePath;
+    return FileUtils::init();
 }
 
 #if 1
-bool CCFileUtilsWinRT::isFileExist(const std::string& strFilePath)
+bool CCFileUtilsWinRT::isFileExist(const std::string& strFilePath) const
 {
     bool ret = false;
     FILE * pf = 0;
@@ -73,7 +78,7 @@ bool CCFileUtilsWinRT::isFileExist(const std::string& strFilePath)
     std::string strPath = strFilePath;
     if (!isAbsolutePath(strPath))
     { // Not absolute path, add the default root path at the beginning.
-        strPath.insert(0, m_strDefaultResRootPath);
+        strPath.insert(0, _defaultResRootPath);
     }
 
     const char* path = strPath.c_str();
@@ -127,7 +132,7 @@ bool CCFileUtilsWinRT::isFileExist(const std::string& strFilePath)
 }
 #endif
 
-bool CCFileUtilsWinRT::isAbsolutePath(const std::string& strPath)
+bool CCFileUtilsWinRT::isAbsolutePath(const std::string& strPath) const
 {
     if (   strPath.length() > 2 
         && ( (strPath[0] >= 'a' && strPath[0] <= 'z') || (strPath[0] >= 'A' && strPath[0] <= 'Z') )
@@ -138,7 +143,7 @@ bool CCFileUtilsWinRT::isAbsolutePath(const std::string& strPath)
     return false;
 }
 
-string CCFileUtilsWinRT::getWritablePath()
+string CCFileUtilsWinRT::getWritablePath() const
 {
 	auto localFolderPath = Windows::Storage::ApplicationData::Current->LocalFolder->Path;
 	return std::string(PlatformStringToString(localFolderPath)) + '\\';

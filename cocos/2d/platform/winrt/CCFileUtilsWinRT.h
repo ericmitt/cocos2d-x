@@ -26,9 +26,8 @@
 #define __CC_FILEUTILS_WINRT_H__
 
 #include "platform/CCFileUtils.h"
-#include "platform/CCPlatformMacros.h"
+#include "CCPlatformMacros.h"
 #include "ccTypes.h"
-#include "ccTypeInfo.h"
 #include <string>
 #include <vector>
 
@@ -40,16 +39,16 @@ NS_CC_BEGIN
  */
 
 //! @brief  Helper class to handle file operations
-class CC_DLL CCFileUtilsWinRT : public CCFileUtils
+class CC_DLL CCFileUtilsWinRT : public FileUtils
 {
-    friend class CCFileUtils;
+    friend class FileUtils;
     CCFileUtilsWinRT();
 public:
     /* override funtions */
     bool init();
-    virtual std::string getWritablePath();
-    virtual bool isFileExist(const std::string& strFilePath);
-    virtual bool isAbsolutePath(const std::string& strPath);
+    virtual std::string getWritablePath() const;
+    virtual bool isFileExist(const std::string& strFilePath) const;
+    virtual bool isAbsolutePath(const std::string& strPath) const;
 	
 	static std::string getAppPath();
 

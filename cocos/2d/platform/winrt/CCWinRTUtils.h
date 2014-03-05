@@ -26,8 +26,8 @@ THE SOFTWARE.
 #ifndef __CCWINRT_UTILS_H__
 #define __CCWINRT_UTILS_H__
 
-#include "platform/CCPlatformMacros.h"
-#include "cocoa/CCDictionary.h"
+#include "CCPlatformMacros.h"
+#include "CCDictionary.h"
 
 #include <wrl/client.h>
 #include <ppl.h>

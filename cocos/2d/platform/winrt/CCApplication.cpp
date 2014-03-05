@@ -24,9 +24,9 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "CCApplication.h"
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
-#include "platform/winrt/CCEGLView.h"
+#include "platform/winrt/CCGLView.h"
 #else
-#include "platform/wp8/CCEGLView.h"
+#include "platform/wp8/CCGLView.h"
 #endif
 #include "CCDirector.h"
 #include <algorithm>
@@ -39,33 +39,33 @@ THE SOFTWARE.
 NS_CC_BEGIN
 
 // sharedApplication pointer
-CCApplication * CCApplication::sm_pSharedApplication = 0;
+Application * Application::sm_pSharedApplication = 0;
 
 
 
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// implement CCApplication
+// implement Application
 ////////////////////////////////////////////////////////////////////////////////
 
 // sharedApplication pointer
-CCApplication * s_pSharedApplication = 0;
+Application * s_pSharedApplication = 0;
 
-CCApplication::CCApplication()
+Application::Application()
 {
     m_nAnimationInterval.QuadPart = 0;
     CC_ASSERT(! sm_pSharedApplication);
     sm_pSharedApplication = this;
 }
 
-CCApplication::~CCApplication()
+Application::~Application()
 {
     CC_ASSERT(this == sm_pSharedApplication);
     sm_pSharedApplication = NULL;
 }
 
-int CCApplication::run()
+int Application::run()
 {
     // Initialize instance and cocos2d.
     if (!applicationDidFinishLaunching())
@@ -73,60 +73,11 @@ int CCApplication::run()
         return 0;
     }
 
-	CCEGLView::sharedOpenGLView()->Run();
+	GLView::sharedOpenGLView()->Run();
 	return 0;
- #if 0
-   // Main message loop:
-    MSG msg;
-    LARGE_INTEGER nFreq;
-    LARGE_INTEGER nLast;
-    LARGE_INTEGER nNow;
-
-    QueryPerformanceFrequency(&nFreq);
-    QueryPerformanceCounter(&nLast);
-
-    // Initialize instance and cocos2d.
-    if (!applicationDidFinishLaunching())
-    {
-        return 0;
-    }
-
-    CCEGLView* pMainWnd = CCEGLView::sharedOpenGLView();
-    while (1)
-    {
-        if (! PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-        {
-            // Get current time tick.
-            QueryPerformanceCounter(&nNow);
-
-            // If it's the time to draw next frame, draw it, else sleep a while.
-            if (nNow.QuadPart - nLast.QuadPart > m_nAnimationInterval.QuadPart)
-            {
-                nLast.QuadPart = nNow.QuadPart;
-                CCDirector::sharedDirector()->mainLoop();
-            }
-            else
-            {
-                Sleep(0);
-            }
-            continue;
-        }
-
-        if (WM_QUIT == msg.message)
-        {
-            // Quit message loop.
-            break;
-        }
-
-        // Deal with windows message.
-
-    }
-
-    return (int) msg.wParam;
-#endif
 }
 
-void CCApplication::setAnimationInterval(double interval)
+void Application::setAnimationInterval(double interval)
 {
     LARGE_INTEGER nFreq;
     QueryPerformanceFrequency(&nFreq);
@@ -136,15 +87,15 @@ void CCApplication::setAnimationInterval(double interval)
 //////////////////////////////////////////////////////////////////////////
 // static member function
 //////////////////////////////////////////////////////////////////////////
-CCApplication* CCApplication::sharedApplication()
+Application* Application::sharedApplication()
 {
     CC_ASSERT(sm_pSharedApplication);
     return sm_pSharedApplication;
 }
 
-ccLanguageType CCApplication::getCurrentLanguage()
+LanguageType Application::getCurrentLanguage()
 {
-    ccLanguageType ret = kLanguageEnglish;
+    LanguageType ret = LanguageType::ENGLISH;
 
     wchar_t localeName[LOCALE_NAME_MAX_LENGTH] = {0};
 
@@ -158,63 +109,63 @@ ccLanguageType CCApplication::getCurrentLanguage()
         
         if (wcscmp(primary, L"zh") == 0)
         {
-            ret = kLanguageChinese;
+            ret = LanguageType::CHINESE;
         }
         else if (wcscmp(primary, L"ja") == 0)
         {
-            ret = kLanguageJapanese;
+            ret = LanguageType::JAPANESE;
         }
         else if (wcscmp(primary, L"fr") == 0)
         {
-            ret = kLanguageFrench;
+            ret = LanguageType::FRENCH;
         }
         else if (wcscmp(primary, L"it") == 0)
         {
-            ret = kLanguageItalian;
+            ret = LanguageType::ITALIAN;
         }
         else if (wcscmp(primary, L"de") == 0)
         {
-            ret = kLanguageGerman;
+            ret = LanguageType::GERMAN;
         }
         else if (wcscmp(primary, L"es") == 0)
         {
-            ret = kLanguageSpanish;
+            ret = LanguageType::SPANISH;
         }
         else if (wcscmp(primary, L"nl") == 0)
         {
-            ret = kLanguageDutch;
+            ret = LanguageType::DUTCH;
         }
         else if (wcscmp(primary, L"ru") == 0)
         {
-            ret = kLanguageRussian;
+            ret = LanguageType::RUSSIAN;
         }
         else if (wcscmp(primary, L"hu") == 0)
         {
-            ret = kLanguageHungarian;
+            ret = LanguageType::HUNGARIAN;
         }
         else if (wcscmp(primary, L"pt") == 0)
         {
-            ret = kLanguagePortuguese;
+            ret = LanguageType::PORTUGUESE;
         }
         else if (wcscmp(primary, L"ko") == 0)
         {
-            ret = kLanguageKorean;
+            ret = LanguageType::KOREAN;
         }
         else if (wcscmp(primary, L"ar") == 0)
         {
-            ret = kLanguageArabic;
+            ret = LanguageType::ARABIC;
         } 
     }
 
     return ret;
 }
 
-TargetPlatform CCApplication::getTargetPlatform()
+Application::Platform  Application::getTargetPlatform()
 {
-    return kTargetWinRT;
+    return Platform::OS_WP8;
 }
 
-void CCApplication::setResourceRootPath(const std::string& rootResDir)
+void Application::setResourceRootPath(const std::string& rootResDir)
 {
     m_resourceRootPath = rootResDir;
     std::replace(m_resourceRootPath.begin(), m_resourceRootPath.end(), '\\', '/');
@@ -222,18 +173,18 @@ void CCApplication::setResourceRootPath(const std::string& rootResDir)
     {
         m_resourceRootPath += '/';
     }
-    CCFileUtils* pFileUtils = CCFileUtils::sharedFileUtils();
+    FileUtils* pFileUtils = FileUtils::getInstance();
     std::vector<std::string> searchPaths = pFileUtils->getSearchPaths();
     searchPaths.insert(searchPaths.begin(), m_resourceRootPath);
     pFileUtils->setSearchPaths(searchPaths);
 }
 
-const std::string& CCApplication::getResourceRootPath(void)
+const std::string& Application::getResourceRootPath(void)
 {
     return m_resourceRootPath;
 }
 
-void CCApplication::setStartupScriptFilename(const std::string& startupScriptFile)
+void Application::setStartupScriptFilename(const std::string& startupScriptFile)
 {
     m_startupScriptFilename = startupScriptFile;
     std::replace(m_startupScriptFilename.begin(), m_startupScriptFilename.end(), '\\', '/');

@@ -23,19 +23,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#include "CCEGLView.h"
-#include "cocoa/CCSet.h"
+#include "CCGLView.h"
+#include "CCSet.h"
 #include "ccMacros.h"
 #include "CCDirector.h"
-#include "touch_dispatcher/CCTouch.h"
-#include "touch_dispatcher/CCTouchDispatcher.h"
-#include "text_input_node/CCIMEDispatcher.h"
-#include "keypad_dispatcher/CCKeypadDispatcher.h"
-#include "support/CCPointExtension.h"
+#include "CCTouch.h"
+#include "CCTouchDispatcher.h"
+#include "CCIMEDispatcher.h"
+#include "CCKeypadDispatcher.h"
+#include "CCPointExtension.h"
 #include "CCApplication.h"
 #include "CCWinRTUtils.h"
 #include "WP8Keyboard.h"
-#include "support/CCNotificationCenter.h"
+#include "CCNotificationCenter.h"
 
 using namespace Platform;
 using namespace Windows::Foundation;
@@ -58,7 +58,7 @@ using namespace PhoneDirect3DXamlAppComponent;
 
 NS_CC_BEGIN
 
-static CCEGLView* s_pEglView = NULL;
+static CCGLView* s_pEglView = NULL;
 
 WP8Window::WP8Window(CoreWindow^ window)
 {
@@ -68,10 +68,10 @@ WP8Window::WP8Window(CoreWindow^ window)
 
 void WP8Window::OnOrientationChanged(Platform::Object^ sender)
 {
-    CCEGLView::sharedOpenGLView()->OnOrientationChanged();
+    CCGLView::sharedOpenGLView()->OnOrientationChanged();
 }
 
-CCEGLView::CCEGLView()
+CCGLView::CCGLView()
 	: m_window(nullptr)
 	, m_fFrameZoomFactor(1.0f)
 	, m_bSupportTouch(false)
@@ -94,7 +94,7 @@ CCEGLView::CCEGLView()
     strcpy_s(m_szViewName, "Cocos2dxWP8");
 }
 
-CCEGLView::~CCEGLView()
+CCGLView::~CCGLView()
 {
 	CC_ASSERT(this == s_pEglView);
     s_pEglView = NULL;
@@ -102,7 +102,7 @@ CCEGLView::~CCEGLView()
 	// TODO: cleanup 
 }
 
-bool CCEGLView::Create(CoreWindow^ window)
+bool CCGLView::Create(CoreWindow^ window)
 {
     bool bRet = false;
 	m_window = window;
@@ -136,7 +136,7 @@ bool CCEGLView::Create(CoreWindow^ window)
     return bRet;
 }
 
-bool CCEGLView::Create(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface, float width, float height)
+bool CCGLView::Create(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface, float width, float height)
 {
 	m_bSupportTouch = true;
     m_isXamlWindow = true;
@@ -148,7 +148,7 @@ bool CCEGLView::Create(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface 
     return true;
 }
 
-void CCEGLView::UpdateDevice(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface)
+void CCGLView::UpdateDevice(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface)
 {
 	m_bSupportTouch = true;
     m_eglDisplay = eglDisplay;
@@ -158,7 +158,7 @@ void CCEGLView::UpdateDevice(EGLDisplay eglDisplay, EGLContext eglContext, EGLSu
     //UpdateForWindowSizeChange(width, height);
 }
 
-void CCEGLView::setIMEKeyboardState(bool bOpen)
+void CCGLView::setIMEKeyboardState(bool bOpen)
 {
     if(m_delegate)
     {
@@ -179,43 +179,43 @@ void CCEGLView::setIMEKeyboardState(bool bOpen)
     }
 }
 
-void CCEGLView::swapBuffers()
+void CCGLView::swapBuffers()
 {
     eglSwapBuffers(m_eglDisplay, m_eglSurface);  
 }
 
 
-bool CCEGLView::isOpenGLReady()
+bool CCGLView::isOpenGLReady()
 {
 	// TODO: need to revisit this
     return ((m_window.Get() || m_eglDisplay) && m_orientation != DisplayOrientations::None);
 }
 
-void CCEGLView::end()
+void CCGLView::end()
 {
 	m_windowClosed = true;
 }
 
-void CCEGLView::OnOrientationChanged()
+void CCGLView::OnOrientationChanged()
 {
     UpdateForWindowSizeChange();
 }
 
-void CCEGLView::OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)
+void CCGLView::OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)
 {
 }
 
-void CCEGLView::OnResuming(Platform::Object^ sender, Platform::Object^ args)
+void CCGLView::OnResuming(Platform::Object^ sender, Platform::Object^ args)
 {
 }
 
 
-void CCEGLView::OnPointerPressed(CoreWindow^ sender, PointerEventArgs^ args)
+void CCGLView::OnPointerPressed(CoreWindow^ sender, PointerEventArgs^ args)
 {
     OnPointerPressed(args);
 }
 
-void CCEGLView::OnPointerPressed(PointerEventArgs^ args)
+void CCGLView::OnPointerPressed(PointerEventArgs^ args)
 {
     int id = args->CurrentPoint->PointerId;
     CCPoint pt = GetCCPoint(args);
@@ -223,7 +223,7 @@ void CCEGLView::OnPointerPressed(PointerEventArgs^ args)
 }
 
 
-void CCEGLView::OnPointerWheelChanged(CoreWindow^ sender, PointerEventArgs^ args)
+void CCGLView::OnPointerWheelChanged(CoreWindow^ sender, PointerEventArgs^ args)
 {
     float direction = (float)args->CurrentPoint->Properties->MouseWheelDelta;
     int id = 0;
@@ -234,22 +234,22 @@ void CCEGLView::OnPointerWheelChanged(CoreWindow^ sender, PointerEventArgs^ args
     handleTouchesEnd(1, &id, &p.x, &p.y);
 }
 
-void CCEGLView::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEventArgs^ args)
+void CCGLView::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEventArgs^ args)
 {
 	m_windowVisible = args->Visible;
 }
 
-void CCEGLView::OnWindowClosed(CoreWindow^ sender, CoreWindowEventArgs^ args)
+void CCGLView::OnWindowClosed(CoreWindow^ sender, CoreWindowEventArgs^ args)
 {
 	m_windowClosed = true;
 }
 
-void CCEGLView::OnPointerMoved(CoreWindow^ sender, PointerEventArgs^ args)
+void CCGLView::OnPointerMoved(CoreWindow^ sender, PointerEventArgs^ args)
 {
     OnPointerMoved(args);   
 }
 
-void CCEGLView::OnPointerMoved( PointerEventArgs^ args)
+void CCGLView::OnPointerMoved( PointerEventArgs^ args)
 {
 	auto currentPoint = args->CurrentPoint;
 	if (currentPoint->IsInContact)
@@ -269,12 +269,12 @@ void CCEGLView::OnPointerMoved( PointerEventArgs^ args)
 	}
 }
 
-void CCEGLView::OnPointerReleased(CoreWindow^ sender, PointerEventArgs^ args)
+void CCGLView::OnPointerReleased(CoreWindow^ sender, PointerEventArgs^ args)
 {
     OnPointerReleased(args);
 }
 
-void CCEGLView::OnPointerReleased(PointerEventArgs^ args)
+void CCGLView::OnPointerReleased(PointerEventArgs^ args)
 {
     int id = args->CurrentPoint->PointerId;
     CCPoint pt = GetCCPoint(args);
@@ -283,12 +283,12 @@ void CCEGLView::OnPointerReleased(PointerEventArgs^ args)
 
 
 
-void CCEGLView::resize(int width, int height)
+void CCGLView::resize(int width, int height)
 {
 
 }
 
-void CCEGLView::setFrameZoomFactor(float fZoomFactor)
+void CCGLView::setFrameZoomFactor(float fZoomFactor)
 {
     m_fFrameZoomFactor = fZoomFactor;
     resize(m_obScreenSize.width * fZoomFactor, m_obScreenSize.height * fZoomFactor);
@@ -299,26 +299,26 @@ void CCEGLView::setFrameZoomFactor(float fZoomFactor)
     CCDirector::sharedDirector()->setProjection(CCDirector::sharedDirector()->getProjection());
 }
 
-float CCEGLView::getFrameZoomFactor()
+float CCGLView::getFrameZoomFactor()
 {
     return m_fFrameZoomFactor;
 }
 
 
 
-void CCEGLView::centerWindow()
+void CCGLView::centerWindow()
 {
 	// not implemented in WinRT. Window is always full screen
 }
 
 
 
-CCEGLView* CCEGLView::sharedOpenGLView()
+CCGLView* CCGLView::sharedOpenGLView()
 {
     return s_pEglView;
 }
 
-int CCEGLView::Run() 
+int CCGLView::Run() 
 {
 	m_running = true; 
 
@@ -341,12 +341,12 @@ int CCEGLView::Run()
 	return 0;
 };
 
-void CCEGLView::Render()
+void CCGLView::Render()
 {
     OnRendering();
 }
 
-void CCEGLView::OnRendering()
+void CCGLView::OnRendering()
 {
 	if(m_running && m_initialized)
 	{
@@ -354,7 +354,7 @@ void CCEGLView::OnRendering()
 	}
 }
 
-void CCEGLView::HideKeyboard(Rect r)
+void CCGLView::HideKeyboard(Rect r)
 {
     return; // not yet implemented
 	int height = m_keyboardRect.Height;
@@ -372,7 +372,7 @@ void CCEGLView::HideKeyboard(Rect r)
     CCIMEDispatcher::sharedDispatcher()->dispatchKeyboardDidHide(info);
 }
 
-void CCEGLView::ShowKeyboard(Rect r)
+void CCGLView::ShowKeyboard(Rect r)
 {
     return; // not yet implemented
 	int height = r.Height;
@@ -391,12 +391,12 @@ void CCEGLView::ShowKeyboard(Rect r)
 	m_keyboardRect = r;
 }
 
-void CCEGLView::ValidateDevice()
+void CCGLView::ValidateDevice()
 {
 
 }
 
-bool CCEGLView::ShowMessageBox(Platform::String^ title, Platform::String^ message)
+bool CCGLView::ShowMessageBox(Platform::String^ title, Platform::String^ message)
 {
     if(m_messageBoxDelegate)
     {
@@ -406,7 +406,7 @@ bool CCEGLView::ShowMessageBox(Platform::String^ title, Platform::String^ messag
     return false;
 }
 
-bool CCEGLView::OpenXamlEditBox(Platform::String^ strPlaceHolder, Platform::String^ strText, int maxLength, int inputMode, int inputFlag, Windows::Foundation::EventHandler<Platform::String^>^ receiveHandler)
+bool CCGLView::OpenXamlEditBox(Platform::String^ strPlaceHolder, Platform::String^ strText, int maxLength, int inputMode, int inputFlag, Windows::Foundation::EventHandler<Platform::String^>^ receiveHandler)
 {
     if(m_editBoxDelegate)
     {
@@ -419,7 +419,7 @@ bool CCEGLView::OpenXamlEditBox(Platform::String^ strPlaceHolder, Platform::Stri
 
 
 // called by orientation change from WP8 XAML
-void CCEGLView::UpdateOrientation(DisplayOrientations orientation)
+void CCGLView::UpdateOrientation(DisplayOrientations orientation)
 {
     if(m_orientation != orientation)
     {
@@ -429,14 +429,14 @@ void CCEGLView::UpdateOrientation(DisplayOrientations orientation)
 }
 
 // called by size change from WP8 XAML
-void CCEGLView::UpdateForWindowSizeChange(float width, float height)
+void CCGLView::UpdateForWindowSizeChange(float width, float height)
 {
     m_width = width;
     m_height = height;
     UpdateWindowSize();
 }
 
-void CCEGLView::UpdateForWindowSizeChange()
+void CCGLView::UpdateForWindowSizeChange()
 {
     m_orientation = DisplayProperties::CurrentOrientation;
     m_width = ConvertDipsToPixels(m_window->Bounds.Width);
@@ -445,7 +445,7 @@ void CCEGLView::UpdateForWindowSizeChange()
     UpdateWindowSize();
 }
 
-void CCEGLView::UpdateWindowSize()
+void CCGLView::UpdateWindowSize()
 {
     float width, height;
 
@@ -466,7 +466,7 @@ void CCEGLView::UpdateWindowSize()
     if(!m_initialized)
     {
         m_initialized = true;
-        CCEGLViewProtocol::setFrameSize(width, height);
+        CCGLViewProtocol::setFrameSize(width, height);
     }
     else
     {
@@ -476,12 +476,12 @@ void CCEGLView::UpdateWindowSize()
         {
             m_eResolutionPolicy = kResolutionShowAll;
         }
-        CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, m_eResolutionPolicy);
+        CCGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, m_eResolutionPolicy);
         CCDirector::sharedDirector()->setProjection(CCDirector::sharedDirector()->getProjection());
    }
 }
 
-void CCEGLView::UpdateOrientationMatrix()
+void CCGLView::UpdateOrientationMatrix()
 {
     kmMat4Identity(&m_orientationMatrix);
     kmMat4Identity(&m_reverseOrientationMatrix);
@@ -507,7 +507,7 @@ void CCEGLView::UpdateOrientationMatrix()
 	}
 }
 
-CCPoint CCEGLView::TransformToOrientation(Point p)
+CCPoint CCGLView::TransformToOrientation(Point p)
 {
     CCPoint returnValue;
 
@@ -537,7 +537,7 @@ CCPoint CCEGLView::TransformToOrientation(Point p)
             break;
     }
 
-	float zoomFactor = CCEGLView::sharedOpenGLView()->getFrameZoomFactor();
+	float zoomFactor = CCGLView::sharedOpenGLView()->getFrameZoomFactor();
 	if(zoomFactor > 0.0f) {
 		returnValue.x /= zoomFactor;
 		returnValue.y /= zoomFactor;
@@ -548,14 +548,14 @@ CCPoint CCEGLView::TransformToOrientation(Point p)
     return returnValue;
 }
 
-CCPoint CCEGLView::GetCCPoint(PointerEventArgs^ args) {
+CCPoint CCGLView::GetCCPoint(PointerEventArgs^ args) {
 
 	return TransformToOrientation(args->CurrentPoint->Position);
 
 }
 
 
-void CCEGLView::setViewPortInPoints(float x , float y , float w , float h)
+void CCGLView::setViewPortInPoints(float x , float y , float w , float h)
 {
     switch(m_orientation)
 	{
@@ -575,7 +575,7 @@ void CCEGLView::setViewPortInPoints(float x , float y , float w , float h)
 	}
 }
 
-void CCEGLView::setScissorInPoints(float x , float y , float w , float h)
+void CCGLView::setScissorInPoints(float x , float y , float w , float h)
 {
     switch(m_orientation)
 	{

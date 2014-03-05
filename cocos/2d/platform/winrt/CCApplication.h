@@ -25,6 +25,9 @@ THE SOFTWARE.
 #ifndef __CC_APPLICATION_WINRT_H__
 #define __CC_APPLICATION_WINRT_H__
 
+#include "CCPlatformConfig.h"
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+
 #include "CCStdC.h"
 #include "platform/CCCommon.h"
 #include "platform/CCApplicationProtocol.h"
@@ -87,5 +90,7 @@ protected:
 };
 
 NS_CC_END
+
+#endif // CC_TARGET_PLATFORM == CC_PLATFORM_WP8
 
 #endif    // __CC_APPLICATION_WINRT_H__

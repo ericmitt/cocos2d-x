@@ -58,12 +58,12 @@ WP8Keyboard::~WP8Keyboard()
 
 void WP8Keyboard::ShowKeyboard(InputPane^ inputPane, InputPaneVisibilityEventArgs^ args)
 {
-    CCEGLView::sharedOpenGLView()->ShowKeyboard(args->OccludedRect);
+    CCGLView::sharedOpenGLView()->ShowKeyboard(args->OccludedRect);
 }
 
 void WP8Keyboard::HideKeyboard(InputPane^ inputPane, InputPaneVisibilityEventArgs^ args)
 {
-    CCEGLView::sharedOpenGLView()->HideKeyboard(args->OccludedRect);
+    CCGLView::sharedOpenGLView()->HideKeyboard(args->OccludedRect);
 }
 
 

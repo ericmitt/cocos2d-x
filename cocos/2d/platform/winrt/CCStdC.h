@@ -29,6 +29,11 @@ THE SOFTWARE.
 #include "CCPlatformMacros.h"
 #include <float.h>
 
+//typedef SSIZE_T ssize_t;
+// ssize_t was redefined as int in libwebsockets.h.
+// Therefore, to avoid conflict, we needs the same definition.
+typedef int ssize_t;
+
 // for math.h on win32 platform
 
 #if !defined(_USE_MATH_DEFINES)
@@ -52,8 +57,17 @@ THE SOFTWARE.
 
 // for MIN MAX and sys/time.h on win32 platform
 
-#define MIN     min
-#define MAX     max
+#ifndef NOMINMAX
+  #define NOMINMAX
+#endif
+
+#ifndef MIN
+#define MIN(x,y) (((x) > (y)) ? (y) : (x))
+#endif  // MIN
+
+#ifndef MAX
+#define MAX(x,y) (((x) < (y)) ? (y) : (x))
+#endif  // MAX
 
 #if _MSC_VER >= 1600
     #include <stdint.h>
