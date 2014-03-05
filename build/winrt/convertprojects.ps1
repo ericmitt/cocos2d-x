@@ -12,14 +12,18 @@ $libGUI = join-path $cocosDir "\gui\proj.wp8\libGUI.vcxproj"
 $in = join-path $cocosDir "\gui\proj.win32\libGUI.vcxproj"
 #WinrtConverter $in $libGUI "wp8" >> $null
 
+$c2dLib = join-path $cocosDir "\2d\cocos2d_wp8.vcxproj"
+$in = join-path $cocosDir "\2d\cocos2d.vcxproj"
+#WinrtConverter $in $c2dLib "wp8" >> $null
+
+
 $libLocalStorage = join-path $cocosDir "\storage\local-storage\proj.wp8\libLocalStorage.vcxproj"
 $in = join-path $cocosDir "\storage\local-storage\proj.win32\libLocalStorage.vcxproj"
 #WinrtConverter $in $libLocalStorage "wp8" >> $null
 
 $libAudio = join-path $cocosDir "\audio\proj.wp8\CocosDenshion.vcxproj"
 $in = join-path $cocosDir "\audio\proj.win32\CocosDenshion.vcxproj"
-WinrtConverter $in $libAudio "wp8" >> $null
-
+#WinrtConverter $in $libAudio "wp8" >> $null
 
 $libSpine = join-path $cocosDir "\editor-support\spine\proj.wp8\libSpine.vcxproj"
 $in = join-path $cocosDir "\editor-support\spine\proj.win32\libSpine.vcxproj"
@@ -55,5 +59,5 @@ $in = join-path $chipmunkDir "\proj.win32\chipmunk.vcxproj"
 #create opencv sln 
 $solutionDir = join-path $workingDir "..\" -Resolve
 $solution = join-path $solutionDir "cocos2d-wp8.vc2012.sln"
-CreateSolutionFile $solution "wp8" ($libGUI, $libSpine, $libCocosStudio, $libCocosBuilder, $libExtensions, $libBox2d, $libChipmunk, $libLocalStorage, $libAudio)
+CreateSolutionFile $solution "wp8" ($c2dLib, $libGUI, $libSpine, $libCocosStudio, $libCocosBuilder, $libExtensions, $libBox2d, $libChipmunk, $libLocalStorage, $libAudio)
 
