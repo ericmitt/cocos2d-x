@@ -27,7 +27,7 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
-int CCDevice::getDPI()
+int Device::getDPI()
 {
 	static const float dipsPerInch = 96.0f;
 	return floor(Windows::Graphics::Display::DisplayProperties::LogicalDpi / dipsPerInch + 0.5f); // Round to nearest integer.
