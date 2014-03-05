@@ -611,6 +611,9 @@
     <ClCompile Include="platform\winrt\CCFileUtilsWinRT.cpp">
       <Filter>platform\winrt</Filter>
     </ClCompile>
+    <ClCompile Include="platform\winrt\CCStdC.cpp">
+      <Filter>platform\winrt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\physics\CCPhysicsBody.h">
@@ -864,12 +867,6 @@
     </ClInclude>
     <ClInclude Include="..\base\etc1.h">
       <Filter>platform\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="platform\win32\CCGL.h">
-      <Filter>platform\win32</Filter>
-    </ClInclude>
-    <ClInclude Include="platform\win32\CCPlatformDefine.h">
-      <Filter>platform\win32</Filter>
     </ClInclude>
     <ClInclude Include="platform\win32\CCStdC.h">
       <Filter>platform\win32</Filter>
@@ -1228,6 +1225,9 @@
       <Filter>platform\winrt</Filter>
     </ClInclude>
     <ClInclude Include="platform\winrt\CCPlatformDefine.h">
+      <Filter>platform\winrt</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\winrt\CCStdC.h">
       <Filter>platform\winrt</Filter>
     </ClInclude>
   </ItemGroup>

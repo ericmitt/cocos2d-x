@@ -293,6 +293,7 @@
     <ClCompile Include="platform\winrt\CCCommon.cpp" />
     <ClCompile Include="platform\winrt\CCDevice.cpp" />
     <ClCompile Include="platform\winrt\CCFileUtilsWinRT.cpp" />
+    <ClCompile Include="platform\winrt\CCStdC.cpp" />
     <ClCompile Include="platform\wp8\CCGLView.cpp" />
     <ClCompile Include="platform\wp8\Direct3DBase.cpp" />
     <ClCompile Include="platform\wp8\DirectXBase.cpp" />
@@ -493,14 +494,13 @@
     <ClInclude Include="platform\CCImage.h" />
     <ClInclude Include="platform\CCSAXParser.h" />
     <ClInclude Include="platform\CCThread.h" />
-    <ClInclude Include="platform\win32\CCGL.h" />
-    <ClInclude Include="platform\win32\CCPlatformDefine.h" />
     <ClInclude Include="platform\win32\CCStdC.h" />
     <ClInclude Include="platform\winrt\CCApplication.h" />
     <ClInclude Include="platform\winrt\CCFileUtilsWinRT.h" />
     <ClInclude Include="platform\winrt\CCGL.h" />
     <ClInclude Include="platform\winrt\CCGL_Angle.h" />
     <ClInclude Include="platform\winrt\CCPlatformDefine.h" />
+    <ClInclude Include="platform\winrt\CCStdC.h" />
     <ClInclude Include="platform\wp8\CCGLView.h" />
     <ClInclude Include="platform\wp8\Direct3DBase.h" />
     <ClInclude Include="platform\wp8\DirectXBase.h" />
