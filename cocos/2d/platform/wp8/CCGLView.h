@@ -52,6 +52,7 @@ class GLView;
 class CC_DLL GLView : public Ref, public GLViewProtocol
 {
 public:
+    static GLView* create(const std::string& viewName);
 
     /* override functions */
     virtual bool isOpenGLReady();
@@ -111,6 +112,9 @@ public:
 protected:
     GLView();
     virtual ~GLView();
+
+    bool initWithRect(const std::string& viewName, Rect rect, float frameZoomFactor);
+    bool initWithFullScreen(const std::string& viewName);
 
     /*
      * Set zoom factor for frame. This method is for debugging big resolution (e.g.new ipad) app on desktop.

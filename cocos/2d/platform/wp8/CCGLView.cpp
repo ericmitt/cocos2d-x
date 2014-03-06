@@ -56,6 +56,19 @@ NS_CC_BEGIN
 
 static GLView* s_pEglView = NULL;
 
+GLView* GLView::create(const std::string& viewName)
+{
+    auto ret = new GLView;
+    if(ret && ret->initWithFullScreen(viewName))
+    {
+        ret->autorelease();
+        return ret;
+    }
+
+    return nullptr;
+}
+
+
 GLView::GLView()
 	: _frameZoomFactor(1.0f)
 	, _supportTouch(true)
@@ -84,6 +97,25 @@ GLView::~GLView()
 
 	// TODO: cleanup 
 }
+
+bool GLView::initWithRect(const std::string& viewName, Rect rect, float frameZoomFactor)
+{
+    setViewName(viewName);
+    setFrameSize(rect.size.width, rect.size.height);
+    setFrameZoomFactor(frameZoomFactor);
+    return true;
+}
+
+bool GLView::initWithFullScreen(const std::string& viewName)
+{
+    if(!m_initialized)
+    {
+        return false;
+    }
+
+    return initWithRect(viewName, Rect(0, 0, m_width, m_height), 1.0f);
+}
+
 
 bool GLView::Create(EGLDisplay eglDisplay, EGLContext eglContext, EGLSurface eglSurface, float width, float height)
 {
