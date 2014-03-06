@@ -26,14 +26,14 @@
 #include "../testResource.h"
 #include <stdio.h>
 #include <stdlib.h>
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#include <io.h>
+#include <WS2tcpip.h>
+#elif (CC_TARGET_PLATFORM != CC_PLATFORM_WP8) && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
-#else
-#include <io.h>
-#include <WS2tcpip.h>
 #endif
 
 //------------------------------------------------------------------
