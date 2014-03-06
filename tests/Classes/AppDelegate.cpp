@@ -106,15 +106,19 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     auto scene = Scene::create();
     auto layer = new TestController();
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)  && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
     layer->addConsoleAutoTest();
+#endif
     layer->autorelease();
 
     scene->addChild(layer);
     director->runWithScene(scene);
 
     // Enable Remote Console
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)  && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
     auto console = director->getConsole();
     console->listenOnTCP(5678);
+#endif
 
     return true;
 }
