@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpng", "libpng.vcxproj", "{BECA859F-1CEE-41D4-B646-4DA69F74742B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\wp8-specific\zlib\zlib.vcxproj", "{F7D6B0DD-9ADF-4930-8F4B-E4F451E28A74}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\wp8-specific\zlib\include\zlib.vcxproj", "{F7D6B0DD-9ADF-4930-8F4B-E4F451E28A74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
