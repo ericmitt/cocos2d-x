@@ -12,11 +12,11 @@
 #include "testResource.h"
 #include "tests.h"
 
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) ||  (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+#include <io.h>
+#else
 #include <unistd.h>
 #include <sys/socket.h>
-#else
-#include <io.h>
 #endif
 #include "cocostudio/CocoStudio.h"
 
@@ -49,7 +49,9 @@ Controller g_aTestNames[] = {
 #endif
 	{ "CocosDenshionTest", []() { return new CocosDenshionTestScene(); } },
 	{ "ConfigurationTest", []() { return new ConfigurationTestScene(); } },
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)  && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
 	{ "ConsoleTest", []() { return new ConsoleTestScene(); } },
+#endif
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_EMSCRIPTEN)
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_NACL)
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_MARMALADE)
@@ -249,6 +251,8 @@ void TestController::onMouseScroll(Event *event)
     s_tCurPos   = nextPos;
 }
 
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)  && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
+
 void TestController::addConsoleAutoTest()
 {
     auto console = Director::getInstance()->getConsole();
@@ -443,4 +447,4 @@ void TestController::addConsoleAutoTest()
     };
     console->addCommand(autotest);
 }
-
+#endif

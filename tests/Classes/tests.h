@@ -3,7 +3,9 @@
 
 #include "UnitTest/UnitTest.h"
 #include "NewRendererTest/NewRendererTest.h"
+#if  (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
 #include "ConsoleTest/ConsoleTest.h"
+#endif
 #include "NewEventDispatcherTest/NewEventDispatcherTest.h"
 #include "ActionsTest/ActionsTest.h"
 #include "TransitionsTest/TransitionsTest.h"
