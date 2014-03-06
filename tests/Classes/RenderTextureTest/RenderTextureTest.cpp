@@ -7,6 +7,12 @@
 // Test #1 by Jason Booth (slipster216)
 // Test #3 by David Deaco (ddeaco)
 
+#if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#elif _MSC_VER >= 1400 //vs 2005 or higher
+#pragma warning (push)
+#pragma warning (disable: 4996)
+#endif
 
 static std::function<Layer*()> createFunctions[] = {
     CL(RenderTextureSave),
