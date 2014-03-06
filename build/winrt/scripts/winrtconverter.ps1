@@ -91,6 +91,10 @@ Function WinrtConverter($inFile, $outFile, $platform)
         {
             $Template = join-path $PSScriptRoot "templates\wp8_lib_template.vcxproj"
         }
+        elseif($configs[0].Node.ConfigurationType -eq "Application")
+        {
+            $Template = join-path $PSScriptRoot "templates\wp8_lib_template.vcxproj"
+        }
         else
         {
             throw "Unknown vcxproj type"

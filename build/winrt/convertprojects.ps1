@@ -53,11 +53,13 @@ $libChipmunk = join-path $chipmunkDir "\proj.wp8\chipmunk.vcxproj"
 $in = join-path $chipmunkDir "\proj.win32\chipmunk.vcxproj"
 #WinrtConverter $in $libChipmunk "wp8" >> $null
 
-
-
+$testDir = join-path $workingDir "..\..\tests" -Resolve
+$testApp = join-path $testDir "\proj.wp8\TestCpp.vcxproj"
+$in = join-path $testDir "\proj.win32\TestCpp.vcxproj"
+#WinrtConverter $in $testApp "wp8" >> $null
 
 #create opencv sln 
 $solutionDir = join-path $workingDir "..\" -Resolve
 $solution = join-path $solutionDir "cocos2d-wp8.vc2012.sln"
-CreateSolutionFile $solution "wp8" ($c2dLib, $libGUI, $libSpine, $libCocosStudio, $libCocosBuilder, $libExtensions, $libBox2d, $libChipmunk, $libLocalStorage, $libAudio)
+CreateSolutionFile $solution "wp8" ($c2dLib, $libGUI, $libSpine, $libCocosStudio, $libCocosBuilder, $libExtensions, $libBox2d, $libChipmunk, $libLocalStorage, $libAudio, $testApp)
 
