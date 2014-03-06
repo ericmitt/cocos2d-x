@@ -519,9 +519,9 @@ void ActionRotateBy3D::onEnter()
     auto actionBy2 = RotateBy::create(4, Vertex3F(0, 360, 0));
     auto actionBy3 = RotateBy::create(4 ,Vertex3F(0, 0, 360));
 
-    _tamara->runAction( Sequence::create(actionBy1, actionBy1->reverse(), nullptr));
-    _grossini->runAction( Sequence::create(actionBy2, actionBy2->reverse(), nullptr));
-    _kathia->runAction( Sequence::create(actionBy3, actionBy3->reverse(), nullptr));
+    _tamara->runAction( Sequence::create(actionBy1, actionBy1->reverse(), NULL));
+    _grossini->runAction( Sequence::create(actionBy2, actionBy2->reverse(), NULL));
+    _kathia->runAction( Sequence::create(actionBy3, actionBy3->reverse(), NULL));
 }
 
 std::string ActionRotateBy3D::subtitle() const
@@ -1289,19 +1289,19 @@ void ActionOrbit::onEnter()
     auto action1 = Sequence::create(
         orbit1,
         orbit1->reverse(),
-        nullptr);
+        NULL);
 
     auto orbit2 = OrbitCamera::create(2,1, 0, 0, 180, -45, 0);
     auto action2 = Sequence::create(
         orbit2,
         orbit2->reverse(),
-        nullptr);
+        NULL);
 
     auto orbit3 = OrbitCamera::create(2,1, 0, 0, 180, 90, 0);
     auto action3 = Sequence::create(
         orbit3,
         orbit3->reverse(),
-        nullptr);
+        NULL);
 
     _kathia->runAction(RepeatForever::create(action1));
     _tamara->runAction(RepeatForever::create(action2));
