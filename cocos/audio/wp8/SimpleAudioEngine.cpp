@@ -26,6 +26,14 @@ using namespace std;
 namespace CocosDenshion {
 
 Audio* s_audioController = NULL;
+
+SimpleAudioEngine* SimpleAudioEngine::getInstance()
+{
+    static SimpleAudioEngine s_SharedEngine;
+    return &s_SharedEngine;
+}
+
+
 static Audio* sharedAudioController()
 {
     if (! s_audioController)
