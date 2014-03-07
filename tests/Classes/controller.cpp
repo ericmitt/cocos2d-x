@@ -56,7 +56,11 @@ Controller g_aTestNames[] = {
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_NACL)
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_MARMALADE)
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_BADA)
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
 	{ "CurlTest", []() { return new CurlTestScene(); } },
+#endif
+#endif
 #endif
 #endif
 #endif
