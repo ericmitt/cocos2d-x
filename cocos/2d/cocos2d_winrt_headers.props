@@ -8,7 +8,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(EngineRoot)cocos\2d\platform\wp8;$(EngineRoot)cocos\2d\platform\winrt;$(EngineRoot)\external\winrt-specific\angleproject\include;$(EngineRoot)\external\winrt-specific;$(EngineRoot)cocos\2d;$(EngineRoot)cocos\2d\renderer;$(EngineRoot)cocos\gui;$(EngineRoot)cocos\base;$(EngineRoot)cocos\physics;$(EngineRoot)cocos\math\kazmath\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_VARIADIC_MAX=10;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_VARIADIC_MAX=10;NOMINMAX;GL_GLEXT_PROTOTYPES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAsWinRT>true</CompileAsWinRT>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
