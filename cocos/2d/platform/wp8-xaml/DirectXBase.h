@@ -28,12 +28,7 @@ THE SOFTWARE.
 #include <d3d11_1.h>
 #include <DirectXMath.h>
 #include "DirectXHelper.h"
-#include "EGL/egl.h"
-#include "EGL/eglext.h"
-#include "EGL/eglplatform.h"
-#include "GLES2/gl2.h"
-#include "GLES2/gl2ext.h"
-#include "../src/common/winrtangle.h"
+#include "CCGL.h"
 
 // Helper class that initializes DirectX APIs for 3D rendering.
 ref class DirectXBase abstract
