@@ -66,7 +66,7 @@ public:
     virtual FontAtlas   * createFontAtlas() override;
     virtual int         * getHorizontalKerningForTextUTF16(unsigned short *text, int &outNumLetters) const override;
     
-    unsigned char       * getGlyphBitmap(unsigned short theChar, int &outWidth, int &outHeight) const override;
+    virtual unsigned char * getGlyphBitmap(unsigned short theChar, int &outWidth, int &outHeight) const override;
     virtual int           getFontMaxHeight() const override;
     
     bool getBBOXFotChar(unsigned short theChar, Rect &outRect,int &xAdvance) const; 
