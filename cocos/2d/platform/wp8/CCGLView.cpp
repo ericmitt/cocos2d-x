@@ -108,11 +108,6 @@ bool GLView::initWithRect(const std::string& viewName, Rect rect, float frameZoo
 
 bool GLView::initWithFullScreen(const std::string& viewName)
 {
-    if(!m_initialized)
-    {
-        return false;
-    }
-
     return initWithRect(viewName, Rect(0, 0, m_width, m_height), 1.0f);
 }
 
