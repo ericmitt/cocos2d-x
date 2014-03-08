@@ -38,7 +38,7 @@ static void _checkPath()
     if (s_pszResourcePath.empty())
     {
 		// TODO: needs to be tested
-		s_pszResourcePath = CCFileUtilsWinRT::getAppPath() + '\\' + "Assets\\Resources\\";
+		s_pszResourcePath = CCFileUtilsWinRT::getAppPath() + '\\' + "Assets\\Resources" + '\\';
     }
 }
 
@@ -68,6 +68,24 @@ bool CCFileUtilsWinRT::init()
     _defaultResRootPath = s_pszResourcePath;
     return FileUtils::init();
 }
+
+std::string CCFileUtilsWinRT::getFullPathForDirectoryAndFilename(const std::string& directory, const std::string& filename)
+{
+    // get directory+filename, safely adding '/' as necessary 
+    std::string ret = directory;
+    if (directory.size() && directory[directory.size()-1] != '\\'){
+        ret += '\\';
+    }
+    ret += filename;
+    
+    // if the file doesn't exist, return an empty string
+    if (!isFileExist(ret)) {
+        ret = "";
+    }
+    return ret;
+}
+
+
 
 #if 1
 bool CCFileUtilsWinRT::isFileExist(const std::string& strFilePath) const
