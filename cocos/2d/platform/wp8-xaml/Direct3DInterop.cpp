@@ -24,7 +24,7 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "Direct3DInterop.h"
 #include "Direct3DContentProvider.h"
-#include "proj.wp8/EditBoxEvent.h"
+#include "EditBoxEvent.h"
 
 using namespace Windows::Foundation;
 using namespace Windows::UI::Core;
@@ -51,6 +51,18 @@ IDrawingSurfaceContentProvider^ Direct3DInterop::CreateContentProvider()
     ComPtr<Direct3DContentProvider> provider = Make<Direct3DContentProvider>(this);
     return reinterpret_cast<IDrawingSurfaceContentProvider^>(provider.Get());
 }
+
+// Interface With Direct3DContentProvider
+void Direct3DInterop::Connect()
+{
+    m_renderer->Connect();
+}
+
+void Direct3DInterop::Disconnect()
+{
+    m_renderer->Disconnect();
+}
+
 
 
 // IDrawingSurfaceManipulationHandler
@@ -144,17 +156,6 @@ void Direct3DInterop::ProcessEvents()
 }
 
 
-// Interface With Direct3DContentProvider
-void Direct3DInterop::Connect()
-{
-
-    m_renderer->Connect();
-}
-
-void Direct3DInterop::Disconnect()
-{
-    m_renderer->Disconnect();
-}
 
 void Direct3DInterop::PrepareResources(LARGE_INTEGER presentTargetTime)
 {
