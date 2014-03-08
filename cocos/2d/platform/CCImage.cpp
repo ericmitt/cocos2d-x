@@ -46,7 +46,9 @@ extern "C"
 #include "atitc.h"
 #include "TGAlib.h"
 
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WP8) && (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT)
 #include "decode.h"
+#endif
 
 #include "ccMacros.h"
 #include "CCCommon.h"
