@@ -124,7 +124,13 @@ public:
      * @lua initWithString
      */
     bool initWithVertexShaderByteArray(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray);
-    /** Initializes the GLProgram with a vertex and fragment with contents of filenames 
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+    /** Initializes the CCGLProgram with precompiled shader program */
+    bool initWithPrecompiledProgramByteArray(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray);
+#endif
+
+	/** Initializes the GLProgram with a vertex and fragment with contents of filenames 
      * @js init
      * @lua init
      */
@@ -248,6 +254,10 @@ private:
     GLuint            _fragShader;
     GLint             _uniforms[UNIFORM_MAX];
     struct _hashUniformEntry* _hashForUniforms;
+	bool              _hasShaderCompiler;
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+    std::string       _shaderId;
+#endif
 
     struct flag_struct {
         unsigned int usesTime:1;
