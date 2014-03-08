@@ -24,13 +24,13 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "CCPrecompiledShaders.h"
 #include "CCWinRTUtils.h"
-#include "shaders/CCGLProgram.h"
+#include "CCGLProgram.h"
 #include "sha1.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-#include "shaders/precompiled/winrt/precompiledshaders.h"
+#include "platform/winrt/shaders/precompiledshaders.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-#include "shaders/precompiled/wp8/precompiledshaders.h"
+#include "platform/wp8/shaders/precompiledshaders.h"
 #endif
 
 
