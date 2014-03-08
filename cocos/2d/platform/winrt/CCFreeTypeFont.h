@@ -27,7 +27,7 @@ THE SOFTWARE.
 #define __PLATFORM_WINRT_FREETYPE_H__
 
 #include "platform/CCCommon.h"
-#include "platform/CCImage.h"
+#include "platform/CCDevice.h"
 #include <string>
 #include <vector>
 #include <memory>
@@ -43,6 +43,7 @@ THE SOFTWARE.
 #undef internal
 
 NS_CC_BEGIN
+
 
 typedef struct TGlyph
 {
@@ -79,15 +80,15 @@ public:
     );
 
     unsigned char* getBitmap(
-        CCImage::ETextAlign eAlignMask,
+        Device::TextAlign eAlignMask,
         int* outWidth, 
         int* outHeight
     );
 
 private:
-	unsigned char* loadFont(const char *pFontName, unsigned long *size);
+	unsigned char* loadFont(const char *pFontName, ssize_t* size);
 
-    unsigned char* CCFreeTypeFont::loadSystemFont(const char *pFontName, unsigned long *size);
+    unsigned char* CCFreeTypeFont::loadSystemFont(const char *pFontName, ssize_t* size);
 
     FT_Error CCFreeTypeFont::initGlyphs(const char* text);
     FT_Error CCFreeTypeFont::initWordGlyphs(std::vector<TGlyph>& glyphs, const std::string& text, FT_Vector& pen);
@@ -100,7 +101,7 @@ private:
 
     void initWords(const char* text);
 
-    FT_Vector getPenForAlignment(FTLineInfo* pInfo, CCImage::ETextAlign eAlignMask, int lineNumber, int totalLines);
+    FT_Vector getPenForAlignment(FTLineInfo* pInfo, Device::TextAlign eAlignMask, int lineNumber, int totalLines);
 
     FT_Error addWord(const std::string& word);
     void newLine();

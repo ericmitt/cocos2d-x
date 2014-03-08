@@ -33,6 +33,7 @@
 #include <sstream>
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 using namespace std;
 
@@ -92,7 +93,7 @@ CCFreeTypeFont::CCFreeTypeFont()
     , m_pFontInfo(nullptr)
     , m_face(nullptr)
 {
-    CCSize size = CCDirector::sharedDirector()->getWinSizeInPixels();
+    Size size =  Director::getInstance()->getWinSizeInPixels();
     m_windowWidth = (int)size.width;
 }
 
@@ -117,7 +118,7 @@ bool CCFreeTypeFont::initWithString(
     int         inHeight )
 {
 	FT_Error error = 0;
-	unsigned long size = 0;
+	ssize_t size = 0;
     unsigned char* pBuffer = nullptr;
 
     m_inWidth = inWidth;
@@ -199,7 +200,7 @@ bool CCFreeTypeFont::initWithString(
 	return error == 0;
 }
 
-unsigned char* CCFreeTypeFont::getBitmap(CCImage::ETextAlign eAlignMask, int* outWidth, int* outHeight)
+unsigned char* CCFreeTypeFont::getBitmap(Device::TextAlign eAlignMask, int* outWidth, int* outHeight)
 {
     int lineNumber = 0;
     int totalLines = m_lines.size();
@@ -227,7 +228,7 @@ unsigned char* CCFreeTypeFont::getBitmap(CCImage::ETextAlign eAlignMask, int* ou
     return pBuffer;
 }
 
-FT_Vector CCFreeTypeFont::getPenForAlignment(FTLineInfo* pInfo, CCImage::ETextAlign eAlignMask,int lineNumber, int totalLines)
+FT_Vector CCFreeTypeFont::getPenForAlignment(FTLineInfo* pInfo, Device::TextAlign eAlignMask,int lineNumber, int totalLines)
 {
     FT_Error error = 0;
     FT_Vector pen;
@@ -240,50 +241,50 @@ FT_Vector CCFreeTypeFont::getPenForAlignment(FTLineInfo* pInfo, CCImage::ETextAl
 
     switch(eAlignMask)
     {
-        case CCImage::ETextAlign::kAlignTop: // Horizontal center and vertical top.
+        case Device::TextAlign::TOP: // Horizontal center and vertical top.
             pen.x = ((m_width  - stringWidth) / 2) - pInfo->bbox.xMin;
             pen.y = pInfo->bbox.yMax + (lineNumber * m_lineHeight);		    
  		    break;
 			
-        case CCImage::ETextAlign::kAlignTopLeft: // Horizontal left and vertical top.
+        case Device::TextAlign::TOP_LEFT: // Horizontal left and vertical top.
             pen.x -=pInfo->bbox.xMin;
             pen.y = pInfo->bbox.yMax + (lineNumber * m_lineHeight);		    
  		    break;
 
-	    case CCImage::ETextAlign::kAlignTopRight: // Horizontal right and vertical top.
+	    case Device::TextAlign::TOP_RIGHT: // Horizontal right and vertical top.
             pen.x = m_width - stringWidth - pInfo->bbox.xMin;
             pen.y = pInfo->bbox.yMax + (lineNumber * m_lineHeight);		    
 		    break;
  
-	    case CCImage::ETextAlign::kAlignBottomRight: // Horizontal right and vertical bottom.
+	    case Device::TextAlign::BOTTOM_RIGHT: // Horizontal right and vertical bottom.
             pen.x = m_width - stringWidth - pInfo->bbox.xMin;
             pen.y = m_height + pInfo->bbox.yMin - ((maxLineNumber - lineNumber) * m_lineHeight);
 		    break;
 
-	    case CCImage::ETextAlign::kAlignBottom: // Horizontal center and vertical bottom.
+	    case Device::TextAlign::BOTTOM: // Horizontal center and vertical bottom.
             pen.x = ((m_width  - stringWidth) / 2) - pInfo->bbox.xMin;
             pen.y = m_height + pInfo->bbox.yMin - ((maxLineNumber - lineNumber) * m_lineHeight);
 		    break;
 
-	    case CCImage::ETextAlign::kAlignBottomLeft: // Horizontal left and vertical bottom.
+	    case Device::TextAlign::BOTTOM_LEFT: // Horizontal left and vertical bottom.
             pen.x -=pInfo->bbox.xMin;
             top = (m_height - m_textHeight) / 2;
             pen.y = m_height + pInfo->bbox.yMin - ((maxLineNumber - lineNumber) * m_lineHeight);
   		    break;
 
-	    case CCImage::ETextAlign::kAlignCenter: // Horizontal center and vertical center
+	    case Device::TextAlign::CENTER: // Horizontal center and vertical center
             pen.x = ((m_width  - stringWidth) / 2) - pInfo->bbox.xMin;
             top = (m_height - m_textHeight) / 2;
             pen.y = top + (lineNumber * m_lineHeight) + pInfo->bbox.yMax;		    
             break;
 
-	    case CCImage::ETextAlign::kAlignRight: // Horizontal right and vertical center.
+	    case Device::TextAlign::RIGHT: // Horizontal right and vertical center.
             pen.x = m_width - stringWidth - pInfo->bbox.xMin;
             top = (m_height - m_textHeight) / 2;
             pen.y = top + (lineNumber * m_lineHeight) + pInfo->bbox.yMax;		    
   		    break;
 
-	    case CCImage::ETextAlign::kAlignLeft: // Horizontal left and vertical center.
+	    case Device::TextAlign::LEFT: // Horizontal left and vertical center.
 	    default:
             pen.x -=pInfo->bbox.xMin;
             top = (m_height - m_textHeight) / 2;
@@ -343,7 +344,7 @@ void CCFreeTypeFont::endLine()
     if(m_currentLine)
     {
         m_lines.push_back(unique_ptr<FTLineInfo>(m_currentLine));
-        m_textWidth = max(m_textWidth,m_currentLine->bbox.xMax - m_currentLine->bbox.xMin);
+        m_textWidth = std::max(m_textWidth,static_cast<int>(m_currentLine->bbox.xMax - m_currentLine->bbox.xMin));
         m_textHeight += m_lineHeight;
         m_currentLine = nullptr;
     }
@@ -596,7 +597,7 @@ void  CCFreeTypeFont::compute_bbox(std::vector<TGlyph>& glyphs, FT_BBox  *abbox)
     *abbox = bbox;
 }
 
-unsigned char* CCFreeTypeFont::loadFont(const char *pFontName, unsigned long *size) 
+unsigned char* CCFreeTypeFont::loadFont(const char *pFontName, ssize_t *size) 
 {
 	std::string lowerCase(pFontName);
 	std::string path(pFontName);
@@ -617,11 +618,11 @@ unsigned char* CCFreeTypeFont::loadFont(const char *pFontName, unsigned long *si
         path += ".ttf";
     }
 
-	std::string fullpath  = CCFileUtils::sharedFileUtils()->fullPathForFilename(path.c_str());
-	return CCFileUtils::sharedFileUtils()->getFileData(fullpath.c_str(), "rb", size);
+	std::string fullpath  = FileUtils::sharedFileUtils()->fullPathForFilename(path.c_str());
+	return FileUtils::sharedFileUtils()->getFileData(fullpath.c_str(), "rb", size);
 }
 
-unsigned char* CCFreeTypeFont::loadSystemFont(const char *pFontName, unsigned long *size) 
+unsigned char* CCFreeTypeFont::loadSystemFont(const char *pFontName, ssize_t *size) 
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
 	return nullptr;
