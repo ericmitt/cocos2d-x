@@ -70,17 +70,20 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>$(EngineRoot)external\sqlite3\include;$(EngineRoot)external\unzip;$(EngineRoot)external\edtaa3func;$(EngineRoot)external\tinyxml2;$(EngineRoot)external\png\include\win32;$(EngineRoot)external\jpeg\include\win32;$(EngineRoot)external\tiff\include\win32;$(EngineRoot)external\webp\include\win32;$(EngineRoot)external\freetype2\include\win32;$(EngineRoot)external\win32-specific\icon\include;$(EngineRoot)external\win32-specific\zlib\include;$(EngineRoot)external\chipmunk\include\chipmunk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WP8;_DEBUG;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(EngineRoot)external\sqlite3\include;$(EngineRoot)external\unzip;$(EngineRoot)external\edtaa3func;$(EngineRoot)external\tinyxml2;$(EngineRoot)external\png\include\wp8;$(EngineRoot)external\jpeg\include\wp8;$(EngineRoot)external\tiff\include\wp8;$(EngineRoot)external\freetype2\include\wp8;$(EngineRoot)external\wp8-specific\zlib\include;$(EngineRoot)external\chipmunk\include\chipmunk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WP8;_LIB;_DEBUG;COCOS2D_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>ole32.lib;</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>d3d11.lib;xaudio2.lib;libEGL_phone.lib;libGLESv2_phone.lib;freetype.lib;libpng.lib;libjpeg.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\external\wp8-specific\angle\prebuilt\$(Platform);..\..\external\wp8-specific\zlib\prebuilt\$(Platform);..\..\external\png\prebuilt\wp8\$(Platform);..\..\external\jpeg\prebuilt\wp8\$(Platform);..\..\external\tiff\prebuilt\wp8\$(Platform);..\..\external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
@@ -94,13 +97,16 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>$(EngineRoot)external\sqlite3\include;$(EngineRoot)external\unzip;$(EngineRoot)external\edtaa3func;$(EngineRoot)external\tinyxml2;$(EngineRoot)external\png\include\win32;$(EngineRoot)external\jpeg\include\win32;$(EngineRoot)external\tiff\include\win32;$(EngineRoot)external\webp\include\win32;$(EngineRoot)external\freetype2\include\win32;$(EngineRoot)external\win32-specific\icon\include;$(EngineRoot)external\win32-specific\zlib\include;$(EngineRoot)external\chipmunk\include\chipmunk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WP8;NDEBUG;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(EngineRoot)external\sqlite3\include;$(EngineRoot)external\unzip;$(EngineRoot)external\edtaa3func;$(EngineRoot)external\tinyxml2;$(EngineRoot)external\png\include\wp8;$(EngineRoot)external\jpeg\include\wp8;$(EngineRoot)external\tiff\include\wp8;$(EngineRoot)external\freetype2\include\wp8;$(EngineRoot)external\wp8-specific\zlib\include;$(EngineRoot)external\chipmunk\include\chipmunk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WP8;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>ole32.lib;</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>d3d11.lib;xaudio2.lib;libEGL_phone.lib;libGLESv2_phone.lib;freetype.lib;libpng.lib;libjpeg.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\external\wp8-specific\angle\prebuilt\$(Platform);..\..\external\wp8-specific\zlib\prebuilt\$(Platform);..\..\external\png\prebuilt\wp8\$(Platform);..\..\external\jpeg\prebuilt\wp8\$(Platform);..\..\external\tiff\prebuilt\wp8\$(Platform);..\..\external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
@@ -114,13 +120,16 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>$(EngineRoot)external\sqlite3\include;$(EngineRoot)external\unzip;$(EngineRoot)external\edtaa3func;$(EngineRoot)external\tinyxml2;$(EngineRoot)external\png\include\win32;$(EngineRoot)external\jpeg\include\win32;$(EngineRoot)external\tiff\include\win32;$(EngineRoot)external\webp\include\win32;$(EngineRoot)external\freetype2\include\win32;$(EngineRoot)external\win32-specific\icon\include;$(EngineRoot)external\win32-specific\zlib\include;$(EngineRoot)external\chipmunk\include\chipmunk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WP8;_DEBUG;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(EngineRoot)external\sqlite3\include;$(EngineRoot)external\unzip;$(EngineRoot)external\edtaa3func;$(EngineRoot)external\tinyxml2;$(EngineRoot)external\png\include\wp8;$(EngineRoot)external\jpeg\include\wp8;$(EngineRoot)external\tiff\include\wp8;$(EngineRoot)external\freetype2\include\wp8;$(EngineRoot)external\wp8-specific\zlib\include;$(EngineRoot)external\chipmunk\include\chipmunk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WP8;_LIB;_DEBUG;COCOS2D_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>ole32.lib;</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>d3d11.lib;xaudio2.lib;libEGL_phone.lib;libGLESv2_phone.lib;freetype.lib;libpng.lib;libjpeg.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\external\wp8-specific\angle\prebuilt\$(Platform);..\..\external\wp8-specific\zlib\prebuilt\$(Platform);..\..\external\png\prebuilt\wp8\$(Platform);..\..\external\jpeg\prebuilt\wp8\$(Platform);..\..\external\tiff\prebuilt\wp8\$(Platform);..\..\external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
@@ -134,13 +143,16 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>$(EngineRoot)external\sqlite3\include;$(EngineRoot)external\unzip;$(EngineRoot)external\edtaa3func;$(EngineRoot)external\tinyxml2;$(EngineRoot)external\png\include\win32;$(EngineRoot)external\jpeg\include\win32;$(EngineRoot)external\tiff\include\win32;$(EngineRoot)external\webp\include\win32;$(EngineRoot)external\freetype2\include\win32;$(EngineRoot)external\win32-specific\icon\include;$(EngineRoot)external\win32-specific\zlib\include;$(EngineRoot)external\chipmunk\include\chipmunk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WP8;NDEBUG;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(EngineRoot)external\sqlite3\include;$(EngineRoot)external\unzip;$(EngineRoot)external\edtaa3func;$(EngineRoot)external\tinyxml2;$(EngineRoot)external\png\include\wp8;$(EngineRoot)external\jpeg\include\wp8;$(EngineRoot)external\tiff\include\wp8;$(EngineRoot)external\freetype2\include\wp8;$(EngineRoot)external\wp8-specific\zlib\include;$(EngineRoot)external\chipmunk\include\chipmunk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WP8;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>ole32.lib;</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>d3d11.lib;xaudio2.lib;libEGL_phone.lib;libGLESv2_phone.lib;freetype.lib;libpng.lib;libjpeg.lib;libtiff.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\external\wp8-specific\angle\prebuilt\$(Platform);..\..\external\wp8-specific\zlib\prebuilt\$(Platform);..\..\external\png\prebuilt\wp8\$(Platform);..\..\external\jpeg\prebuilt\wp8\$(Platform);..\..\external\tiff\prebuilt\wp8\$(Platform);..\..\external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
@@ -385,8 +397,10 @@
     <ClCompile Include="platform\winrt\CCDevice.cpp" />
     <ClCompile Include="platform\winrt\CCFileUtilsWinRT.cpp" />
     <ClCompile Include="platform\winrt\CCFreeTypeFont.cpp" />
+    <ClCompile Include="platform\winrt\CCPrecompiledShaders.cpp" />
     <ClCompile Include="platform\winrt\CCStdC.cpp" />
     <ClCompile Include="platform\winrt\CCWinRTUtils.cpp" />
+    <ClCompile Include="platform\winrt\sha1.cpp" />
     <ClCompile Include="platform\wp8\CCGLView.cpp" />
     <ClCompile Include="platform\wp8\Direct3DBase.cpp" />
     <ClCompile Include="platform\wp8\DirectXBase.cpp" />
@@ -592,8 +606,10 @@
     <ClInclude Include="platform\winrt\CCGL.h" />
     <ClInclude Include="platform\winrt\CCGL_Angle.h" />
     <ClInclude Include="platform\winrt\CCPlatformDefine.h" />
+    <ClInclude Include="platform\winrt\CCPrecompiledShaders.h" />
     <ClInclude Include="platform\winrt\CCStdC.h" />
     <ClInclude Include="platform\winrt\CCWinRTUtils.h" />
+    <ClInclude Include="platform\winrt\sha1.h" />
     <ClInclude Include="platform\wp8\CCGLView.h" />
     <ClInclude Include="platform\wp8\Direct3DBase.h" />
     <ClInclude Include="platform\wp8\DirectXBase.h" />
@@ -612,5 +628,34 @@
     <ClInclude Include="uthash.h" />
     <ClInclude Include="utlist.h" />
     <ClInclude Include="ZipUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\extensions\proj.wp8\libExtensions.vcxproj">
+      <Project>{04a0c42f-23bb-469b-a9d8-ca49136adbd4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\external\Box2D\proj.wp8\Box2D.vcxproj">
+      <Project>{c55734a3-702c-4fa1-b950-32c8e169302f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\external\chipmunk\proj.wp8\chipmunk.vcxproj">
+      <Project>{ba568a33-98f9-4d2a-bfff-c065adcb447a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\audio\proj.wp8\CocosDenshion.vcxproj">
+      <Project>{df125891-eee9-4466-b903-f828fd272158}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\editor-support\cocosbuilder\proj.wp8\libCocosBuilder.vcxproj">
+      <Project>{20d4035d-fd3f-4fd3-baba-97bc1c38dfc2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\editor-support\cocostudio\proj.wp8\libCocosStudio.vcxproj">
+      <Project>{51e5736e-e1a3-4c94-abb7-e92ecef9c12e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\editor-support\spine\proj.wp8\libSpine.vcxproj">
+      <Project>{7d4fc6eb-9497-4804-98f3-3eaedc896154}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\gui\proj.wp8\libGUI.vcxproj">
+      <Project>{08fb23e4-1517-4edc-b682-da238cdaa83d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\storage\local-storage\proj.wp8\libLocalStorage.vcxproj">
+      <Project>{88982c27-5a7b-40a8-86e7-b3187b44b322}</Project>
+    </ProjectReference>
   </ItemGroup>
 </Project>

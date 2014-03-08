@@ -593,9 +593,6 @@
     <ClCompile Include="platform\winrt\CCCommon.cpp">
       <Filter>platform\winrt</Filter>
     </ClCompile>
-    <ClCompile Include="platform\winrt\CCDevice.cpp">
-      <Filter>platform\winrt</Filter>
-    </ClCompile>
     <ClCompile Include="platform\winrt\CCFileUtilsWinRT.cpp">
       <Filter>platform\winrt</Filter>
     </ClCompile>
@@ -609,6 +606,15 @@
       <Filter>platform\winrt</Filter>
     </ClCompile>
     <ClCompile Include="platform\winrt\CCFreeTypeFont.cpp">
+      <Filter>platform\winrt</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\winrt\CCPrecompiledShaders.cpp">
+      <Filter>platform\winrt</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\winrt\CCDevice.cpp">
+      <Filter>platform\winrt</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\winrt\sha1.cpp">
       <Filter>platform\winrt</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1225,6 +1231,12 @@
       <Filter>platform\winrt</Filter>
     </ClInclude>
     <ClInclude Include="platform\winrt\CCFreeTypeFont.h">
+      <Filter>platform\winrt</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\winrt\CCPrecompiledShaders.h">
+      <Filter>platform\winrt</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\winrt\sha1.h">
       <Filter>platform\winrt</Filter>
     </ClInclude>
   </ItemGroup>
