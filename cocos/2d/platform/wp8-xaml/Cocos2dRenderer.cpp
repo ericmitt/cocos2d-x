@@ -52,7 +52,7 @@ void Cocos2dRenderer::CreateGLResources()
         mInitialized = true;
         GLView* glview = GLView::create("Test Cpp");
 	    glview->Create(m_eglDisplay, m_eglContext, m_eglSurface, m_renderTargetSize.Width, m_renderTargetSize.Height);
-        glview->setViewName("Cocos2d-x");
+        Director::getInstance()->setOpenGLView(glview);
         CCApplication::getInstance()->run();
         glview->SetXamlEventDelegate(m_delegate);
         glview->SetXamlMessageBoxDelegate(m_messageBoxDelegate);
