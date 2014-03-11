@@ -16,6 +16,10 @@ $c2dLib = join-path $cocosDir "\2d\cocos2d_wp8.vcxproj"
 $in = join-path $cocosDir "\2d\cocos2d.vcxproj"
 #WinrtConverter $in $c2dLib "wp8" >> $null
 
+$c2dLib = join-path $cocosDir "\2d\cocos2d_winrt.vcxproj"
+$in = join-path $cocosDir "\2d\cocos2d.vcxproj"
+#WinrtConverter $in $c2dLib "winrt" >> $null
+
 
 $libLocalStorage = join-path $cocosDir "\storage\local-storage\proj.wp8\libLocalStorage.vcxproj"
 $in = join-path $cocosDir "\storage\local-storage\proj.win32\libLocalStorage.vcxproj"
@@ -53,6 +57,12 @@ $libChipmunk = join-path $chipmunkDir "\proj.wp8\chipmunk.vcxproj"
 $in = join-path $chipmunkDir "\proj.win32\chipmunk.vcxproj"
 #WinrtConverter $in $libChipmunk "wp8" >> $null
 
+$chipmunkDir = join-path $workingDir "..\..\external\chipmunk" -Resolve
+$libChipmunk = join-path $chipmunkDir "\proj.winrt\chipmunk.vcxproj"
+$in = join-path $chipmunkDir "\proj.win32\chipmunk.vcxproj"
+#WinrtConverter $in $libChipmunk "winrt" >> $null
+
+
 $testDir = join-path $workingDir "..\..\tests" -Resolve
 $testApp = join-path $testDir "\proj.wp8\TestCpp.vcxproj"
 $in = join-path $testDir "\proj.win32\TestCpp.vcxproj"
@@ -61,5 +71,5 @@ $in = join-path $testDir "\proj.win32\TestCpp.vcxproj"
 #create opencv sln 
 $solutionDir = join-path $workingDir "..\" -Resolve
 $solution = join-path $solutionDir "cocos2d-wp8.vc2012.sln"
-CreateSolutionFile $solution "wp8" ($c2dLib, $libGUI, $libSpine, $libCocosStudio, $libCocosBuilder, $libExtensions, $libBox2d, $libChipmunk, $libLocalStorage, $libAudio, $testApp)
+#CreateSolutionFile $solution "wp8" ($c2dLib, $libGUI, $libSpine, $libCocosStudio, $libCocosBuilder, $libExtensions, $libBox2d, $libChipmunk, $libLocalStorage, $libAudio, $testApp)
 
