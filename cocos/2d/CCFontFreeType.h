@@ -35,14 +35,14 @@
 #include <string>
 #include <ft2build.h>
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 #define generic GenericFromFreeTypeLibrary
 #define internal InternalFromFreeTypeLibrary
 #endif
 
 #include FT_FREETYPE_H
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 #undef generic
 #undef internal
 #endif
