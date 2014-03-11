@@ -106,6 +106,8 @@ static bool isFloat( std::string myString ) {
     return iss.eof() && !iss.fail(); 
 }
 
+#if CC_TARGET_PLATFORM != CC_PLATFORM_WINRT && CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+
 // helper free functions
 
 // dprintf() is not defined in Android
@@ -176,6 +178,7 @@ static void printFileUtils(int fd)
     }
     sendPrompt(fd);
 }
+#endif
 
 
 #if defined(__MINGW32__)
