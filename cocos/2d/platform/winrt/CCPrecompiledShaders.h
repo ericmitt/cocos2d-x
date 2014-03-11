@@ -68,7 +68,7 @@ public:
     @brief    Get current precompiled shaders instance.
     @return Current precompiled shaders instance pointer.
     */
-    static CCPrecompiledShaders* sharedPrecompiledShaders();
+    static CCPrecompiledShaders* getInstance();
 
     std::string addShaders(const GLchar* vShaderByteArray, const GLchar* fShaderByteArray);
     bool addProgram(GLuint program, const std::string& id);

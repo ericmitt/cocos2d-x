@@ -50,7 +50,7 @@ static CCPrecompiledShaders *s_pPrecompiledShaders = NULL;
 #define SHADER_NAME_PREFIX "s_"
 
 
-CCPrecompiledShaders* CCPrecompiledShaders::sharedPrecompiledShaders(void)
+CCPrecompiledShaders* CCPrecompiledShaders::getInstance(void)
 {
     if (!s_pPrecompiledShaders)
     {
