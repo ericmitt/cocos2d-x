@@ -26,7 +26,7 @@ THE SOFTWARE.
 #ifndef __CCPTHREADWINRT_H__
 #define __CCPTHREADWINRT_H__
 
-#include "platform/CCPlatformMacros.h"
+#include "CCPlatformMacros.h"
 
 #include <Windows.h>
 
