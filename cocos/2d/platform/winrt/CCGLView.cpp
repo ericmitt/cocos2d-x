@@ -23,15 +23,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#include "CCEGLView.h"
-#include "cocoa/CCSet.h"
+#include "CCGLView.h"
+#include "CCSet.h"
 #include "ccMacros.h"
 #include "CCDirector.h"
-#include "touch_dispatcher/CCTouch.h"
-#include "touch_dispatcher/CCTouchDispatcher.h"
-#include "text_input_node/CCIMEDispatcher.h"
-#include "keypad_dispatcher/CCKeypadDispatcher.h"
-#include "support/CCPointExtension.h"
+#include "CCTouch.h"
+#include "CCIMEDispatcher.h"
 #include "CCApplication.h"
 #include "CCWinRTUtils.h"
 
@@ -55,18 +52,18 @@ using namespace Windows::UI::ViewManagement;
 
 NS_CC_BEGIN
 
-static CCEGLView* s_pEglView = NULL;
+static GLView* s_pEglView = NULL;
 
 //////////////////////////////////////////////////////////////////////////
-// impliment CCEGLView
+// impliment GLView
 //////////////////////////////////////////////////////////////////////////
 
 // Initialize the DirectX resources required to run.
 void WinRTWindow::Initialize(CoreWindow^ window, SwapChainBackgroundPanel^ panel)
 {
 	m_window = window;
-
- 	esInitContext ( &m_esContext );
+ 	//TODO: remove esUtils
+    //esInitContext ( &m_esContext );
 
     ANGLE_D3D_FEATURE_LEVEL featureLevel = ANGLE_D3D_FEATURE_LEVEL::ANGLE_D3D_FEATURE_LEVEL_9_1;
 
@@ -86,7 +83,9 @@ void WinRTWindow::Initialize(CoreWindow^ window, SwapChainBackgroundPanel^ panel
 
 	m_esContext.hWnd = m_eglWindow;
     // width and height are ignored and determined from the CoreWindow the SwapChainBackgroundPanel is in.
-    esCreateWindow ( &m_esContext, TEXT("Cocos2d-x"), 0, 0, ES_WINDOW_RGB | ES_WINDOW_ALPHA | ES_WINDOW_DEPTH | ES_WINDOW_STENCIL );
+
+    //TODO: remove esUtils
+    //esCreateWindow ( &m_esContext, TEXT("Cocos2d-x"), 0, 0, ES_WINDOW_RGB | ES_WINDOW_ALPHA | ES_WINDOW_DEPTH | ES_WINDOW_STENCIL );
 
 	m_window->PointerPressed +=
         ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &WinRTWindow::OnPointerPressed);
@@ -163,16 +162,16 @@ void WinRTWindow::OnSuspending()
 
 void WinRTWindow::ResizeWindow()
 {
-     CCEGLView::sharedOpenGLView()->UpdateForWindowSizeChange();
+     GLView::sharedOpenGLView()->UpdateForWindowSizeChange();
 }
 
-CCPoint WinRTWindow::GetCCPoint(PointerEventArgs^ args) {
+cocos2d::Point WinRTWindow::GetCCPoint(PointerEventArgs^ args) {
 	auto p = args->CurrentPoint;
 	float x = getScaledDPIValue(p->Position.X);
 	float y = getScaledDPIValue(p->Position.Y);
-    CCPoint pt(x, y);
+    Point pt(x, y);
 
-	float zoomFactor = CCEGLView::sharedOpenGLView()->getFrameZoomFactor();
+	float zoomFactor = GLView::sharedOpenGLView()->getFrameZoomFactor();
 
 	if(zoomFactor > 0.0f) {
 		pt.x /= zoomFactor;
@@ -183,12 +182,12 @@ CCPoint WinRTWindow::GetCCPoint(PointerEventArgs^ args) {
 
 void WinRTWindow::ShowKeyboard(InputPane^ inputPane, InputPaneVisibilityEventArgs^ args)
 {
-    CCEGLView::sharedOpenGLView()->ShowKeyboard(args->OccludedRect);
+    GLView::sharedOpenGLView()->ShowKeyboard(args->OccludedRect);
 }
 
 void WinRTWindow::HideKeyboard(InputPane^ inputPane, InputPaneVisibilityEventArgs^ args)
 {
-    CCEGLView::sharedOpenGLView()->HideKeyboard(args->OccludedRect);
+    GLView::sharedOpenGLView()->HideKeyboard(args->OccludedRect);
 }
 
 void WinRTWindow::setIMEKeyboardState(bool bOpen)
@@ -240,20 +239,21 @@ void WinRTWindow::OnTextKeyUp(Object^ sender, KeyRoutedEventArgs^ args)
     switch(key)
     {
     case VirtualKey::Escape:
-        CCDirector::sharedDirector()->getKeypadDispatcher()->dispatchKeypadMSG(kTypeBackClicked);
+        // TODO:: fix me
+        //Director::getInstance()->getKeypadDispatcher()->dispatchKeypadMSG(kTypeBackClicked);
 		args->Handled = true;
         break;
 	case VirtualKey::Back:
-        CCIMEDispatcher::sharedDispatcher()->dispatchDeleteBackward();
+        IMEDispatcher::sharedDispatcher()->dispatchDeleteBackward();
         break;
     case VirtualKey::Enter:
 		setIMEKeyboardState(false);
-        CCIMEDispatcher::sharedDispatcher()->dispatchInsertText("\n", 1);
+        IMEDispatcher::sharedDispatcher()->dispatchInsertText("\n", 1);
         break;
     default:
         char szUtf8[8] = {0};
         int nLen = WideCharToMultiByte(CP_UTF8, 0, (LPCWSTR)m_textBox->Text->Data(), 1, szUtf8, sizeof(szUtf8), NULL, NULL);
-        CCIMEDispatcher::sharedDispatcher()->dispatchInsertText(szUtf8, nLen);
+        IMEDispatcher::sharedDispatcher()->dispatchInsertText(szUtf8, nLen);
         break;
     }	
 	m_textBox->Text = "";
@@ -264,19 +264,19 @@ void WinRTWindow::OnPointerWheelChanged(CoreWindow^ sender, PointerEventArgs^ ar
 {
     float direction = (float)args->CurrentPoint->Properties->MouseWheelDelta;
     int id = 0;
-    CCPoint p(0.0f,0.0f);
-    CCEGLView::sharedOpenGLView()->handleTouchesBegin(1, &id, &p.x, &p.y);
+    Point p(0.0f,0.0f);
+    GLView::sharedOpenGLView()->handleTouchesBegin(1, &id, &p.x, &p.y);
     p.y += direction;
-    CCEGLView::sharedOpenGLView()->handleTouchesMove(1, &id, &p.x, &p.y);
-    CCEGLView::sharedOpenGLView()->handleTouchesEnd(1, &id, &p.x, &p.y);
+    GLView::sharedOpenGLView()->handleTouchesMove(1, &id, &p.x, &p.y);
+    GLView::sharedOpenGLView()->handleTouchesEnd(1, &id, &p.x, &p.y);
 }
 
 
 void WinRTWindow::OnPointerPressed(CoreWindow^ sender, PointerEventArgs^ args)
 {
     int id = args->CurrentPoint->PointerId;
-    CCPoint pt = GetCCPoint(args);
-    CCEGLView::sharedOpenGLView()->handleTouchesBegin(1, &id, &pt.x, &pt.y);
+    Point pt = GetCCPoint(args);
+    GLView::sharedOpenGLView()->handleTouchesBegin(1, &id, &pt.x, &pt.y);
 }
 
 void WinRTWindow::OnPointerMoved(CoreWindow^ sender, PointerEventArgs^ args)
@@ -287,8 +287,8 @@ void WinRTWindow::OnPointerMoved(CoreWindow^ sender, PointerEventArgs^ args)
 		if (m_lastPointValid)
 		{
 			int id = args->CurrentPoint->PointerId;
-			CCPoint p = GetCCPoint(args);
-			CCEGLView::sharedOpenGLView()->handleTouchesMove(1, &id, &p.x, &p.y);
+			Point p = GetCCPoint(args);
+			GLView::sharedOpenGLView()->handleTouchesMove(1, &id, &p.x, &p.y);
 		}
 		m_lastPoint = currentPoint->Position;
 		m_lastPointValid = true;
@@ -302,39 +302,39 @@ void WinRTWindow::OnPointerMoved(CoreWindow^ sender, PointerEventArgs^ args)
 void WinRTWindow::OnPointerReleased(CoreWindow^ sender, PointerEventArgs^ args)
 {
     int id = args->CurrentPoint->PointerId;
-    CCPoint pt = GetCCPoint(args);
-    CCEGLView::sharedOpenGLView()->handleTouchesEnd(1, &id, &pt.x, &pt.y);
+    Point pt = GetCCPoint(args);
+    GLView::sharedOpenGLView()->handleTouchesEnd(1, &id, &pt.x, &pt.y);
 }
 
 void WinRTWindow::OnWindowSizeChanged(CoreWindow^ sender, WindowSizeChangedEventArgs^ args)
 {
 	ResizeWindow();
-	CCEGLView::sharedOpenGLView()->UpdateForWindowSizeChange();
+	GLView::sharedOpenGLView()->UpdateForWindowSizeChange();
 }
 
 void WinRTWindow::OnLogicalDpiChanged(Object^ sender)
 {
-	CCEGLView::sharedOpenGLView()->UpdateForWindowSizeChange();
+	GLView::sharedOpenGLView()->UpdateForWindowSizeChange();
 }
 
 void WinRTWindow::OnOrientationChanged(Object^ sender)
 {
 	ResizeWindow();
-	CCEGLView::sharedOpenGLView()->UpdateForWindowSizeChange();
+	GLView::sharedOpenGLView()->UpdateForWindowSizeChange();
 }
 
 void WinRTWindow::OnDisplayContentsInvalidated(Object^ sender)
 {
-	CCEGLView::sharedOpenGLView()->UpdateForWindowSizeChange();
+	GLView::sharedOpenGLView()->UpdateForWindowSizeChange();
 }
 
 void WinRTWindow::OnRendering(Object^ sender, Object^ args)
 {
-	CCEGLView::sharedOpenGLView()->OnRendering();
+	GLView::sharedOpenGLView()->OnRendering();
 }
 
 
-CCEGLView::CCEGLView()
+GLView::GLView()
 	: m_window(nullptr)
 	, m_fFrameZoomFactor(1.0f)
 	, m_bSupportTouch(false)
@@ -344,10 +344,10 @@ CCEGLView::CCEGLView()
 	, m_initialized(false)
 {
 	s_pEglView = this;
-    strcpy(m_szViewName, "Cocos2dxWinRT");
+    _viewName = "Cocos2dxWinRT";
 }
 
-CCEGLView::~CCEGLView()
+GLView::~GLView()
 {
 	CC_ASSERT(this == s_pEglView);
     s_pEglView = NULL;
@@ -355,7 +355,7 @@ CCEGLView::~CCEGLView()
 	// TODO: cleanup 
 }
 
-bool CCEGLView::Create(CoreWindow^ window, SwapChainBackgroundPanel^ panel)
+bool GLView::Create(CoreWindow^ window, SwapChainBackgroundPanel^ panel)
 {
     bool bRet = false;
 	m_window = window;
@@ -368,25 +368,25 @@ bool CCEGLView::Create(CoreWindow^ window, SwapChainBackgroundPanel^ panel)
     return bRet;
 }
 
-bool CCEGLView::isOpenGLReady()
+bool GLView::isOpenGLReady()
 {
 	// TODO: need to revisit this
     return (m_window.Get() != nullptr);
 }
 
-void CCEGLView::end()
+void GLView::end()
 {
 	// TODO: need to implement
 
 }
 
-void CCEGLView::swapBuffers()
+void GLView::swapBuffers()
 {
 	m_winRTWindow->swapBuffers();
 }
 
 
-void CCEGLView::setIMEKeyboardState(bool bOpen)
+void GLView::setIMEKeyboardState(bool bOpen)
 {
 	if(m_winRTWindow) 
 	{
@@ -395,37 +395,37 @@ void CCEGLView::setIMEKeyboardState(bool bOpen)
 }
 
 
-void CCEGLView::resize(int width, int height)
+void GLView::resize(int width, int height)
 {
 
 }
 
-void CCEGLView::setFrameZoomFactor(float fZoomFactor)
+void GLView::setFrameZoomFactor(float fZoomFactor)
 {
     m_fFrameZoomFactor = fZoomFactor;
-    resize((int)(m_obScreenSize.width * fZoomFactor), (int)(m_obScreenSize.height * fZoomFactor));
+    resize((int) (_screenSize.width * fZoomFactor), (int) (_screenSize.height * fZoomFactor));
     centerWindow();
-    CCDirector::sharedDirector()->setProjection(CCDirector::sharedDirector()->getProjection());
+    Director::getInstance()->setProjection(Director::getInstance()->getProjection());
 }
 
 
-float CCEGLView::getFrameZoomFactor()
+float GLView::getFrameZoomFactor()
 {
     return m_fFrameZoomFactor;
 }
 
-void CCEGLView::setFrameSize(float width, float height)
+void GLView::setFrameSize(float width, float height)
 {
 	// not implemented in WinRT. Window is always full screen
-    // CCEGLViewProtocol::setFrameSize(width, height);
+    // GLViewProtocol::setFrameSize(width, height);
 }
 
-void CCEGLView::centerWindow()
+void GLView::centerWindow()
 {
 	// not implemented in WinRT. Window is always full screen
 }
 
-void CCEGLView::OnSuspending()
+void GLView::OnSuspending()
 {
     if (m_winRTWindow)
     {
@@ -433,12 +433,12 @@ void CCEGLView::OnSuspending()
     }
 }
 
-CCEGLView* CCEGLView::sharedOpenGLView()
+GLView* GLView::sharedOpenGLView()
 {
     return s_pEglView;
 }
 
-int CCEGLView::Run() 
+int GLView::Run() 
 {
 	m_running = true; 
 
@@ -446,41 +446,44 @@ int CCEGLView::Run()
 };
 
 
-void CCEGLView::OnRendering()
+void GLView::OnRendering()
 {
 	if(m_running && m_initialized)
 	{
-		CCDirector::sharedDirector()->mainLoop();
+		Director::sharedDirector()->mainLoop();
 	}
 }
 
-void CCEGLView::HideKeyboard(Rect r)
+void GLView::HideKeyboard(Windows::Foundation::Rect r)
 {
     return; // not implemented
+#if 0
 	float height = m_keyboardRect.Height;
-	float factor = m_fScaleY / CC_CONTENT_SCALE_FACTOR();
+	float factor = _scaleY / CC_CONTENT_SCALE_FACTOR();
 	height = (float)height / factor;
 
-	CCRect rect_end(0, 0, 0, 0);
-	CCRect rect_begin(0, 0, m_obScreenSize.width / factor, height);
+	Rect rect_end(0, 0, 0, 0);
+	Rect rect_begin(0, 0, _screenSize.width / factor, height);
 
-    CCIMEKeyboardNotificationInfo info;
+    IMEKeyboardNotificationInfo info;
     info.begin = rect_begin;
     info.end = rect_end;
     info.duration = 0;
-    CCIMEDispatcher::sharedDispatcher()->dispatchKeyboardWillHide(info);
-    CCIMEDispatcher::sharedDispatcher()->dispatchKeyboardDidHide(info);
+    IMEDispatcher::sharedDispatcher()->dispatchKeyboardWillHide(info);
+    IMEDispatcher::sharedDispatcher()->dispatchKeyboardDidHide(info);
+#endif
 }
 
-void CCEGLView::ShowKeyboard(Rect r)
+void GLView::ShowKeyboard(Windows::Foundation::Rect r)
 {
     return; // not implemented
+#if 0
 	float height = r.Height;
-	float factor = m_fScaleY / CC_CONTENT_SCALE_FACTOR();
+	float factor = _scaleY / CC_CONTENT_SCALE_FACTOR();
 	height = (float)height / factor;
 
-	CCRect rect_begin(0.0f, 0.0f - height, m_obScreenSize.width / factor, height);
-	CCRect rect_end(0.0f, 0.0f, m_obScreenSize.width / factor, height);
+	Rect rect_begin(0.0f, 0.0f - height, _screenSize.width / factor, height);
+	Rect rect_end(0.0f, 0.0f, _screenSize.width / factor, height);
 
     CCIMEKeyboardNotificationInfo info;
     info.begin = rect_begin;
@@ -489,10 +492,11 @@ void CCEGLView::ShowKeyboard(Rect r)
     CCIMEDispatcher::sharedDispatcher()->dispatchKeyboardWillShow(info);
     CCIMEDispatcher::sharedDispatcher()->dispatchKeyboardDidShow(info);
 	m_keyboardRect = r;
+#endif
 }
 
 
-void CCEGLView::UpdateForWindowSizeChange()
+void GLView::UpdateForWindowSizeChange()
 {
     float width = ConvertDipsToPixels(m_window->Bounds.Width);
     float height = ConvertDipsToPixels(m_window->Bounds.Height);
@@ -500,14 +504,14 @@ void CCEGLView::UpdateForWindowSizeChange()
 	if(!m_initialized)
     {
         m_initialized = true;
-        CCEGLViewProtocol::setFrameSize(width, height);
+        GLViewProtocol::setFrameSize(width, height);
     }
     else
     {
-        m_obScreenSize = CCSizeMake(width, height);
-        CCSize designSize = getDesignResolutionSize();
-        CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, kResolutionShowAll);
-        CCDirector::sharedDirector()->setProjection(CCDirector::sharedDirector()->getProjection());
+        setFrameSize(width, height);
+        Size designSize = getDesignResolutionSize();
+        GLView::sharedOpenGLView()->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::SHOW_ALL);
+        Director::sharedDirector()->setProjection(Director::sharedDirector()->getProjection());
    }
 }
 

@@ -26,7 +26,7 @@ THE SOFTWARE.
 #define __CC_APPLICATION_WINRT_H__
 
 #include "CCPlatformConfig.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
 
 #include "CCStdC.h"
 #include "platform/CCCommon.h"

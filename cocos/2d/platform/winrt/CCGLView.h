@@ -27,9 +27,10 @@ THE SOFTWARE.
 #define __CC_EGLVIEW_WINRT_H__
 
 #include "CCStdC.h"
+#include "CCGL.h"
 #include "platform/CCCommon.h"
-#include "cocoa/CCGeometry.h"
-#include "platform/CCEGLViewProtocol.h"
+#include "CCGeometry.h"
+#include "platform/CCGLViewProtocol.h"
 #include <agile.h>
 
 #include <wrl/client.h>
@@ -37,26 +38,24 @@ THE SOFTWARE.
 #include <agile.h>
 #include <DirectXMath.h>
 
-#include "esUtil.h"
 
 NS_CC_BEGIN
 
 class CCEGL;
-class CCEGLView;
+class GLView;
 
 ref class WinRTWindow sealed
 {
 
 public:
-   WinRTWindow(Windows::UI::Core::CoreWindow^ window);
-
+    WinRTWindow(Windows::UI::Core::CoreWindow^ window);
 	void Initialize(Windows::UI::Core::CoreWindow^ window, Windows::UI::Xaml::Controls::SwapChainBackgroundPanel^ panel);
 	void setIMEKeyboardState(bool bOpen);
     void swapBuffers();
 
 
 private:
-	CCPoint GetCCPoint(Windows::UI::Core::PointerEventArgs^ args);
+	cocos2d::Point GetCCPoint(Windows::UI::Core::PointerEventArgs^ args);
 
 	void OnTextKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e); 
 	void OnTextKeyUp(Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e); 
@@ -84,17 +83,20 @@ private:
 	bool m_lastPointValid;
 	bool m_textInputEnabled;
 	Microsoft::WRL::ComPtr<IWinrtEglWindow> m_eglWindow;
-	ESContext m_esContext;
 	Windows::UI::Xaml::Controls::TextBox^ m_textBox;
 	Windows::UI::Xaml::Controls::Button^ m_dummy;
-	friend CCEGLView;
+
+    ESContext m_esContext;
+
+
+    friend GLView;
 };
 
-class CC_DLL CCEGLView : public CCEGLViewProtocol
+class CC_DLL GLView : public Ref, public GLViewProtocol
 {
 public:
-    CCEGLView();
-    virtual ~CCEGLView();
+    GLView();
+    virtual ~GLView();
 
     /* override functions */
     virtual bool isOpenGLReady();
@@ -134,7 +136,7 @@ public:
     /**
     @brief    get the shared main open gl window
     */
-	static CCEGLView* sharedOpenGLView();
+	static GLView* sharedOpenGLView();
 
 protected:
 
