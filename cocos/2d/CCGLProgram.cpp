@@ -169,8 +169,8 @@ bool GLProgram::initWithVertexShaderByteArray(const GLchar* vShaderByteArray, co
     
     CHECK_GL_ERROR_DEBUG();
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-    m_shaderId = CCPrecompiledShaders::sharedPrecompiledShaders()->addShaders(vShaderByteArray, fShaderByteArray);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+    _shaderId = CCPrecompiledShaders::getInstance()->addShaders(vShaderByteArray, fShaderByteArray);
 #endif
 
     return true;
@@ -186,7 +186,7 @@ bool GLProgram::initWithPrecompiledProgramByteArray(const GLchar* vShaderByteArr
 
     _vertShader = _fragShader = 0;
 
-    haveProgram = CCPrecompiledShaders::sharedPrecompiledShaders()->loadProgram(_program, vShaderByteArray, fShaderByteArray);
+    haveProgram = CCPrecompiledShaders::getInstance()->loadProgram(_program, vShaderByteArray, fShaderByteArray);
 
     CHECK_GL_ERROR_DEBUG();
     _hashForUniforms = NULL;
@@ -342,13 +342,12 @@ bool GLProgram::link()
     }
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
     if (status == GL_TRUE)
     {
-        CCPrecompiledShaders::sharedPrecompiledShaders()->addProgram(_program, m_shaderId);
+        CCPrecompiledShaders::getInstance()->addProgram(_program, _shaderId);
     }
 #endif
-
 
     return (status == GL_TRUE);
 }
