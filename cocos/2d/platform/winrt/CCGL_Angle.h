@@ -35,7 +35,8 @@ THE SOFTWARE.
 #include "EGL/eglplatform.h"
 #include "GLES2/gl2.h"
 #include "GLES2/gl2ext.h"
-#include "angleproject/src/common/winrtangle.h"
+#include "winrtangle.h"
+#include "esUtil.h"
 #include "ccMacros.h"
 
 #define GL_WRITE_ONLY_OES                                       0x88B9
