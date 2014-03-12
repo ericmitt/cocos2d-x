@@ -66,7 +66,7 @@ $in = join-path $chipmunkDir "\proj.win32\chipmunk.vcxproj"
 $testDir = join-path $workingDir "..\..\tests" -Resolve
 $testApp = join-path $testDir "\proj.wp8\TestCpp.vcxproj"
 $in = join-path $testDir "\proj.win32\TestCpp.vcxproj"
-#WinrtConverter $in $testApp "wp8" >> $null
+WinrtConverter $in $testApp "wp8" >> $null
 
 #create opencv sln 
 $solutionDir = join-path $workingDir "..\" -Resolve
