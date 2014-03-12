@@ -92,6 +92,7 @@ Node::Node(void)
 , _useAdditionalTransform(false)
 , _transformDirty(true)
 , _inverseDirty(true)
+, _transformUpdated(true)
 // children (lazy allocs)
 // lazy alloc
 , _localZOrder(0)
@@ -193,7 +194,7 @@ void Node::setSkewX(float skewX)
         return;
     
     _skewX = skewX;
-    _transformDirty = _inverseDirty = true;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
 float Node::getSkewY() const
@@ -207,7 +208,7 @@ void Node::setSkewY(float skewY)
         return;
     
     _skewY = skewY;
-    _transformDirty = _inverseDirty = true;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
 
@@ -255,8 +256,8 @@ void Node::setRotation(float rotation)
         return;
     
     _rotationZ_X = _rotationZ_Y = rotation;
-    _transformDirty = _inverseDirty = true;
-    
+    _transformUpdated = _transformDirty = _inverseDirty = true;
+
 #if CC_USE_PHYSICS
     if (_physicsBody)
     {
@@ -277,7 +278,7 @@ void Node::setRotation3D(const Vertex3F& rotation)
         _rotationZ_X == rotation.z)
         return;
     
-    _transformDirty = _inverseDirty = true;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 
     _rotationX = rotation.x;
     _rotationY = rotation.y;
@@ -307,7 +308,7 @@ void Node::setRotationSkewX(float rotationX)
         return;
     
     _rotationZ_X = rotationX;
-    _transformDirty = _inverseDirty = true;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
 float Node::getRotationSkewY() const
@@ -321,7 +322,7 @@ void Node::setRotationSkewY(float rotationY)
         return;
     
     _rotationZ_Y = rotationY;
-    _transformDirty = _inverseDirty = true;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
 /// scale getter
@@ -336,9 +337,9 @@ void Node::setScale(float scale)
 {
     if (_scaleX == scale)
         return;
-    
-    _scaleX = _scaleY = scale;
-    _transformDirty = _inverseDirty = true;
+
+    _scaleX = _scaleY = _scaleZ = scale;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
 /// scaleX getter
@@ -355,7 +356,7 @@ void Node::setScale(float scaleX,float scaleY)
     
     _scaleX = scaleX;
     _scaleY = scaleY;
-    _transformDirty = _inverseDirty = true;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
 /// scaleX setter
@@ -365,7 +366,7 @@ void Node::setScaleX(float scaleX)
         return;
     
     _scaleX = scaleX;
-    _transformDirty = _inverseDirty = true;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
 /// scaleY getter
@@ -381,7 +382,7 @@ void Node::setScaleZ(float scaleZ)
         return;
     
     _scaleZ = scaleZ;
-    _transformDirty = _inverseDirty = true;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
 /// scaleY getter
@@ -397,7 +398,7 @@ void Node::setScaleY(float scaleY)
         return;
     
     _scaleY = scaleY;
-    _transformDirty = _inverseDirty = true;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
 
@@ -414,8 +415,8 @@ void Node::setPosition(const Point& position)
         return;
     
     _position = position;
-    _transformDirty = _inverseDirty = true;
-    
+    _transformUpdated = _transformDirty = _inverseDirty = true;
+
 #if CC_USE_PHYSICS
     if (_physicsBody)
     {
@@ -482,28 +483,13 @@ void Node::setPositionZ(float positionZ)
     if (_positionZ == positionZ)
         return;
     
-    _transformDirty = _inverseDirty = true;
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 
     _positionZ = positionZ;
 
     // XXX BUG
     // Global Z Order should based on the modelViewTransform
     setGlobalZOrder(positionZ);
-}
-
-void Node::setNormalizedPosition(const cocos2d::Point &position)
-{
-    _normalizedPosition = position;
-    Size s = Director::getInstance()->getVisibleSize();
-    Point p;
-    p.x = s.width * position.x;
-    p.y = s.height * position.y;
-    setPosition(p);
-}
-
-const Point& Node::getNormalizedPosition() const
-{
-    return _normalizedPosition;
 }
 
 ssize_t Node::getChildrenCount() const
@@ -520,7 +506,11 @@ bool Node::isVisible() const
 /// isVisible setter
 void Node::setVisible(bool var)
 {
-    _visible = var;
+    if(var != _visible)
+    {
+        _visible = var;
+        if(_visible) _transformUpdated = _transformDirty = _inverseDirty = true;
+    }
 }
 
 const Point& Node::getAnchorPointInPoints() const
@@ -548,7 +538,7 @@ void Node::setAnchorPoint(const Point& point)
     {
         _anchorPoint = point;
         _anchorPointInPoints = Point(_contentSize.width * _anchorPoint.x, _contentSize.height * _anchorPoint.y );
-        _transformDirty = _inverseDirty = true;
+        _transformUpdated = _transformDirty = _inverseDirty = true;
     }
 }
 
@@ -565,7 +555,7 @@ void Node::setContentSize(const Size & size)
         _contentSize = size;
 
         _anchorPointInPoints = Point(_contentSize.width * _anchorPoint.x, _contentSize.height * _anchorPoint.y );
-        _transformDirty = _inverseDirty = true;
+        _transformUpdated = _transformDirty = _inverseDirty = true;
     }
 }
 
@@ -592,7 +582,7 @@ void Node::ignoreAnchorPointForPosition(bool newValue)
     if (newValue != _ignoreAnchorPointForPosition) 
     {
 		_ignoreAnchorPointForPosition = newValue;
-		_transformDirty = _inverseDirty = true;
+        _transformUpdated = _transformDirty = _inverseDirty = true;
 	}
 }
 
@@ -608,6 +598,17 @@ void Node::setTag(int var)
     _tag = var;
 }
 
+//name getter
+std::string& Node::getName()
+{
+    return _name;
+}
+
+//name setter
+void Node::setName(const std::string& name)
+{
+    _name = name;
+}
 /// userData setter
 void Node::setUserData(void *var)
 {
@@ -710,6 +711,44 @@ Node* Node::getChildByTag(int tag)
             return child;
     }
     return nullptr;
+}
+
+Node* Node::getChildByName(const std::string& name)
+{
+    for (auto& child : _children)
+    {
+   
+        if(child->_name == name)
+        {
+            return child;
+        }
+    
+        auto found = child->getChildByName(name);
+        if(found != nullptr)
+        {
+            return found;
+        }
+    }
+    return nullptr;
+}
+
+void Node::enumerateChildrenByName(const std::string& name, const std::function<void(Node* node, bool* stop)>& callback)
+{
+    for (auto& child : _children)
+    {
+   
+        if(child->_name == name)
+        {
+            bool stop = false;
+            callback(child, &stop);
+            if(stop == true)
+            {
+                return;
+            }
+        }
+        child->enumerateChildrenByName(name, callback);
+    }
+    return;
 }
 
 /* "add" logic MUST only be on this method
@@ -846,6 +885,13 @@ void Node::removeAllChildrenWithCleanup(bool cleanup)
             child->onExit();
         }
 
+#if CC_USE_PHYSICS
+        if (child->_physicsBody != nullptr)
+        {
+            child->_physicsBody->removeFromWorld();
+        }
+#endif
+
         if (cleanup)
         {
             child->cleanup();
@@ -914,26 +960,44 @@ void Node::sortAllChildren()
     }
 }
 
+void Node::draw()
+{
+    auto renderer = Director::getInstance()->getRenderer();
+    draw(renderer, _modelViewTransform, true);
+}
 
- void Node::draw()
- {
-     //CCASSERT(0);
-     // override me
-     // Only use- this function to draw your stuff.
-     // DON'T draw your stuff outside this method
- }
+void Node::draw(Renderer* renderer, const kmMat4 &transform, bool transformUpdated)
+{
+}
 
 void Node::visit()
+{
+    auto renderer = Director::getInstance()->getRenderer();
+    kmMat4 parentTransform;
+    kmGLGetMatrix(KM_GL_MODELVIEW, &parentTransform);
+    visit(renderer, parentTransform, true);
+}
+
+void Node::visit(Renderer* renderer, const kmMat4 &parentTransform, bool parentTransformUpdated)
 {
     // quick return if not visible. children won't be drawn.
     if (!_visible)
     {
         return;
     }
-    
-    kmGLPushMatrix();
 
-    this->transform();
+    bool dirty = _transformUpdated || parentTransformUpdated;
+    if(dirty)
+        _modelViewTransform = this->transform(parentTransform);
+    _transformUpdated = false;
+
+
+    // IMPORTANT:
+    // To ease the migration to v3.0, we still support the kmGL stack,
+    // but it is deprecated and your code should not rely on it
+    kmGLPushMatrix();
+    kmGLLoadMatrix(&_modelViewTransform);
+
     int i = 0;
 
     if(!_children.empty())
@@ -945,19 +1009,19 @@ void Node::visit()
             auto node = _children.at(i);
 
             if ( node && node->_localZOrder < 0 )
-                node->visit();
+                node->visit(renderer, _modelViewTransform, dirty);
             else
                 break;
         }
         // self draw
-        this->draw();
+        this->draw(renderer, _modelViewTransform, dirty);
 
         for(auto it=_children.cbegin()+i; it != _children.cend(); ++it)
-            (*it)->visit();
+            (*it)->visit(renderer, _modelViewTransform, dirty);
     }
     else
     {
-        this->draw();
+        this->draw(renderer, _modelViewTransform, dirty);
     }
 
     // reset for next frame
@@ -966,97 +1030,139 @@ void Node::visit()
     kmGLPopMatrix();
 }
 
-void Node::transformAncestors()
+kmMat4 Node::transform(const kmMat4& parentTransform)
 {
-    if( _parent != nullptr  )
+    kmMat4 ret = this->getNodeToParentTransform();
+    kmMat4Multiply(&ret, &parentTransform, &ret);
+
+    return ret;
+}
+
+
+#if CC_ENABLE_SCRIPT_BINDING
+
+static bool sendNodeEventToJS(Node* node, int action)
+{
+    auto scriptEngine = ScriptEngineManager::getInstance()->getScriptEngine();
+
+    if (scriptEngine->isCalledFromScript())
     {
-        _parent->transformAncestors();
-        _parent->transform();
+        scriptEngine->setCalledFromScript(false);
     }
+    else
+    {
+        BasicScriptData data(node,(void*)&action);
+        ScriptEvent scriptEvent(kNodeEvent,(void*)&data);
+        if (scriptEngine->sendEvent(&scriptEvent))
+            return true;
+    }
+    
+    return false;
 }
 
-void Node::transform()
+static void sendNodeEventToLua(Node* node, int action)
 {
-    kmMat4 transfrom4x4 = this->getNodeToParentTransform();
-
-    kmGLMultMatrix( &transfrom4x4 );
-
-    // saves the MV matrix
-    kmGLGetMatrix(KM_GL_MODELVIEW, &_modelViewTransform);
+    auto scriptEngine = ScriptEngineManager::getInstance()->getScriptEngine();
+    
+    BasicScriptData data(node,(void*)&action);
+    ScriptEvent scriptEvent(kNodeEvent,(void*)&data);
+    
+    scriptEngine->sendEvent(&scriptEvent);
 }
+
+#endif
 
 void Node::onEnter()
 {
-    _isTransitionFinished = false;
-
 #if CC_ENABLE_SCRIPT_BINDING
-    if (_scriptType != kScriptTypeNone)
+    if (_scriptType == kScriptTypeJavascript)
     {
-        int action = kNodeOnEnter;
-        BasicScriptData data(this,(void*)&action);
-        ScriptEvent scriptEvent(kNodeEvent,(void*)&data);
-        ScriptEngineManager::getInstance()->getScriptEngine()->sendEvent(&scriptEvent);
+        if (sendNodeEventToJS(this, kNodeOnEnter))
+            return;
     }
 #endif
     
+    _isTransitionFinished = false;
+    
     for( const auto &child: _children)
         child->onEnter();
-
+    
     this->resume();
     
     _running = true;
+    
+#if CC_ENABLE_SCRIPT_BINDING
+    if (_scriptType == kScriptTypeLua)
+    {
+        sendNodeEventToLua(this, kNodeOnEnter);
+    }
+#endif
 }
 
 void Node::onEnterTransitionDidFinish()
 {
-    _isTransitionFinished = true;
-
 #if CC_ENABLE_SCRIPT_BINDING
-    if (_scriptType != kScriptTypeNone)
+    if (_scriptType == kScriptTypeJavascript)
     {
-        int action = kNodeOnEnterTransitionDidFinish;
-        BasicScriptData data(this,(void*)&action);
-        ScriptEvent scriptEvent(kNodeEvent,(void*)&data);
-        ScriptEngineManager::getInstance()->getScriptEngine()->sendEvent(&scriptEvent);
+        if (sendNodeEventToJS(this, kNodeOnEnterTransitionDidFinish))
+            return;
     }
 #endif
-    
+
+    _isTransitionFinished = true;
     for( const auto &child: _children)
         child->onEnterTransitionDidFinish();
+    
+#if CC_ENABLE_SCRIPT_BINDING
+    if (_scriptType == kScriptTypeLua)
+    {
+        sendNodeEventToLua(this, kNodeOnEnterTransitionDidFinish);
+    }
+#endif
 }
 
 void Node::onExitTransitionDidStart()
 {
+#if CC_ENABLE_SCRIPT_BINDING
+    if (_scriptType == kScriptTypeJavascript)
+    {
+        if (sendNodeEventToJS(this, kNodeOnExitTransitionDidStart))
+            return;
+    }
+#endif
+    
     for( const auto &child: _children)
         child->onExitTransitionDidStart();
-
+    
 #if CC_ENABLE_SCRIPT_BINDING
-    if (_scriptType != kScriptTypeNone)
+    if (_scriptType == kScriptTypeLua)
     {
-        int action = kNodeOnExitTransitionDidStart;
-        BasicScriptData data(this,(void*)&action);
-        ScriptEvent scriptEvent(kNodeEvent,(void*)&data);
-        ScriptEngineManager::getInstance()->getScriptEngine()->sendEvent(&scriptEvent);
+        sendNodeEventToLua(this, kNodeOnExitTransitionDidStart);
     }
 #endif
 }
 
 void Node::onExit()
 {
+#if CC_ENABLE_SCRIPT_BINDING
+    if (_scriptType == kScriptTypeJavascript)
+    {
+        if (sendNodeEventToJS(this, kNodeOnExit))
+            return;
+    }
+#endif
+    
     this->pause();
-
+    
     _running = false;
-
+    
     for( const auto &child: _children)
         child->onExit();
     
 #if CC_ENABLE_SCRIPT_BINDING
-    if (_scriptType != kScriptTypeNone)
+    if (_scriptType == kScriptTypeLua)
     {
-        int action = kNodeOnExit;
-        BasicScriptData data(this,(void*)&action);
-        ScriptEvent scriptEvent(kNodeEvent,(void*)&data);
-        ScriptEngineManager::getInstance()->getScriptEngine()->sendEvent(&scriptEvent);
+        sendNodeEventToLua(this, kNodeOnExit);
     }
 #endif
 }
@@ -1358,20 +1464,25 @@ void Node::setNodeToParentTransform(const kmMat4& transform)
 {
     _transform = transform;
     _transformDirty = false;
+    _transformUpdated = true;
 }
 
 void Node::setAdditionalTransform(const AffineTransform& additionalTransform)
 {
-    CGAffineToGL(additionalTransform, _additionalTransform.mat);
-    _transformDirty = true;
-    _useAdditionalTransform = true;
+    kmMat4 tmp;
+    CGAffineToGL(additionalTransform, tmp.mat);
+    setAdditionalTransform(&tmp);
 }
 
-void Node::setAdditionalTransform(const kmMat4& additionalTransform)
+void Node::setAdditionalTransform(kmMat4* additionalTransform)
 {
-    _additionalTransform = additionalTransform;
-    _transformDirty = true;
-    _useAdditionalTransform = true;
+    if(additionalTransform == nullptr) {
+        _useAdditionalTransform = false;
+    } else {
+        _additionalTransform = *additionalTransform;
+        _useAdditionalTransform = true;
+    }
+    _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
 
