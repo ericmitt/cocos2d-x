@@ -39,61 +39,14 @@ using namespace std;
 
 NS_CC_BEGIN
 
-static map<std::string, std::unique_ptr<FontBufferInfo>> s_fontsNames;
+static map<std::string, FontBufferInfo> s_fontsNames;
 static FT_Library s_FreeTypeLibrary = nullptr;
 
-class FontBufferInfo
+CCFreeTypeFont::CCFreeTypeFont() :
+    m_space(" ")
 {
-public:
-    FontBufferInfo(unsigned char* pBuffer, unsigned long size, std::string name)
-        : m_refCount(1)
-        , m_pBuffer(pBuffer)
-        , m_size(size)
-        , m_name(name)
-    {
-    }
-
-    ~FontBufferInfo()
-    {
-        delete [] m_pBuffer;
-    }
-
-    void addRef() 
-    {
-        m_refCount++;
-    }
-
-    void release() 
-    {
-        m_refCount--;
-        if(m_refCount == 0)
-        {
-            auto iter = s_fontsNames.find(m_name);
-            if(iter != s_fontsNames.end()) 
-            {
-                s_fontsNames.erase(iter);
-            }
-        }
-    }
-
-    unsigned char* getBuffer() { return m_pBuffer; };
-    const unsigned long getSize() const { return m_size; };
-    const std::string&  getName() const{ return m_name; } ;
-
-private:
-	unsigned char*  m_pBuffer;  
-    unsigned long  m_refCount;  
-    unsigned long  m_size;  
-    std::string  m_name;  
-};
-
-
-CCFreeTypeFont::CCFreeTypeFont() 
-    : m_space(" ")
-    , m_pFontInfo(nullptr)
-    , m_face(nullptr)
-{
-    Size size =  Director::getInstance()->getWinSizeInPixels();
+	m_face = nullptr;
+    Size size = Director::getInstance()->getWinSizeInPixels();
     m_windowWidth = (int)size.width;
 }
 
@@ -104,53 +57,33 @@ CCFreeTypeFont::~CCFreeTypeFont()
 		FT_Done_Face(m_face);
 	}
 
-    if(m_pFontInfo)
-    {
-        m_pFontInfo->release();
-    }
 }
 
-bool CCFreeTypeFont::initWithString(
-	const char* pText, 
-	const char* pFontName,
-	int         nSize,
-    int         inWidth,
-    int         inHeight )
+unsigned char* CCFreeTypeFont::initWithString(const char * text, const FontDefinition& textDefinition, Device::TextAlign align, int &width, int &height, ssize_t& dataLength)
 {
 	FT_Error error = 0;
 	ssize_t size = 0;
     unsigned char* pBuffer = nullptr;
 
-    m_inWidth = inWidth;
-    m_inHeight = inHeight;
-
-    if(m_pFontInfo && m_pFontInfo->getName() != pFontName)
-    {
-        m_pFontInfo->release();
-        m_pFontInfo = nullptr;
-    }
+    m_inWidth = 0;
+    m_inHeight = 0;
 
     // check the cache for the font file buffer
-    auto iter = s_fontsNames.find(pFontName);
-    if(iter != s_fontsNames.end()) 
+    auto ittFontNames = s_fontsNames.find(textDefinition._fontName);
+    if(ittFontNames != s_fontsNames.end()) 
     {
-        pBuffer = iter->second->getBuffer();
-        size = iter->second->getSize();
-        if(m_pFontInfo == nullptr)
-        {
-            m_pFontInfo = iter->second.get();
-            m_pFontInfo->addRef();
-        }
+        pBuffer = ittFontNames->second.pBuffer;
+        size = ittFontNames->second.size;
     }
     
 	if(!pBuffer)
     {
         // attempt to load font from Resources fonts folder
-        pBuffer = loadFont(pFontName, &size);
+        pBuffer = loadFont(textDefinition._fontName.c_str(), &size);
 	    if(!pBuffer)
 	    {
          // attempt to load font from System fonts folder
-           pBuffer = loadSystemFont(pFontName, &size);
+            pBuffer = loadSystemFont(textDefinition._fontName.c_str(), &size);
 	    }
         if(!pBuffer)
         {
@@ -167,13 +100,14 @@ bool CCFreeTypeFont::initWithString(
             return false;
 
         // cache the font file buffer
-        s_fontsNames[pFontName] = unique_ptr<FontBufferInfo>(new FontBufferInfo(pBuffer, size, pFontName));
-        m_pFontInfo = s_fontsNames[pFontName].get();
-
+        FontBufferInfo info;
+        info.pBuffer = pBuffer;
+        info.size = size;
+        s_fontsNames[textDefinition._fontName]=info;
     }
 
-    m_fontName = pFontName;
-	m_text = pText;
+    m_fontName = textDefinition._fontName;
+    m_text = text;
 
 	if(!s_FreeTypeLibrary)
 	{
@@ -192,15 +126,18 @@ bool CCFreeTypeFont::initWithString(
 
 
     if(!error)
-	    error = FT_Set_Char_Size(m_face,nSize<<6,nSize<<6,72,72);
+        error = FT_Set_Char_Size(m_face, textDefinition._fontSize << 6, textDefinition._fontSize << 6, 72, 72);
 
     if(!error)
-	    error = initGlyphs(pText);
+	    error = initGlyphs(text);
 
-	return error == 0;
+    if (!error)
+        return getBitmap(align, width, height, dataLength);
+
+	return nullptr;
 }
 
-unsigned char* CCFreeTypeFont::getBitmap(Device::TextAlign eAlignMask, int* outWidth, int* outHeight)
+unsigned char* CCFreeTypeFont::getBitmap(Device::TextAlign eAlignMask, int &width, int &height, ssize_t& dataLength)
 {
     int lineNumber = 0;
     int totalLines = m_lines.size();
@@ -210,20 +147,22 @@ unsigned char* CCFreeTypeFont::getBitmap(Device::TextAlign eAlignMask, int* outW
     
     unsigned int size = m_width * m_height * 4;
     unsigned char* pBuffer = new unsigned char[size];
+    dataLength = size;
     if(!pBuffer)
     {
+        dataLength = 0;
         return nullptr;
     }
     memset(pBuffer, 0, size);
 
     for (auto line = m_lines.begin() ; line != m_lines.end(); ++line)
     {
-        FT_Vector pen = getPenForAlignment(line->get(), eAlignMask, lineNumber, totalLines);
-        drawText(line->get(), pBuffer, &pen);
+        FT_Vector pen = getPenForAlignment(*line, eAlignMask, lineNumber, totalLines);
+        drawText(*line, pBuffer, &pen);
         lineNumber++;
     }
-    *outWidth = m_width;
-    *outHeight = m_height;
+    width = m_width;
+    height = m_height;
 
     return pBuffer;
 }
@@ -301,12 +240,13 @@ void  CCFreeTypeFont::drawText(FTLineInfo* pInfo, unsigned char* pBuffer, FT_Vec
     auto glyphs = pInfo->glyphs;
     for (auto glyph = glyphs.begin() ; glyph != glyphs.end(); ++glyph)
     {
-        FT_Error error = FT_Glyph_To_Bitmap(&glyph->image, FT_RENDER_MODE_NORMAL, 0, 1);
+        FT_Glyph image = glyph->image;
+        FT_Error error = FT_Glyph_To_Bitmap(&image, FT_RENDER_MODE_NORMAL, 0, 1);
         if (!error)
         {
-            FT_BitmapGlyph  bit = (FT_BitmapGlyph)glyph->image;
+            FT_BitmapGlyph  bit = (FT_BitmapGlyph)image;
             draw_bitmap(pBuffer, &bit->bitmap, pen->x + glyph->pos.x + bit->left,pen->y - bit->top);
-            FT_Done_Glyph(glyph->image);
+            FT_Done_Glyph(image);
         }
     }
 }
@@ -343,10 +283,9 @@ void CCFreeTypeFont::endLine()
 {
     if(m_currentLine)
     {
-        m_lines.push_back(unique_ptr<FTLineInfo>(m_currentLine));
-        m_textWidth = std::max(m_textWidth,static_cast<int>(m_currentLine->bbox.xMax - m_currentLine->bbox.xMin));
+        m_lines.push_back(m_currentLine);
+        m_textWidth = std::max((long)m_textWidth,m_currentLine->bbox.xMax - m_currentLine->bbox.xMin);
         m_textHeight += m_lineHeight;
-        m_currentLine = nullptr;
     }
 }
 
@@ -607,9 +546,9 @@ unsigned char* CCFreeTypeFont::loadFont(const char *pFontName, ssize_t *size)
         lowerCase[i] = tolower(lowerCase[i]);
     }
 
-    if (std::string::npos == lowerCase.find("fonts/"))
+    if (std::string::npos == lowerCase.find("fonts\\"))
     {
-        path = "fonts/";
+        path = "fonts\\";
         path += pFontName;
     }
 

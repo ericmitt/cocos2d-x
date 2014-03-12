@@ -38,7 +38,7 @@ using namespace Windows::Foundation;
 
 NS_CC_BEGIN
 
-//CCFreeTypeFont sFT;
+CCFreeTypeFont sFT;
 
 int Device::getDPI()
 {
@@ -127,8 +127,15 @@ void Device::setAccelerometerInterval(float interval)
 Data Device::getTextureDataForText(const char * text,const FontDefinition& textDefinition,TextAlign align,int &width,int &height)
 {
     Data ret;
+    ssize_t dataLen;
 
-    //ret.fastSet(dataBuf,dataLen);
+    unsigned char* data = sFT.initWithString(text, textDefinition, align, width, height, dataLen);
+
+    if (data)
+    {
+        ret.fastSet(data, dataLen);
+    }
+
     return ret;
 }
 

@@ -44,25 +44,33 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
-
-typedef struct TGlyph
+typedef struct TGlyph_
 {
 	FT_UInt    index;  // glyph index
     FT_Vector  pos;    // glyph origin on the baseline
 	FT_Glyph   image;  // glyph image
 } TGlyph, *PGlyph;
 
+typedef struct FontBufferInfo
+{
+	unsigned char*  pBuffer;  
+	unsigned long  size;  
+} FontBufferInfo;
+
+typedef struct FTWordInfo
+{
+	std::vector<TGlyph> glyphs; // glyphs for the word
+	FT_BBox             bbox;   // bounding box containing all of the glyphs in the word
+} FTWordInfo;
 
 
-struct FTLineInfo
+typedef struct FTLineInfo
 {
 	std::vector<TGlyph> glyphs;     // glyphs for the line text
 	FT_BBox             bbox;       // bounding box containing all of the glyphs in the line
     unsigned int        width;      // width of the line     
     FT_Vector           pen;        // current pen position
-};
-
-class FontBufferInfo;
+} FTLineInfo;
 
 
 class CC_DLL CCFreeTypeFont
@@ -71,21 +79,15 @@ public:
     CCFreeTypeFont();
     ~CCFreeTypeFont();
 
-	bool initWithString(
-        const char* pText, 
-        const char* pFontName,
-        int         nSize,
-        int         width,
-        int         height
-    );
+    unsigned char* initWithString(const char * text, const FontDefinition& textDefinition, Device::TextAlign align, int &width, int &height, ssize_t& dataLength);
 
-    unsigned char* getBitmap(
-        Device::TextAlign eAlignMask,
-        int* outWidth, 
-        int* outHeight
-    );
+
 
 private:
+
+    unsigned char* getBitmap(Device::TextAlign eAlignMask, int &width, int &height, ssize_t& dataLength);
+
+
 	unsigned char* loadFont(const char *pFontName, ssize_t* size);
 
     unsigned char* CCFreeTypeFont::loadSystemFont(const char *pFontName, ssize_t* size);
@@ -112,7 +114,7 @@ private:
 	std::string		m_text;
 	std::string		m_fontName;
 	FT_Face			m_face;
-	std::vector<std::shared_ptr<FTLineInfo>> m_lines;
+	std::vector<FTLineInfo*> m_lines;
 
     int             m_inWidth;      // requested width of text box
     int             m_inHeight;     // requested height of text box
@@ -124,7 +126,6 @@ private:
     int             m_windowWidth;  // the width of the window
 
     FTLineInfo*     m_currentLine;  // the current line object to add words to.
-    FontBufferInfo* m_pFontInfo;
 
 };
 
