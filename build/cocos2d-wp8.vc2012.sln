@@ -32,8 +32,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCpp", "..\tests\proj.wp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCppComponent", "..\tests\proj.wp8-xaml\TestCpp\TestCppComponent\TestCppComponent.vcxproj", "{615C50C6-A550-4A32-93ED-A515EA63C21D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libTests", "..\tests\proj.wp8\libTests.vcxproj", "{964D61FE-20C5-448C-9F69-4E2FE38818C9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -354,26 +352,6 @@ Global
 		{615C50C6-A550-4A32-93ED-A515EA63C21D}.Release|x64.ActiveCfg = Release|Win32
 		{615C50C6-A550-4A32-93ED-A515EA63C21D}.Release|x86.ActiveCfg = Release|Win32
 		{615C50C6-A550-4A32-93ED-A515EA63C21D}.Release|x86.Build.0 = Release|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Debug|ARM.ActiveCfg = Debug|ARM
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Debug|ARM.Build.0 = Debug|ARM
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Debug|Win32.ActiveCfg = Debug|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Debug|Win32.Build.0 = Debug|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Debug|x64.ActiveCfg = Debug|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Debug|x86.ActiveCfg = Debug|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Debug|x86.Build.0 = Debug|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Release|Any CPU.ActiveCfg = Release|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Release|ARM.ActiveCfg = Release|ARM
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Release|ARM.Build.0 = Release|ARM
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Release|Win32.ActiveCfg = Release|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Release|Win32.Build.0 = Release|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Release|x64.ActiveCfg = Release|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Release|x86.ActiveCfg = Release|Win32
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -383,6 +361,5 @@ Global
 		{9FE94F6D-4211-4A4B-9AC3-F0F017E995DC} = {C4D0E8C2-9101-45C6-9EE8-FECF9A50D029}
 		{C37AD576-8E20-4919-A998-9BE2DE802264} = {3A5DC6A7-273C-48F5-B526-761FEF434DD6}
 		{615C50C6-A550-4A32-93ED-A515EA63C21D} = {3A5DC6A7-273C-48F5-B526-761FEF434DD6}
-		{964D61FE-20C5-448C-9F69-4E2FE38818C9} = {3A5DC6A7-273C-48F5-B526-761FEF434DD6}
 	EndGlobalSection
 EndGlobal
