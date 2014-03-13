@@ -106,7 +106,7 @@ static bool isFloat( std::string myString ) {
     return iss.eof() && !iss.fail(); 
 }
 
-#if CC_TARGET_PLATFORM != CC_PLATFORM_WINRT && CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+#if CC_TARGET_PLATFORM != CC_PLATFORM_WINRT && CC_TARGET_PLATFORM != CC_PLATFORM_WP8
 
 // helper free functions
 
