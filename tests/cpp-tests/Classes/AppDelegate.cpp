@@ -102,7 +102,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     fileUtils->setSearchPaths(searchPaths);
 
 //    glview->setDesignResolutionSize(screenSize.width, screenSize.height, ResolutionPolicy::NO_BORDER);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::SHOW_ALL);
+#else
     glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
+#endif
 
     auto scene = Scene::create();
     auto layer = new TestController();
