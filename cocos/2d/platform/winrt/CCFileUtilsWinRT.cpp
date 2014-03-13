@@ -33,12 +33,28 @@ NS_CC_BEGIN
 
 static std::string s_pszResourcePath;
 
+// D:\aaa\bbb\ccc\ddd\abc.txt --> D:/aaa/bbb/ccc/ddd/abc.txt
+static inline std::string convertPathFormatToUnixStyle(const std::string& path)
+{
+    std::string ret = path;
+    int len = ret.length();
+    for (int i = 0; i < len; ++i)
+    {
+        if (ret[i] == '\\')
+        {
+            ret[i] = '/';
+        }
+    }
+    return ret;
+}
+
+
 static void _checkPath()
 {
     if (s_pszResourcePath.empty())
     {
 		// TODO: needs to be tested
-		s_pszResourcePath = CCFileUtilsWinRT::getAppPath() + '\\' + "Assets\\Resources" + '\\';
+		s_pszResourcePath = convertPathFormatToUnixStyle(CCFileUtilsWinRT::getAppPath() + '\\' + "Assets\\Resources" + '\\');
     }
 }
 
@@ -69,25 +85,22 @@ bool CCFileUtilsWinRT::init()
     return FileUtils::init();
 }
 
-std::string CCFileUtilsWinRT::getFullPathForDirectoryAndFilename(const std::string& directory, const std::string& filename)
+std::string CCFileUtilsWinRT::getPathForFilename(const std::string& filename, const std::string& resolutionDirectory, const std::string& searchPath)
 {
-    // get directory+filename, safely adding '/' as necessary 
-    std::string ret = directory;
-    if (directory.size() && directory[directory.size()-1] != '\\'){
-        ret += '\\';
-    }
-    ret += filename;
-    
-    // if the file doesn't exist, return an empty string
-    if (!isFileExist(ret)) {
-        ret = "";
-    }
-    return ret;
+    std::string unixFileName = convertPathFormatToUnixStyle(filename);
+    std::string unixResolutionDirectory = convertPathFormatToUnixStyle(resolutionDirectory);
+    std::string unixSearchPath = convertPathFormatToUnixStyle(searchPath);
+
+    return FileUtils::getPathForFilename(unixFileName, unixResolutionDirectory, unixSearchPath);
 }
 
+std::string CCFileUtilsWinRT::getFullPathForDirectoryAndFilename(const std::string& strDirectory, const std::string& strFilename)
+{
+    std::string unixDirectory = convertPathFormatToUnixStyle(strDirectory);
+    std::string unixFilename = convertPathFormatToUnixStyle(strFilename);
+    return FileUtils::getFullPathForDirectoryAndFilename(unixDirectory, unixFilename);
+}
 
-
-#if 1
 bool CCFileUtilsWinRT::isFileExist(const std::string& strFilePath) const
 {
     bool ret = false;
@@ -108,47 +121,7 @@ bool CCFileUtilsWinRT::isFileExist(const std::string& strFilePath) const
     }
     return ret;
 }
-#else
 
-bool CCFileUtilsWinRT::isFileExist(const std::string& strFilePath)
-{
-	WIN32_FIND_DATA FindFileData;
-    HANDLE hFind;
-
-	std::string strPath = strFilePath;
-    if (!isAbsolutePath(strPath))
-    { // Not absolute path, add the default root path at the beginning.
-        strPath.insert(0, m_strDefaultResRootPath);
-    }
-
-#if 0
-    std::string pathKey = strPath;
-    pathKey = CCFileUtils::sharedFileUtils()->fullPathForFilename(pathKey.c_str());
-    std::replace( pathKey.begin(), pathKey.end(), '/', '\\'); 
-
-#endif // 0
-
-
-	hFind = FindFirstFileEx(CCUtf8ToUnicode(strPath.c_str(), -1).c_str(), FindExInfoStandard, &FindFileData,
-             FindExSearchNameMatch, NULL, 0);
-
-
-    return hFind != INVALID_HANDLE_VALUE;
-#if 0
-    if (0 == strFilePath.length())
-    {
-        return false;
-    }
-    
-    std::string strPath = strFilePath;
-    if (!isAbsolutePath(strPath))
-    { // Not absolute path, add the default root path at the beginning.
-        strPath.insert(0, m_strDefaultResRootPath);
-    }
-    return GetFileAttributesA(strPath.c_str()) != -1 ? true : false;
-#endif
-}
-#endif
 
 bool CCFileUtilsWinRT::isAbsolutePath(const std::string& strPath) const
 {
@@ -164,13 +137,13 @@ bool CCFileUtilsWinRT::isAbsolutePath(const std::string& strPath) const
 string CCFileUtilsWinRT::getWritablePath() const
 {
 	auto localFolderPath = Windows::Storage::ApplicationData::Current->LocalFolder->Path;
-	return std::string(PlatformStringToString(localFolderPath)) + '\\';
+	return convertPathFormatToUnixStyle(std::string(PlatformStringToString(localFolderPath)) + '\\');
 }
 
 string CCFileUtilsWinRT::getAppPath()
 {
 	Windows::ApplicationModel::Package^ package = Windows::ApplicationModel::Package::Current;
-	return std::string(PlatformStringToString(package->InstalledLocation->Path));
+	return convertPathFormatToUnixStyle(std::string(PlatformStringToString(package->InstalledLocation->Path)));
 }
 
 NS_CC_END

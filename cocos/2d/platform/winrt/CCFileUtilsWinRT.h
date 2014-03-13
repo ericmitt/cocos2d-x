@@ -49,7 +49,8 @@ public:
     virtual std::string getWritablePath() const;
     virtual bool isFileExist(const std::string& strFilePath) const;
     virtual bool isAbsolutePath(const std::string& strPath) const;
-    virtual std::string getFullPathForDirectoryAndFilename(const std::string& directory, const std::string& filename) override;
+    virtual std::string  getPathForFilename(const std::string& filename, const std::string& resolutionDirectory, const std::string& searchPath) override;
+    virtual std::string getFullPathForDirectoryAndFilename(const std::string& strDirectory, const std::string& strFilename) override;
 	
 	static std::string getAppPath();
 
