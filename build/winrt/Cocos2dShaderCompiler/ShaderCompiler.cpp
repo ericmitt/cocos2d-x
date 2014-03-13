@@ -66,6 +66,7 @@ void ShaderCompiler::applicationWillEnterForeground()
 
 bool ShaderCompiler::Compile()
 {
+
     bool result = InitializeAngle(ANGLE_D3D_FEATURE_LEVEL::ANGLE_D3D_FEATURE_LEVEL_9_3);
     Director::getInstance()->setAnimationInterval(1.0 / 60.0);
     CCShaderCache::getInstance()->loadDefaultShaders();

@@ -176,7 +176,6 @@
     <ClCompile Include="..\GUI\CCScrollView\CCTableViewCell.cpp" />
     <ClCompile Include="..\physics-nodes\CCPhysicsDebugNode.cpp" />
     <ClCompile Include="..\physics-nodes\CCPhysicsSprite.cpp" />
-    <ClCompile Include="EditBoxEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GUI\CCControlExtension\CCControl.h" />
@@ -202,6 +201,5 @@
     <ClInclude Include="..\GUI\CCScrollView\CCTableViewCell.h" />
     <ClInclude Include="..\physics-nodes\CCPhysicsDebugNode.h" />
     <ClInclude Include="..\physics-nodes\CCPhysicsSprite.h" />
-    <ClInclude Include="EditBoxEvent.h" />
   </ItemGroup>
 </Project>

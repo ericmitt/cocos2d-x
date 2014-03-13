@@ -602,6 +602,9 @@
     <ClCompile Include="..\math\kazmath\kazmath\vec3.c">
       <Filter>kazmath</Filter>
     </ClCompile>
+    <ClCompile Include="..\math\kazmath\kazmath\ray3.c">
+      <Filter>kazmath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\physics\CCPhysicsBody.h">
@@ -1222,6 +1225,9 @@
       <Filter>kazmath</Filter>
     </ClInclude>
     <ClInclude Include="..\math\kazmath\kazmath\vec2.h">
+      <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\math\kazmath\kazmath\ray3.h">
       <Filter>kazmath</Filter>
     </ClInclude>
   </ItemGroup>

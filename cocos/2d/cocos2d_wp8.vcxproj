@@ -288,6 +288,12 @@
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
+    <ClCompile Include="..\math\kazmath\kazmath\ray3.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">CompileAsCpp</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">CompileAsCpp</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
     <ClCompile Include="..\math\kazmath\kazmath\utility.c">
       <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</CompileAsWinRT>
       <CompileAsWinRT Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</CompileAsWinRT>
@@ -512,6 +518,7 @@
     <ClInclude Include="..\math\kazmath\kazmath\plane.h" />
     <ClInclude Include="..\math\kazmath\kazmath\quaternion.h" />
     <ClInclude Include="..\math\kazmath\kazmath\ray2.h" />
+    <ClInclude Include="..\math\kazmath\kazmath\ray3.h" />
     <ClInclude Include="..\math\kazmath\kazmath\utility.h" />
     <ClInclude Include="..\math\kazmath\kazmath\vec2.h" />
     <ClInclude Include="..\math\kazmath\kazmath\vec3.h" />
