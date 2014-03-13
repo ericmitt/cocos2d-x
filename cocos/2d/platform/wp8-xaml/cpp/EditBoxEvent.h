@@ -25,7 +25,7 @@ THE SOFTWARE.
 #ifndef __EditBoxEVENT_H__
 #define __EditBoxEVENT_H__
 
-#include "platform/wp8-xaml/InputEvent.h"
+#include "platform/wp8-xaml/cpp/InputEvent.h"
 #include <agile.h>
 
 
