@@ -42,21 +42,33 @@ NS_CC_BEGIN
 static map<std::string, FontBufferInfo> s_fontsNames;
 static FT_Library s_FreeTypeLibrary = nullptr;
 
-CCFreeTypeFont::CCFreeTypeFont() :
-    m_space(" ")
+CCFreeTypeFont::CCFreeTypeFont() 
+    :m_space(" ")
+    , m_face(nullptr)
 {
-	m_face = nullptr;
-    Size size = Director::getInstance()->getWinSizeInPixels();
-    m_windowWidth = (int)size.width;
+
 }
 
 CCFreeTypeFont::~CCFreeTypeFont() 
 {
+    reset();
+}
+
+void CCFreeTypeFont::reset()
+{
+    for(auto line:m_lines)
+    {
+        line->glyphs.clear();
+        delete line;
+    }
+
+    m_lines.clear();
+
 	if(m_face)
 	{
 		FT_Done_Face(m_face);
+	    m_face = nullptr;
 	}
-
 }
 
 unsigned char* CCFreeTypeFont::initWithString(const char * text, const FontDefinition& textDefinition, Device::TextAlign align, int &width, int &height, ssize_t& dataLength)
@@ -64,17 +76,24 @@ unsigned char* CCFreeTypeFont::initWithString(const char * text, const FontDefin
 	FT_Error error = 0;
 	ssize_t size = 0;
     unsigned char* pBuffer = nullptr;
+    unsigned char* data = nullptr;
 
-    m_inWidth = 0;
-    m_inHeight = 0;
+    Size winSize = Director::getInstance()->getWinSizeInPixels();
+    m_windowWidth = (int)winSize.width;
 
+    m_inWidth = textDefinition._dimensions.width;
+    m_inHeight = textDefinition._dimensions.height;
+
+#if 0
     // check the cache for the font file buffer
     auto ittFontNames = s_fontsNames.find(textDefinition._fontName);
     if(ittFontNames != s_fontsNames.end()) 
     {
         pBuffer = ittFontNames->second.pBuffer;
         size = ittFontNames->second.size;
-    }
+    }  
+#endif // 0
+
     
 	if(!pBuffer)
     {
@@ -97,13 +116,18 @@ unsigned char* CCFreeTypeFont::initWithString(const char * text, const FontDefin
         }
 
         if(!pBuffer) // font not found!
+        {
             return false;
+        }
 
+#if 0
         // cache the font file buffer
         FontBufferInfo info;
         info.pBuffer = pBuffer;
         info.size = size;
-        s_fontsNames[textDefinition._fontName]=info;
+        s_fontsNames[textDefinition._fontName]=info;  
+#endif // 0
+
     }
 
     m_fontName = textDefinition._fontName;
@@ -126,15 +150,25 @@ unsigned char* CCFreeTypeFont::initWithString(const char * text, const FontDefin
 
 
     if(!error)
+    {
         error = FT_Set_Char_Size(m_face, textDefinition._fontSize << 6, textDefinition._fontSize << 6, 72, 72);
+    }
 
     if(!error)
+    {
 	    error = initGlyphs(text);
+    }
 
     if (!error)
-        return getBitmap(align, width, height, dataLength);
+    {
+        data = getBitmap(align, width, height, dataLength);
+    }
 
-	return nullptr;
+    delete [] pBuffer;
+
+    reset();
+
+	return data;
 }
 
 unsigned char* CCFreeTypeFont::getBitmap(Device::TextAlign eAlignMask, int &width, int &height, ssize_t& dataLength)
