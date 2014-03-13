@@ -34,12 +34,11 @@ THE SOFTWARE.
 
 #include <wrl/client.h>
 #include <d3d11_1.h>
-#include "Direct3DBase.h"
 
 #include <agile.h>
 #include <DirectXMath.h>
 #include "kazmath/mat4.h"
-#include "../wp8-xaml/InputEvent.h"
+#include "../wp8-xaml/cpp/InputEvent.h"
 
 #include <EGL/egl.h>
 
