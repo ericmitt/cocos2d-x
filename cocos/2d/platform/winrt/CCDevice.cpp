@@ -51,58 +51,56 @@ void Device::setAccelerometerEnabled(bool isEnabled)
     static Windows::Foundation::EventRegistrationToken sToken;
 
     auto accelerometer = Accelerometer::GetDefault();
-	if (isEnabled)
+	if (isEnabled && accelerometer)
 	{
 		setAccelerometerInterval(0.0f);
-		if(accelerometer != nullptr){
 
-			sToken = accelerometer->ReadingChanged += ref new TypedEventHandler
-				<Accelerometer^,AccelerometerReadingChangedEventArgs^>
-				([=](Accelerometer^, AccelerometerReadingChangedEventArgs^)
-			{
-				AccelerometerReading^ reading = accelerometer->GetCurrentReading();
-                cocos2d::Acceleration acc;
-				acc.x = reading->AccelerationX;
+		sToken = accelerometer->ReadingChanged += ref new TypedEventHandler
+			<Accelerometer^,AccelerometerReadingChangedEventArgs^>
+			([=](Accelerometer^, AccelerometerReadingChangedEventArgs^)
+		{
+			AccelerometerReading^ reading = accelerometer->GetCurrentReading();
+            cocos2d::Acceleration acc;
+			acc.x = reading->AccelerationX;
+			acc.y = reading->AccelerationY;
+			acc.z = reading->AccelerationZ;
+            acc.timestamp = 0;
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WP8
+            auto orientation = GLView::sharedOpenGLView()->getDeviceOrientation();
+
+            switch (orientation)
+            {
+            case DisplayOrientations::Portrait:
+ 				acc.x = reading->AccelerationX;
 				acc.y = reading->AccelerationY;
-				acc.z = reading->AccelerationZ;
-                acc.timestamp = 0;
-
- #if CC_TARGET_PLATFORM == CC_PLATFORM_WP8
-                auto orientation = GLView::sharedOpenGLView()->getDeviceOrientation();
-
-                switch (orientation)
-                {
-                case DisplayOrientations::Portrait:
- 				    acc.x = reading->AccelerationX;
-				    acc.y = reading->AccelerationY;
-                    break;
+                break;
                 
-                case DisplayOrientations::Landscape:
-				    acc.x = -reading->AccelerationY;
-				    acc.y = reading->AccelerationX;
-                    break;
+            case DisplayOrientations::Landscape:
+				acc.x = -reading->AccelerationY;
+				acc.y = reading->AccelerationX;
+                break;
                 
-                case DisplayOrientations::PortraitFlipped:
-				    acc.x = -reading->AccelerationX;
-				    acc.y = reading->AccelerationY;
-                    break;
+            case DisplayOrientations::PortraitFlipped:
+				acc.x = -reading->AccelerationX;
+				acc.y = reading->AccelerationY;
+                break;
                 
-                case DisplayOrientations::LandscapeFlipped:
- 				    acc.x = reading->AccelerationY;
-				    acc.y = reading->AccelerationX;
-                      break;
+            case DisplayOrientations::LandscapeFlipped:
+ 				acc.x = reading->AccelerationY;
+				acc.y = reading->AccelerationX;
+                    break;
               
-                default:
-  				    acc.x = reading->AccelerationX;
-				    acc.y = reading->AccelerationY;
-                    break;
-               }
+            default:
+  				acc.x = reading->AccelerationX;
+				acc.y = reading->AccelerationY;
+                break;
+            }
 #endif
-                cocos2d::EventAcceleration accEvent(acc);
-                auto dispatcher = cocos2d::Director::getInstance()->getEventDispatcher();
-                dispatcher->dispatchEvent(&accEvent);
-			});
-		}
+            cocos2d::EventAcceleration accEvent(acc);
+            auto dispatcher = cocos2d::Director::getInstance()->getEventDispatcher();
+            dispatcher->dispatchEvent(&accEvent);
+		});
 	}
 	else
 	{
