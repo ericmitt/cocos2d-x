@@ -26,6 +26,7 @@ using namespace std;
 namespace CocosDenshion {
 
 Audio* s_audioController = NULL;
+bool s_initialized = false;
 
 SimpleAudioEngine* SimpleAudioEngine::getInstance()
 {
@@ -36,11 +37,15 @@ SimpleAudioEngine* SimpleAudioEngine::getInstance()
 
 static Audio* sharedAudioController()
 {
-    if (! s_audioController)
+    if (! s_audioController || !s_initialized)
     {
-        s_audioController = new Audio;
+        if(s_audioController == NULL)
+        {
+            s_audioController = new Audio;
+        }
         s_audioController->Initialize();
         s_audioController->CreateResources();
+        s_initialized = true;
     }
 
     return s_audioController;
@@ -60,6 +65,7 @@ void SimpleAudioEngine::end()
     sharedAudioController()->StopBackgroundMusic(true);
     sharedAudioController()->StopAllSoundEffects();
     sharedAudioController()->ReleaseResources();
+    s_initialized = false;
 }
 
 
