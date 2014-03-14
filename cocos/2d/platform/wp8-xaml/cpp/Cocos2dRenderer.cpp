@@ -47,12 +47,14 @@ Cocos2dRenderer::Cocos2dRenderer(): mInitialized(false), m_loadingComplete(false
 // Creates and restores Cocos2d-x after DirectX and Angle contexts are created or updated
 void Cocos2dRenderer::CreateGLResources()
 {
+    auto director = cocos2d::Director::getInstance();
+
     if(!mInitialized)
     {
         mInitialized = true;
         GLView* glview = GLView::create("Test Cpp");
 	    glview->Create(m_eglDisplay, m_eglContext, m_eglSurface, m_renderTargetSize.Width, m_renderTargetSize.Height);
-        Director::getInstance()->setOpenGLView(glview);
+        director->setOpenGLView(glview);
         CCApplication::getInstance()->run();
         glview->SetXamlEventDelegate(m_delegate);
         glview->SetXamlMessageBoxDelegate(m_messageBoxDelegate);
@@ -60,13 +62,14 @@ void Cocos2dRenderer::CreateGLResources()
    }
     else
     {
-        GL::invalidateStateCache();
-        CCShaderCache::getInstance()->reloadDefaultShaders();
-        DrawPrimitives::init();
-        VolatileTextureMgr::reloadAllTextures();
-        CCNotificationCenter::getInstance()->postNotification(EVENT_COME_TO_FOREGROUND, NULL);
-        Director::getInstance()->setGLDefaultValues(); 
-        Director::getInstance()->resume(); 
+        cocos2d::GL::invalidateStateCache();
+        cocos2d::ShaderCache::getInstance()->reloadDefaultShaders();
+        cocos2d::DrawPrimitives::init();
+        cocos2d::VolatileTextureMgr::reloadAllTextures();
+        cocos2d::EventCustom foregroundEvent(EVENT_COME_TO_FOREGROUND);
+        director->getEventDispatcher()->dispatchEvent(&foregroundEvent);
+        director->setGLDefaultValues();
+        director->resume(); 
    }
 
     m_loadingComplete = true;
