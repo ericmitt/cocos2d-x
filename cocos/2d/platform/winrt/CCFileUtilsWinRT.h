@@ -51,7 +51,7 @@ public:
     virtual bool isAbsolutePath(const std::string& strPath) const;
     virtual std::string  getPathForFilename(const std::string& filename, const std::string& resolutionDirectory, const std::string& searchPath) override;
     virtual std::string getFullPathForDirectoryAndFilename(const std::string& strDirectory, const std::string& strFilename) override;
-	
+	virtual std::string getStringFromFile(const std::string& filename) override;
 	static std::string getAppPath();
 
 };
