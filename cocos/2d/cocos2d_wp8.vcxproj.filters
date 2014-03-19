@@ -605,6 +605,9 @@
     <ClCompile Include="..\math\kazmath\kazmath\ray3.c">
       <Filter>kazmath</Filter>
     </ClCompile>
+    <ClCompile Include="platform\winrt\pch.cpp">
+      <Filter>platform\winrt</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\physics\CCPhysicsBody.h">
@@ -1229,6 +1232,9 @@
     </ClInclude>
     <ClInclude Include="..\math\kazmath\kazmath\ray3.h">
       <Filter>kazmath</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\winrt\pch.h">
+      <Filter>platform\winrt</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
