@@ -59,8 +59,8 @@ public:
     virtual void swapBuffers();
     virtual void setViewPortInPoints(float x , float y , float w , float h);
     virtual void setScissorInPoints(float x , float y , float w , float h);
-    kmMat4* getOrientationMatrix() {return &m_orientationMatrix;};
-    kmMat4* getReverseOrientationMatrix (){return &m_reverseOrientationMatrix;};
+    const kmMat4* getOrientationMatrix() const;
+    const kmMat4* getReverseOrientationMatrix () const {return &m_reverseOrientationMatrix;};
 
     Windows::Graphics::Display::DisplayOrientations getDeviceOrientation() {return m_orientation;};
 

@@ -85,9 +85,11 @@ GLView::GLView()
     , m_eglSurface(nullptr)
     , m_delegate(nullptr)
     , m_messageBoxDelegate(nullptr)
+    , m_orientation(DisplayOrientations::Landscape)
 {
 	s_pEglView = this;
     _viewName =  "cocos2dx";
+    UpdateOrientationMatrix();
 }
 
 GLView::~GLView()
@@ -386,6 +388,13 @@ void GLView::UpdateWindowSize()
         Director::sharedDirector()->setProjection(Director::sharedDirector()->getProjection());
 	}
 }
+
+const kmMat4* GLView::getOrientationMatrix() const 
+{
+    const kmMat4* k = &m_orientationMatrix;
+    return &m_orientationMatrix;
+};
+
 
 void GLView::UpdateOrientationMatrix()
 {
