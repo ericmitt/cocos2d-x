@@ -25,7 +25,6 @@ THE SOFTWARE.
 #include "CCFileUtilsWinRT.h"
 #include "CCWinRTUtils.h"
 #include "platform/CCCommon.h"
-#include <Windows.h>
 
 using namespace std;
 
