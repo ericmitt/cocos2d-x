@@ -87,6 +87,10 @@ typedef int ssize_t;
 #define _WINSOCKAPI_
 #include <WinSock2.h>
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN 1
+#endif
+
 #include <Windows.h>
 
 #undef timeval
