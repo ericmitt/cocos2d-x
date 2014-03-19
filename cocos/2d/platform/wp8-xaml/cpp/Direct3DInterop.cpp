@@ -45,25 +45,25 @@ Direct3DInterop::Direct3DInterop()
     m_renderer = ref new Cocos2dRenderer();
 }
 
-
-IDrawingSurfaceContentProvider^ Direct3DInterop::CreateContentProvider()
+IDrawingSurfaceBackgroundContentProvider^ Direct3DInterop::CreateContentProvider()
 {
-    ComPtr<Direct3DContentProvider> provider = Make<Direct3DContentProvider>(this);
-    return reinterpret_cast<IDrawingSurfaceContentProvider^>(provider.Get());
+	ComPtr<Direct3DContentProvider> provider = Make<Direct3DContentProvider>(this);
+	return reinterpret_cast<IDrawingSurfaceBackgroundContentProvider^>(provider.Get());
 }
 
+
 // Interface With Direct3DContentProvider
-void Direct3DInterop::Connect()
+HRESULT Direct3DInterop::Connect(_In_ IDrawingSurfaceRuntimeHostNative* host, _In_ ID3D11Device1* device)
 {
-    m_renderer->Connect();
+    //m_renderer->SetDevice(device);
+    return S_OK;
 }
 
 void Direct3DInterop::Disconnect()
 {
+    std::lock_guard<std::mutex> guard(mRenderingMutex);
     m_renderer->Disconnect();
 }
-
-
 
 // IDrawingSurfaceManipulationHandler
 void Direct3DInterop::SetManipulationHost(DrawingSurfaceManipulationHost^ manipulationHost)
@@ -156,21 +156,30 @@ void Direct3DInterop::ProcessEvents()
 }
 
 
-
-void Direct3DInterop::PrepareResources(LARGE_INTEGER presentTargetTime)
+HRESULT Direct3DInterop::PrepareResources(_In_ const LARGE_INTEGER* presentTargetTime, _Inout_ DrawingSurfaceSizeF* desiredRenderTargetSize)
 {
+	desiredRenderTargetSize->width = WindowBounds.Width;
+	desiredRenderTargetSize->height = WindowBounds.Height;
+	return S_OK;
 }
 
-void Direct3DInterop::Draw(_In_ ID3D11Device1* device, _In_ ID3D11DeviceContext1* context, _In_ ID3D11RenderTargetView* renderTargetView)
+HRESULT Direct3DInterop::Draw(_In_ ID3D11Device1* device, _In_ ID3D11DeviceContext1* context, _In_ ID3D11RenderTargetView* renderTargetView)
 {
+    std::lock_guard<std::mutex> guard(mRenderingMutex);
+
     m_renderer->UpdateDevice(device, context, renderTargetView);
+#if 0
     if(mCurrentOrientation != WindowOrientation)
     {
         mCurrentOrientation = WindowOrientation;
         m_renderer->OnOrientationChanged(mCurrentOrientation);
-    }
+    }  
+#endif // 0
+
     ProcessEvents();
     m_renderer->Render();
+	RequestAdditionalFrame();
+	return S_OK;
 }
 
 void Direct3DInterop::SetCocos2dEventDelegate(Cocos2dEventDelegate^ delegate) 

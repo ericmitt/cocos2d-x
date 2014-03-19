@@ -45,7 +45,7 @@ namespace PhoneDirect3DXamlAppInterop
 #endif
         }
 
-        private void DrawingSurface_Loaded(object sender, RoutedEventArgs e)
+        private void DrawingSurfaceBackground_Loaded(object sender, RoutedEventArgs e)
         {
             if (m_d3dInterop == null)
             {
@@ -53,13 +53,13 @@ namespace PhoneDirect3DXamlAppInterop
 
                 // Set WindowBounds to size of DrawingSurface
                 m_d3dInterop.WindowBounds = new Windows.Foundation.Size(
-                    (float)DrawingSurface.ActualWidth,
-                    (float)DrawingSurface.ActualHeight
+                    (float)Application.Current.Host.Content.ActualWidth,
+                    (float)Application.Current.Host.Content.ActualHeight
                     );
 
-                // Hook-up native component to DrawingSurface
-                DrawingSurface.SetContentProvider(m_d3dInterop.CreateContentProvider());
-                DrawingSurface.SetManipulationHandler(m_d3dInterop);
+                // Hook-up native component to DrawingSurfaceBackgroundGrid
+                DrawingSurfaceBackground.SetBackgroundContentProvider(m_d3dInterop.CreateContentProvider());
+                DrawingSurfaceBackground.SetBackgroundManipulationHandler(m_d3dInterop);
 
                 // Hook-up Cocos2d-x delegates
                 m_d3dInterop.SetCocos2dEventDelegate(OnCocos2dEvent);
@@ -136,7 +136,7 @@ namespace PhoneDirect3DXamlAppInterop
                             m_textBox.MaxLength = 1;
                             m_textBox.KeyDown += OnKeyDown;
                             m_textBox.KeyUp += OnKeyUp;
-                            LayoutRoot.Children.Add(m_textBox);
+                            DrawingSurfaceBackground.Children.Add(m_textBox);
                         }
                         m_textBox.Focus();
                         break;
@@ -144,7 +144,7 @@ namespace PhoneDirect3DXamlAppInterop
                     case Cocos2dEvent.HideKeyboard:
                         if (m_textBox != null)
                         {
-                            LayoutRoot.Children.Remove(m_textBox);
+                            DrawingSurfaceBackground.Children.Remove(m_textBox);
                         }
                         m_textBox = null;
                         break;
@@ -159,7 +159,7 @@ namespace PhoneDirect3DXamlAppInterop
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 EditBox editbox = new EditBox(this, strPlaceHolder, strText, maxLength, inputMode, inputFlag);
-                LayoutRoot.Children.Add(editbox);
+                DrawingSurfaceBackground.Children.Add(editbox);
             });
         }
 
