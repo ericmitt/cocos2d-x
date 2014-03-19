@@ -94,7 +94,7 @@
     <Lib>
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>zlib.lib;libpng.lib;libjpeg.lib;libtiff.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\external\wp8-specific\zlib\prebuilt\$(Platform);$(ProjectDir)..\..\external\png\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\jpeg\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\tiff\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\zlib\prebuilt\$(Platform);$(EngineRoot)external\png\prebuilt\wp8\$(Platform);$(EngineRoot)external\jpeg\prebuilt\wp8\$(Platform);$(EngineRoot)external\tiff\prebuilt\wp8\$(Platform);$(EngineRoot)external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -119,7 +119,7 @@
     <Lib>
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>zlib.lib;libpng.lib;libjpeg.lib;libtiff.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\external\wp8-specific\zlib\prebuilt\$(Platform);$(ProjectDir)..\..\external\png\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\jpeg\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\tiff\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\zlib\prebuilt\$(Platform);$(EngineRoot)external\png\prebuilt\wp8\$(Platform);$(EngineRoot)external\jpeg\prebuilt\wp8\$(Platform);$(EngineRoot)external\tiff\prebuilt\wp8\$(Platform);$(EngineRoot)external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -144,7 +144,7 @@
     <Lib>
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>zlib.lib;libpng.lib;libjpeg.lib;libtiff.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\external\wp8-specific\zlib\prebuilt\$(Platform);$(ProjectDir)..\..\external\png\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\jpeg\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\tiff\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\zlib\prebuilt\$(Platform);$(EngineRoot)external\png\prebuilt\wp8\$(Platform);$(EngineRoot)external\jpeg\prebuilt\wp8\$(Platform);$(EngineRoot)external\tiff\prebuilt\wp8\$(Platform);$(EngineRoot)external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -169,7 +169,7 @@
     <Lib>
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>zlib.lib;libpng.lib;libjpeg.lib;libtiff.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\external\wp8-specific\zlib\prebuilt\$(Platform);$(ProjectDir)..\..\external\png\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\jpeg\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\tiff\prebuilt\wp8\$(Platform);$(ProjectDir)..\..\external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\zlib\prebuilt\$(Platform);$(EngineRoot)external\png\prebuilt\wp8\$(Platform);$(EngineRoot)external\jpeg\prebuilt\wp8\$(Platform);$(EngineRoot)external\tiff\prebuilt\wp8\$(Platform);$(EngineRoot)external\freetype2\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
