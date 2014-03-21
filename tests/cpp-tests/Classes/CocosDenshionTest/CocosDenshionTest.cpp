@@ -39,6 +39,7 @@ public:
             delete b;
             b = NULL;
         }
+        b->autorelease();
         return b;
     }
 
@@ -49,6 +50,7 @@ public:
             delete b;
             b = NULL;
         }
+        b->autorelease();
         return b;
     }
 
@@ -151,6 +153,7 @@ public:
             delete ret;
             ret = NULL;
         }
+        ret->autorelease();
         return ret;
     }
 

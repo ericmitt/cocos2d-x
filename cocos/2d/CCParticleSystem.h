@@ -370,8 +370,8 @@ public:
     * @lua NA
     */
     virtual const BlendFunc &getBlendFunc() const override;
-
-protected:
+    
+CC_CONSTRUCTOR_ACCESS:
     /**
      * @js ctor
      */
@@ -390,20 +390,21 @@ protected:
      @since v0.99.3
      */
     bool initWithFile(const std::string& plistFile);
-
+    
     /** initializes a QuadParticleSystem from a Dictionary.
      @since v0.99.3
      */
     bool initWithDictionary(ValueMap& dictionary);
-
+    
     /** initializes a particle system from a NSDictionary and the path from where to load the png
      @since v2.1
      */
     bool initWithDictionary(ValueMap& dictionary, const std::string& dirname);
-
+    
     //! Initializes a system with a fixed number of particles
     virtual bool initWithTotalParticles(int numberOfParticles);
 
+protected:
     virtual void updateBlendFunc();
 
     /** whether or not the particles are using blend additive.
