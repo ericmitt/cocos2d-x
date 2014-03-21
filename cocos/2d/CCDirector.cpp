@@ -45,6 +45,7 @@ THE SOFTWARE.
 #include "platform/CCFileUtils.h"
 #include "CCApplication.h"
 #include "CCFontFNT.h"
+#include "CCFontAtlasCache.h"
 #include "CCActionManager.h"
 #include "CCAnimationCache.h"
 #include "CCTouch.h"
@@ -504,10 +505,16 @@ void Director::setProjection(Projection projection)
 void Director::purgeCachedData(void)
 {
     FontFNT::purgeCachedData();
+    FontAtlasCache::purgeCachedData();
+
     if (s_SharedDirector->getOpenGLView())
     {
         SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
         _textureCache->removeUnusedTextures();
+
+        // Note: some tests such as ActionsTest are leaking refcounted textures
+        // There should be no test textures left in the cache
+        log("%s\n", _textureCache->getCachedTextureInfo().c_str());
     }
     FileUtils::getInstance()->purgeCachedEntries();
 }
