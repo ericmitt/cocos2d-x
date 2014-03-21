@@ -31,6 +31,8 @@ THE SOFTWARE.
 #include "CCDirector.h"
 #include <algorithm>
 #include "platform/CCFileUtils.h"
+#include "CCWinRTUtils.h"
+
 /**
 @brief    This function change the PVRFrame show/hide setting in register.
 @param  bEnable If true show the PVRFrame window, otherwise hide.
@@ -93,69 +95,79 @@ Application* Application::getInstance()
     return sm_pSharedApplication;
 }
 
+const char * Application::getCurrentLanguageCode()
+{
+	static std::string code = "";
+
+    wchar_t localeName[LOCALE_NAME_MAX_LENGTH] = {0};
+    if (GetUserDefaultLocaleName(localeName, LOCALE_NAME_MAX_LENGTH))
+    {
+        wchar_t* primary = wcstok(localeName, L"-");
+        std::string code = CCUnicodeToUtf8(primary);
+    }
+    else
+    {
+        code = "en";
+    }
+
+    return code.c_str();
+}
+
+
 LanguageType Application::getCurrentLanguage()
 {
     LanguageType ret = LanguageType::ENGLISH;
 
-    wchar_t localeName[LOCALE_NAME_MAX_LENGTH] = {0};
+    const char* code = getCurrentLanguageCode();
 
-    if (GetUserDefaultLocaleName(localeName, LOCALE_NAME_MAX_LENGTH))
+    if (strcmp(code, "zh") == 0)
     {
-        wchar_t* primary = NULL;
-        wchar_t* sub = NULL;
-
-        primary = wcstok(localeName, L"-");
-        sub = wcstok(NULL, L"-");
-        
-        if (wcscmp(primary, L"zh") == 0)
-        {
-            ret = LanguageType::CHINESE;
-        }
-        else if (wcscmp(primary, L"ja") == 0)
-        {
-            ret = LanguageType::JAPANESE;
-        }
-        else if (wcscmp(primary, L"fr") == 0)
-        {
-            ret = LanguageType::FRENCH;
-        }
-        else if (wcscmp(primary, L"it") == 0)
-        {
-            ret = LanguageType::ITALIAN;
-        }
-        else if (wcscmp(primary, L"de") == 0)
-        {
-            ret = LanguageType::GERMAN;
-        }
-        else if (wcscmp(primary, L"es") == 0)
-        {
-            ret = LanguageType::SPANISH;
-        }
-        else if (wcscmp(primary, L"nl") == 0)
-        {
-            ret = LanguageType::DUTCH;
-        }
-        else if (wcscmp(primary, L"ru") == 0)
-        {
-            ret = LanguageType::RUSSIAN;
-        }
-        else if (wcscmp(primary, L"hu") == 0)
-        {
-            ret = LanguageType::HUNGARIAN;
-        }
-        else if (wcscmp(primary, L"pt") == 0)
-        {
-            ret = LanguageType::PORTUGUESE;
-        }
-        else if (wcscmp(primary, L"ko") == 0)
-        {
-            ret = LanguageType::KOREAN;
-        }
-        else if (wcscmp(primary, L"ar") == 0)
-        {
-            ret = LanguageType::ARABIC;
-        } 
+        ret = LanguageType::CHINESE;
     }
+    else if (strcmp(code, "ja") == 0)
+    {
+        ret = LanguageType::JAPANESE;
+    }
+    else if (strcmp(code, "fr") == 0)
+    {
+        ret = LanguageType::FRENCH;
+    }
+    else if (strcmp(code, "it") == 0)
+    {
+        ret = LanguageType::ITALIAN;
+    }
+    else if (strcmp(code, "de") == 0)
+    {
+        ret = LanguageType::GERMAN;
+    }
+    else if (strcmp(code, "es") == 0)
+    {
+        ret = LanguageType::SPANISH;
+    }
+    else if (strcmp(code, "nl") == 0)
+    {
+        ret = LanguageType::DUTCH;
+    }
+    else if (strcmp(code, "ru") == 0)
+    {
+        ret = LanguageType::RUSSIAN;
+    }
+    else if (strcmp(code, "hu") == 0)
+    {
+        ret = LanguageType::HUNGARIAN;
+    }
+    else if (strcmp(code, "pt") == 0)
+    {
+        ret = LanguageType::PORTUGUESE;
+    }
+    else if (strcmp(code, "ko") == 0)
+    {
+        ret = LanguageType::KOREAN;
+    }
+    else if (strcmp(code, "ar") == 0)
+    {
+        ret = LanguageType::ARABIC;
+    } 
 
     return ret;
 }

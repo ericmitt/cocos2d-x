@@ -56,11 +56,12 @@ public:
     /* override functions */
     virtual void setAnimationInterval(double interval);
     virtual LanguageType getCurrentLanguage();
-    
+    virtual const char * getCurrentLanguageCode();
+
     /**
      @brief Get target platform
      */
-    virtual Platform getTargetPlatform();
+    virtual Platform getTargetPlatform() override;
 
     /**
      *  Sets the Resource root path.
