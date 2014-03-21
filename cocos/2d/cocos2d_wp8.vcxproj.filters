@@ -527,9 +527,6 @@
     <ClCompile Include="platform\wp8\CCGLView.cpp">
       <Filter>platform\wp8</Filter>
     </ClCompile>
-    <ClCompile Include="platform\wp8\Direct3DBase.cpp">
-      <Filter>platform\wp8</Filter>
-    </ClCompile>
     <ClCompile Include="platform\wp8\DirectXBase.cpp">
       <Filter>platform\wp8</Filter>
     </ClCompile>
@@ -1147,9 +1144,6 @@
     </ClInclude>
     <ClInclude Include="CCTweenFunction.h" />
     <ClInclude Include="platform\wp8\CCGLView.h">
-      <Filter>platform\wp8</Filter>
-    </ClInclude>
-    <ClInclude Include="platform\wp8\Direct3DBase.h">
       <Filter>platform\wp8</Filter>
     </ClInclude>
     <ClInclude Include="platform\wp8\DirectXBase.h">
