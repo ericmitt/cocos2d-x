@@ -37,13 +37,8 @@ THE SOFTWARE.
 NS_CC_BEGIN
 
 
-void CCMessageBox(const char * pszMsg, const char * pszTitle)
+void MessageBox(const char * pszMsg, const char * pszTitle)
 {
-
-#if defined(VLD_DEBUG_MEMORY)
-	VLDReportLeaks();
-#endif
-
     // Create the message dialog and set its content
     Platform::String^ message = ref new Platform::String(CCUtf8ToUnicode(pszMsg, -1).c_str());
     Platform::String^ title = ref new Platform::String(CCUtf8ToUnicode(pszTitle, -1).c_str());
