@@ -262,12 +262,10 @@ bool DirectXBase::InitializeAngle(ID3D11Device1* d3dDevice, ID3D11DeviceContext1
 
     m_eglPhoneWindow->Update(d3dDevice, d3dContext, d3dRenderTargetView);
 
-    ComPtr<IUnknown> u;
-    HRESULT r = m_eglPhoneWindow.As(&u);
 
     if(m_eglWindow == nullptr)
     { 	DX::ThrowIfFailed(
-        CreateWinrtEglWindow(u.Get(), featureLevel, m_eglWindow.GetAddressOf())
+        CreateWinrtEglWindow(m_eglPhoneWindow.Get(), featureLevel, m_eglWindow.GetAddressOf())
         );
     }
 
