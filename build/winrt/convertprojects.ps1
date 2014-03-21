@@ -51,6 +51,12 @@ $libBox2d = join-path $box2dDir "\proj.wp8\Box2D.vcxproj"
 $in = join-path $box2dDir "\proj.win32\Box2D.vcxproj"
 #WinrtConverter $in $libBox2d "wp8" >> $null
 
+$freetypeDir = join-path $workingDir "..\..\external\freetype2\include\wp8" -Resolve
+$libFreetype = join-path $freetypeDir "\freetype-2.5.3\builds\windows\vc2010\freetype_wp8.vcxproj"
+$in = join-path $freetypeDir "\freetype-2.5.3\builds\windows\vc2010\freetype.vcxproj"
+#WinrtConverter $in $libFreetype "wp8" >> $null
+
+
 $chipmunkDir = join-path $workingDir "..\..\external\chipmunk" -Resolve
 $libChipmunk = join-path $chipmunkDir "\proj.wp8\chipmunk.vcxproj"
 $in = join-path $chipmunkDir "\proj.win32\chipmunk.vcxproj"
