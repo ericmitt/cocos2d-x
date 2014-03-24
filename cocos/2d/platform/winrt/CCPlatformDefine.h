@@ -48,14 +48,7 @@ THE SOFTWARE.
 #endif
 #define CC_UNUSED_PARAM(unusedparam) (void)unusedparam
 
-/* Define NULL pointer value */
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL    0
-#else
-#define NULL    ((void *)0)
-#endif
-#endif
+
 
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_WP8
 
