@@ -834,7 +834,7 @@ LayerMultiplex::~LayerMultiplex()
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-LayerMultiplex * LayerMultiplex::createLayer(Layer * layer, ...)
+LayerMultiplex * LayerMultiplex::createVariadic(Layer * layer, ...)
 {
     va_list args;
     va_start(args,layer);
