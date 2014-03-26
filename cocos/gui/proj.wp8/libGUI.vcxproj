@@ -184,6 +184,7 @@
     <ClInclude Include="..\..\ui\UITextAtlas.h" />
     <ClInclude Include="..\..\ui\UITextBMFont.h" />
     <ClInclude Include="..\..\ui\UITextField.h" />
+    <ClInclude Include="..\..\ui\UIVBox.h" />
     <ClInclude Include="..\..\ui\UIWidget.h" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +207,7 @@
     <ClCompile Include="..\..\ui\UITextAtlas.cpp" />
     <ClCompile Include="..\..\ui\UITextBMFont.cpp" />
     <ClCompile Include="..\..\ui\UITextField.cpp" />
+    <ClCompile Include="..\..\ui\UIVBox.cpp" />
     <ClCompile Include="..\..\ui\UIWidget.cpp" />
   </ItemGroup>
 </Project>

@@ -78,6 +78,9 @@
     <ClInclude Include="..\..\ui\CCProtectedNode.h">
       <Filter>BaseClasses</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\ui\UIVBox.h">
+      <Filter>Layouts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\ui\UILayout.cpp">
@@ -139,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="..\..\ui\CCProtectedNode.cpp">
       <Filter>BaseClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ui\UIVBox.cpp">
+      <Filter>Layouts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
