@@ -321,9 +321,6 @@
     <ClCompile Include="..\GUI\CCScrollView\CCTableViewCell.cpp">
       <Filter>GUI\CCScrollView</Filter>
     </ClCompile>
-    <ClCompile Include="..\network\HttpClient.cpp">
-      <Filter>network</Filter>
-    </ClCompile>
     <ClCompile Include="..\CocoStudio\Armature\CCArmature.cpp">
       <Filter>CocoStudio\Armature</Filter>
     </ClCompile>
@@ -1026,5 +1023,6 @@
     <ClInclude Include="..\CocoStudio\GUI\UIWidgets\UIRichText.h">
       <Filter>CocoStudio\GUI\UIWidgets</Filter>
     </ClInclude>
+    <ClInclude Include="..\ExtensionExport.h" />
   </ItemGroup>
 </Project>
