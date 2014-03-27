@@ -134,7 +134,7 @@
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
       <LinkTimeCodeGeneration>true</LinkTimeCodeGeneration>
       <AdditionalDependencies>libcurl.lib;libwebsockets.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\external\libwebsockets\wp8\lib\x86;..\..\cocos2dx\platform\third_party\wp8\libraries\arm</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\external\libwebsockets\wp8\lib\arm;..\..\cocos2dx\platform\third_party\wp8\libraries\arm</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -155,7 +155,7 @@
     <Lib>
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>libcurl.lib;libwebsockets.lib;</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\external\libwebsockets\wp8\lib\x86;..\..\cocos2dx\platform\third_party\wp8\libraries\arm</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\external\libwebsockets\wp8\lib\arm;..\..\cocos2dx\platform\third_party\wp8\libraries\arm</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -439,7 +439,7 @@
     <ClInclude Include="..\CocoStudio\Trigger\TriggerBase.h" />
     <ClInclude Include="..\CocoStudio\Trigger\TriggerMng.h" />
     <ClInclude Include="..\CocoStudio\Trigger\TriggerObj.h" />
-	<ClInclude Include="..\ExtensionExport.h" />
+    <ClInclude Include="..\ExtensionExport.h" />
     <ClInclude Include="..\ExtensionMacros.h" />
     <ClInclude Include="..\GUI\CCControlExtension\CCControl.h" />
     <ClInclude Include="..\GUI\CCControlExtension\CCControlButton.h" />

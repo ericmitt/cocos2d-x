@@ -1079,5 +1079,6 @@
     <ClInclude Include="..\network\WebSocket.h">
       <Filter>network</Filter>
     </ClInclude>
+    <ClInclude Include="..\ExtensionExport.h" />
   </ItemGroup>
 </Project>
