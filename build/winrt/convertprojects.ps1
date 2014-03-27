@@ -19,6 +19,9 @@ $c2dLib = join-path $cocosDir "\2d\cocos2d_winrt.vcxproj"
 $in = join-path $cocosDir "\2d\cocos2d.vcxproj"
 #WinrtConverter $in $c2dLib "winrt" >> $null
 
+$libNetwork = join-path $cocosDir "\network\proj.wp8\libNetwork.vcxproj"
+$in = join-path $cocosDir "\network\proj.win32\libNetwork.vcxproj"
+WinrtConverter $in $libNetwork "wp8" >> $null
 
 $libLocalStorage = join-path $cocosDir "\storage\local-storage\proj.wp8\libLocalStorage.vcxproj"
 $in = join-path $cocosDir "\storage\local-storage\proj.win32\libLocalStorage.vcxproj"
