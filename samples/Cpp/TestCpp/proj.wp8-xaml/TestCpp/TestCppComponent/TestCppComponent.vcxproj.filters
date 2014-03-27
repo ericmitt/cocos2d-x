@@ -1375,7 +1375,6 @@
     <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\Direct3DContentProvider.h" />
     <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\Direct3DInterop.h" />
     <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\DirectXBase.h" />
-    <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\DirectXHelper.h" />
     <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\InputEvent.h" />
     <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\InputEventTypes.h" />
     <ClInclude Include="pch.h" />

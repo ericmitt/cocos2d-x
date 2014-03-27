@@ -1241,24 +1241,6 @@
     <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioComponentsTest\SceneController.h">
       <Filter>Classes\ExtensionsTest\CocoStudioComponentsTest</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesEquipScene.h">
-      <Filter>Classes\ExtensionsTest\CocoStudioGUITest</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesMapScene.h">
-      <Filter>Classes\ExtensionsTest\CocoStudioGUITest</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesPageScene.h">
-      <Filter>Classes\ExtensionsTest\CocoStudioGUITest</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesRegisterScene.h">
-      <Filter>Classes\ExtensionsTest\CocoStudioGUITest</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesScene.h">
-      <Filter>Classes\ExtensionsTest\CocoStudioGUITest</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesWeaponScene.h">
-      <Filter>Classes\ExtensionsTest\CocoStudioGUITest</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIScene.h">
       <Filter>Classes\ExtensionsTest\CocoStudioGUITest</Filter>
     </ClInclude>

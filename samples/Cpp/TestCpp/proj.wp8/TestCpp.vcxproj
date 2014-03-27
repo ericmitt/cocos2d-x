@@ -315,12 +315,6 @@
     <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioComponentsTest\PlayerController.h" />
     <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioComponentsTest\ProjectileController.h" />
     <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioComponentsTest\SceneController.h" />
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesEquipScene.h" />
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesMapScene.h" />
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesPageScene.h" />
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesRegisterScene.h" />
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesScene.h" />
-    <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIExamplesWeaponScene.h" />
     <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocosGUIScene.h" />
     <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CocoStudioGUITest.h" />
     <ClInclude Include="..\Classes\ExtensionsTest\CocoStudioGUITest\CustomGUIScene.h" />

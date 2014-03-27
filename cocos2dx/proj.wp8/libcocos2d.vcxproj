@@ -678,7 +678,6 @@
     <ClInclude Include="..\shaders\ccGLStateCache.h" />
     <ClInclude Include="..\shaders\CCShaderCache.h" />
     <ClInclude Include="..\shaders\ccShaders.h" />
-    <ClInclude Include="..\shaders\precompiled\wp8\ccShaders_wp8.h" />
     <ClInclude Include="..\sprite_nodes\CCAnimation.h" />
     <ClInclude Include="..\sprite_nodes\CCAnimationCache.h" />
     <ClInclude Include="..\sprite_nodes\CCSprite.h" />
