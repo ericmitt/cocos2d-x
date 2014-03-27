@@ -560,6 +560,9 @@
       <Filter>CocoStudio\Reader\WidgetReader\PageViewReader</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\network\WebSocketWinRT.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AssetsManager\AssetsManager.h">
@@ -1070,5 +1073,11 @@
       <Filter>CocoStudio\Reader\WidgetReader\PageViewReader</Filter>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="..\network\WebSocketWinRT.h">
+      <Filter>network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\network\WebSocket.h">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

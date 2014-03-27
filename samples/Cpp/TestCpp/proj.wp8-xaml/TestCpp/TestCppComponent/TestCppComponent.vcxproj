@@ -84,7 +84,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\..\cocos2dx\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\wp8;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\winrt;$(ProjectDir)..\..\..\Classes;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\samples\gles2_book\Common;$(ProjectDir)..\..\..\..\..\..\CocosDenshion\include;$(ProjectDir)..\..\..\..\..\..\extensions;$(ProjectDir)..\..\..\..\..\..\external;$(ProjectDir)..\..\..\..\..\..\external\chipmunk\include\chipmunk;$(ProjectDir)..\..\..\..\..\..\cocos2dx\kazmath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\..\cocos2dx\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\wp8;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\winrt;$(ProjectDir)..\..\..\Classes;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\samples\gles2_book\Common;$(ProjectDir)..\..\..\..\..\..\CocosDenshion\include;$(ProjectDir)..\..\..\..\..\..\extensions;$(ProjectDir)..\..\..\..\..\..\extensions\network;$(ProjectDir)..\..\..\..\..\..\external\libwebsockets\wp8\include;$(ProjectDir)..\..\..\..\..\..\external;$(ProjectDir)..\..\..\..\..\..\external\chipmunk\include\chipmunk;$(ProjectDir)..\..\..\..\..\..\cocos2dx\kazmath\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\wp8\libcurl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4267;4251;4244;4453;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -106,7 +106,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\..\cocos2dx\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\wp8;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\winrt;$(ProjectDir)..\..\..\Classes;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\samples\gles2_book\Common;$(ProjectDir)..\..\..\..\..\..\CocosDenshion\include;$(ProjectDir)..\..\..\..\..\..\extensions;$(ProjectDir)..\..\..\..\..\..\external;$(ProjectDir)..\..\..\..\..\..\external\chipmunk\include\chipmunk;$(ProjectDir)..\..\..\..\..\..\cocos2dx\kazmath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\..\cocos2dx\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\wp8;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\winrt;$(ProjectDir)..\..\..\Classes;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\samples\gles2_book\Common;$(ProjectDir)..\..\..\..\..\..\CocosDenshion\include;$(ProjectDir)..\..\..\..\..\..\extensions;$(ProjectDir)..\..\..\..\..\..\extensions\network;$(ProjectDir)..\..\..\..\..\..\external\libwebsockets\wp8\include;$(ProjectDir)..\..\..\..\..\..\external;$(ProjectDir)..\..\..\..\..\..\external\chipmunk\include\chipmunk;$(ProjectDir)..\..\..\..\..\..\cocos2dx\kazmath\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\wp8\libcurl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4267;4251;4244;4453;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
@@ -125,7 +125,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\..\cocos2dx\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\wp8;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\winrt;$(ProjectDir)..\..\..\Classes;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\samples\gles2_book\Common;$(ProjectDir)..\..\..\..\..\..\CocosDenshion\include;$(ProjectDir)..\..\..\..\..\..\extensions;$(ProjectDir)..\..\..\..\..\..\external;$(ProjectDir)..\..\..\..\..\..\external\chipmunk\include\chipmunk;$(ProjectDir)..\..\..\..\..\..\cocos2dx\kazmath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\..\cocos2dx\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\wp8;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\winrt;$(ProjectDir)..\..\..\Classes;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\samples\gles2_book\Common;$(ProjectDir)..\..\..\..\..\..\CocosDenshion\include;$(ProjectDir)..\..\..\..\..\..\extensions;$(ProjectDir)..\..\..\..\..\..\extensions\network;$(ProjectDir)..\..\..\..\..\..\external\libwebsockets\wp8\include;$(ProjectDir)..\..\..\..\..\..\external;$(ProjectDir)..\..\..\..\..\..\external\chipmunk\include\chipmunk;$(ProjectDir)..\..\..\..\..\..\cocos2dx\kazmath\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\wp8\libcurl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4267;4251;4244;4453;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
@@ -146,7 +146,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <CompileAsWinRT>true</CompileAsWinRT>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\..\cocos2dx\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\wp8;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\winrt;$(ProjectDir)..\..\..\Classes;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\samples\gles2_book\Common;$(ProjectDir)..\..\..\..\..\..\CocosDenshion\include;$(ProjectDir)..\..\..\..\..\..\extensions;$(ProjectDir)..\..\..\..\..\..\external;$(ProjectDir)..\..\..\..\..\..\external\chipmunk\include\chipmunk;$(ProjectDir)..\..\..\..\..\..\cocos2dx\kazmath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\..\..\cocos2dx\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\wp8;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\winrt;$(ProjectDir)..\..\..\Classes;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\winrt\angleproject\samples\gles2_book\Common;$(ProjectDir)..\..\..\..\..\..\CocosDenshion\include;$(ProjectDir)..\..\..\..\..\..\extensions;$(ProjectDir)..\..\..\..\..\..\extensions\network;$(ProjectDir)..\..\..\..\..\..\external\libwebsockets\wp8\include;$(ProjectDir)..\..\..\..\..\..\external;$(ProjectDir)..\..\..\..\..\..\external\chipmunk\include\chipmunk;$(ProjectDir)..\..\..\..\..\..\cocos2dx\kazmath\include;$(ProjectDir)..\..\..\..\..\..\cocos2dx\platform\third_party\wp8\libcurl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4267;4251;4244;4453;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
@@ -175,6 +175,7 @@
     <ClInclude Include="..\..\..\Classes\ChipmunkTest\ChipmunkTest.h" />
     <ClInclude Include="..\..\..\Classes\ClippingNodeTest\ClippingNodeTest.h" />
     <ClInclude Include="..\..\..\Classes\ConfigurationTest\ConfigurationTest.h" />
+    <ClInclude Include="..\..\..\Classes\CurlTest\CurlTest.h" />
     <ClInclude Include="..\..\..\Classes\DataVisitorTest\DataVisitorTest.h" />
     <ClInclude Include="..\..\..\Classes\ExtensionsTest\CocosBuilderTest\AnimationsTest\AnimationsLayerLoader.h" />
     <ClInclude Include="..\..\..\Classes\ExtensionsTest\CocosBuilderTest\AnimationsTest\AnimationsTestLayer.h" />
@@ -238,6 +239,8 @@
     <ClInclude Include="..\..\..\Classes\ExtensionsTest\ControlExtensionTest\CCControlPotentiometerTest\CCControlPotentiometerTest.h" />
     <ClInclude Include="..\..\..\Classes\ExtensionsTest\ControlExtensionTest\CCControlStepperTest\CCControlStepperTest.h" />
     <ClInclude Include="..\..\..\Classes\ExtensionsTest\EditBoxTest\EditBoxTest.h" />
+    <ClInclude Include="..\..\..\Classes\ExtensionsTest\NetworkTest\HttpClientTest.h" />
+    <ClInclude Include="..\..\..\Classes\ExtensionsTest\NetworkTest\WebSocketTest.h" />
     <ClInclude Include="..\..\..\Classes\ExtensionsTest\TableViewTest\CustomTableViewCell.h" />
     <ClInclude Include="..\..\..\Classes\ExtensionsTest\TableViewTest\TableViewTestScene.h" />
     <ClInclude Include="..\..\..\Classes\FileUtilsTest\FileUtilsTest.h" />
@@ -390,6 +393,7 @@
     <ClCompile Include="..\..\..\Classes\ChipmunkTest\ChipmunkTest.cpp" />
     <ClCompile Include="..\..\..\Classes\ClippingNodeTest\ClippingNodeTest.cpp" />
     <ClCompile Include="..\..\..\Classes\ConfigurationTest\ConfigurationTest.cpp" />
+    <ClCompile Include="..\..\..\Classes\CurlTest\CurlTest.cpp" />
     <ClCompile Include="..\..\..\Classes\DataVisitorTest\DataVisitorTest.cpp" />
     <ClCompile Include="..\..\..\Classes\ExtensionsTest\CocosBuilderTest\AnimationsTest\AnimationsTestLayer.cpp" />
     <ClCompile Include="..\..\..\Classes\ExtensionsTest\CocosBuilderTest\TimelineCallbackTest\TimelineCallbackTestLayer.cpp" />
@@ -450,6 +454,8 @@
     <ClCompile Include="..\..\..\Classes\ExtensionsTest\ControlExtensionTest\CCControlPotentiometerTest\CCControlPotentiometerTest.cpp" />
     <ClCompile Include="..\..\..\Classes\ExtensionsTest\ControlExtensionTest\CCControlStepperTest\CCControlStepperTest.cpp" />
     <ClCompile Include="..\..\..\Classes\ExtensionsTest\EditBoxTest\EditBoxTest.cpp" />
+    <ClCompile Include="..\..\..\Classes\ExtensionsTest\NetworkTest\HttpClientTest.cpp" />
+    <ClCompile Include="..\..\..\Classes\ExtensionsTest\NetworkTest\WebSocketTest.cpp" />
     <ClCompile Include="..\..\..\Classes\ExtensionsTest\TableViewTest\CustomTableViewCell.cpp" />
     <ClCompile Include="..\..\..\Classes\ExtensionsTest\TableViewTest\TableViewTestScene.cpp" />
     <ClCompile Include="..\..\..\Classes\FileUtilsTest\FileUtilsTest.cpp" />
@@ -562,6 +568,40 @@
     <ProjectReference Include="..\..\..\..\..\..\external\chipmunk\proj.wp8\chipmunk.vcxproj">
       <Project>{3ad76ea1-d698-40d2-b04d-d9ab8171f40b}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..\cocos2dx\platform\third_party\wp8\libraries\arm\libcurl.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\..\..\cocos2dx\platform\third_party\wp8\libraries\arm\libeay32.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\..\..\cocos2dx\platform\third_party\wp8\libraries\arm\ssleay32.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\..\..\cocos2dx\platform\third_party\wp8\libraries\x86\libcurl.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\..\..\cocos2dx\platform\third_party\wp8\libraries\x86\libeay32.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\..\..\cocos2dx\platform\third_party\wp8\libraries\x86\ssleay32.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\..\..\external\libwebsockets\wp8\lib\arm\libwebsockets.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\..\..\external\libwebsockets\wp8\lib\x86\libwebsockets.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsPhone\v$(TargetPlatformVersion)\Microsoft.Cpp.WindowsPhone.$(TargetPlatformVersion).targets" />
