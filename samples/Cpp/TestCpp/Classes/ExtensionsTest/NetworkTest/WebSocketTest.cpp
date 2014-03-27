@@ -86,11 +86,13 @@ WebSocketTestLayer::WebSocketTestLayer()
     {
         CC_SAFE_DELETE(_wsiSendBinary);
     }
-    
+
     if (!_wsiError->init(*this, "ws://invalid.url.com"))
     {
         CC_SAFE_DELETE(_wsiError);
-    }
+    }    
+
+
 }
 
 
