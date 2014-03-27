@@ -29,12 +29,22 @@ THE SOFTWARE.
 #include "platform/CCPlatformMacros.h"
 
 #include <Windows.h>
+#include <thread>
+#include <functional>
+#include <mutex>
 
 NS_CC_BEGIN
 
-typedef HANDLE pthread_t;
-typedef HANDLE pthread_mutex_t;
+typedef std::thread*  pthread_t;
+typedef std::mutex pthread_mutex_t;
 typedef int pthread_cond_t;
+
+typedef struct  
+{
+    int foo;
+} pthread_attr_t;
+
+
 #define pthread_cond_wait(x, y)
 
 void pthread_mutex_init(pthread_mutex_t* m, void* attributes);
@@ -44,6 +54,23 @@ int pthread_mutex_lock(pthread_mutex_t* m);
 int pthread_mutex_unlock(pthread_mutex_t* m);
 
 void pthread_mutex_destroy(pthread_mutex_t* m);
+
+int pthread_attr_init(pthread_attr_t *attr);
+
+template<class T>
+int pthread_create(pthread_t *thread, const pthread_attr_t *attr, T start, void *arg)
+{
+    *thread = new std::thread(start);
+    return 0;
+}
+
+int pthread_detach(pthread_t thread);
+int pthread_join(pthread_t thread, void** ret);
+
+void pthread_exit(void *value_ptr);
+
+void Sleep(DWORD dwMilliseconds);
+
 
 #define pthread_cond_destroy(x)
 #define pthread_cond_signal(x)
