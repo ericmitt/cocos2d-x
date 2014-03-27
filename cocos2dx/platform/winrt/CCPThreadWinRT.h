@@ -32,10 +32,11 @@ THE SOFTWARE.
 #include <thread>
 #include <functional>
 #include <mutex>
+#include <memory>
 
 NS_CC_BEGIN
 
-typedef std::thread*  pthread_t;
+typedef std::shared_ptr<std::thread>  pthread_t;
 typedef std::mutex pthread_mutex_t;
 typedef int pthread_cond_t;
 
@@ -60,7 +61,8 @@ int pthread_attr_init(pthread_attr_t *attr);
 template<class T>
 int pthread_create(pthread_t *thread, const pthread_attr_t *attr, T start, void *arg)
 {
-    *thread = new std::thread(start);
+    std::shared_ptr<std::thread> t(new std::thread(start));
+    (*thread).swap(t);
     return 0;
 }
 
