@@ -42,6 +42,8 @@ namespace PhoneDirect3DXamlAppInterop
             InitializeComponent();
 #if DISPLAY_MEMORY
             StartTimer();
+#else
+            MemoryDisplay.Visibility = Visibility.Collapsed;
 #endif
         }
 
