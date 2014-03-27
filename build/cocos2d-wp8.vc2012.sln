@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cpp-tests", "..\tests\cpp-t
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpp-testsComponent", "..\tests\cpp-tests\proj.wp8-xaml\cpp-testsComponent\cpp-testsComponent.vcxproj", "{86B2C23C-3A6C-4C4E-AB0E-16A8CC1523E9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libNetwork", "..\cocos\network\proj.wp8\libNetwork.vcxproj", "{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -294,6 +296,26 @@ Global
 		{86B2C23C-3A6C-4C4E-AB0E-16A8CC1523E9}.Release|x64.ActiveCfg = Release|Win32
 		{86B2C23C-3A6C-4C4E-AB0E-16A8CC1523E9}.Release|x86.ActiveCfg = Release|Win32
 		{86B2C23C-3A6C-4C4E-AB0E-16A8CC1523E9}.Release|x86.Build.0 = Release|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Debug|ARM.ActiveCfg = Debug|ARM
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Debug|ARM.Build.0 = Debug|ARM
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Debug|Win32.Build.0 = Debug|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Debug|x64.ActiveCfg = Debug|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Debug|x86.ActiveCfg = Debug|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Debug|x86.Build.0 = Debug|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Release|ARM.ActiveCfg = Release|ARM
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Release|ARM.Build.0 = Release|ARM
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Release|Win32.ActiveCfg = Release|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Release|Win32.Build.0 = Release|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Release|x64.ActiveCfg = Release|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Release|x86.ActiveCfg = Release|Win32
+		{7DAA99E7-8E07-4FEF-8374-8EC04E395D2E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

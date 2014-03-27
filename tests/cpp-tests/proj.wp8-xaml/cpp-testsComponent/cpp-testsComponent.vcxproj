@@ -102,10 +102,10 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>d3d11.lib;libGLESv2_phone.lib;libEGL_phone.lib;xaudio2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;libGLESv2_phone.lib;libEGL_phone.lib;xaudio2.lib;libwebsockets.lib;libcurl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
-      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform);$(EngineRoot)\external\curl\prebuilt\wp8\$(Platform);$(EngineRoot)external\websockets\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,10 +123,10 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>d3d11.lib;libGLESv2_phone.lib;libEGL_phone.lib;xaudio2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;libGLESv2_phone.lib;libEGL_phone.lib;xaudio2.lib;libwebsockets.lib;libcurl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
-      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform);$(EngineRoot)\external\curl\prebuilt\wp8\$(Platform);$(EngineRoot)external\websockets\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -144,10 +144,10 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>d3d11.lib;libGLESv2_phone.lib;libEGL_phone.lib;xaudio2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;libGLESv2_phone.lib;libEGL_phone.lib;xaudio2.lib;libwebsockets.lib;libcurl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
-      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform);$(EngineRoot)\external\curl\prebuilt\wp8\$(Platform);$(EngineRoot)external\websockets\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -165,10 +165,10 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <AdditionalDependencies>d3d11.lib;libGLESv2_phone.lib;libEGL_phone.lib;xaudio2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;libGLESv2_phone.lib;libEGL_phone.lib;xaudio2.lib;libwebsockets.lib;libcurl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
-      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(EngineRoot)external\wp8-specific\angle\prebuilt\$(Platform);$(EngineRoot)\external\curl\prebuilt\wp8\$(Platform);$(EngineRoot)external\websockets\prebuilt\wp8\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -248,6 +248,9 @@
     <ClCompile Include="..\..\Classes\ExtensionsTest\ControlExtensionTest\CCControlPotentiometerTest\CCControlPotentiometerTest.cpp" />
     <ClCompile Include="..\..\Classes\ExtensionsTest\ControlExtensionTest\CCControlStepperTest\CCControlStepperTest.cpp" />
     <ClCompile Include="..\..\Classes\ExtensionsTest\EditBoxTest\EditBoxTest.cpp" />
+    <ClCompile Include="..\..\Classes\ExtensionsTest\NetworkTest\HttpClientTest.cpp" />
+    <ClCompile Include="..\..\Classes\ExtensionsTest\NetworkTest\SocketIOTest.cpp" />
+    <ClCompile Include="..\..\Classes\ExtensionsTest\NetworkTest\WebSocketTest.cpp" />
     <ClCompile Include="..\..\Classes\ExtensionsTest\Scale9SpriteTest\Scale9SpriteTest.cpp" />
     <ClCompile Include="..\..\Classes\ExtensionsTest\TableViewTest\CustomTableViewCell.cpp" />
     <ClCompile Include="..\..\Classes\ExtensionsTest\TableViewTest\TableViewTestScene.cpp" />
@@ -434,6 +437,9 @@
     <ClInclude Include="..\..\Classes\ExtensionsTest\ControlExtensionTest\CCControlPotentiometerTest\CCControlPotentiometerTest.h" />
     <ClInclude Include="..\..\Classes\ExtensionsTest\ControlExtensionTest\CCControlStepperTest\CCControlStepperTest.h" />
     <ClInclude Include="..\..\Classes\ExtensionsTest\EditBoxTest\EditBoxTest.h" />
+    <ClInclude Include="..\..\Classes\ExtensionsTest\NetworkTest\HttpClientTest.h" />
+    <ClInclude Include="..\..\Classes\ExtensionsTest\NetworkTest\SocketIOTest.h" />
+    <ClInclude Include="..\..\Classes\ExtensionsTest\NetworkTest\WebSocketTest.h" />
     <ClInclude Include="..\..\Classes\ExtensionsTest\Scale9SpriteTest\Scale9SpriteTest.h" />
     <ClInclude Include="..\..\Classes\ExtensionsTest\TableViewTest\CustomTableViewCell.h" />
     <ClInclude Include="..\..\Classes\ExtensionsTest\TableViewTest\TableViewTestScene.h" />
@@ -611,6 +617,9 @@
     <ProjectReference Include="..\..\..\..\cocos\gui\proj.wp8\libGUI.vcxproj">
       <Project>{08fb23e4-1517-4edc-b682-da238cdaa83d}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\cocos\network\proj.wp8\libNetwork.vcxproj">
+      <Project>{7daa99e7-8e07-4fef-8374-8ec04e395d2e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\cocos\storage\local-storage\proj.wp8\libLocalStorage.vcxproj">
       <Project>{88982c27-5a7b-40a8-86e7-b3187b44b322}</Project>
     </ProjectReference>
@@ -625,21 +634,61 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\external\curl\prebuilt\wp8\arm\libcurl.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\external\curl\prebuilt\wp8\arm\libeay32.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\external\curl\prebuilt\wp8\arm\ssleay32.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\external\curl\prebuilt\wp8\win32\libcurl.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\external\curl\prebuilt\wp8\win32\libeay32.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\external\curl\prebuilt\wp8\win32\ssleay32.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\external\websockets\prebuilt\wp8\arm\libwebsockets.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+    </None>
+    <None Include="..\..\..\..\external\websockets\prebuilt\wp8\win32\libwebsockets.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+    </None>
     <None Include="..\..\..\..\external\wp8-specific\angle\prebuilt\ARM\libEGL_phone.dll">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
     </None>
     <None Include="..\..\..\..\external\wp8-specific\angle\prebuilt\ARM\libGLESv2_phone.dll">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
     </None>
     <None Include="..\..\..\..\external\wp8-specific\angle\prebuilt\Win32\libEGL_phone.dll">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
     </None>
     <None Include="..\..\..\..\external\wp8-specific\angle\prebuilt\Win32\libGLESv2_phone.dll">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
     </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
