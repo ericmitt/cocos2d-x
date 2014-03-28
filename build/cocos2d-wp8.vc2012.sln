@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cpp-empty-test", "..\tests\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpp-empty-testComponent", "..\tests\cpp-empty-test\proj-wp8-xaml\cpp-empty-testComponent\cpp-empty-testComponent.vcxproj", "{F5D665F8-AE19-4F3F-99A7-230A1E8305D2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CopyTemplateFiles", "..\cocos\2d\platform\wp8-xaml\CopyTemplateFiles.vcxproj", "{271FEE84-9198-4C26-8567-4247C563B0B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -374,6 +376,26 @@ Global
 		{F5D665F8-AE19-4F3F-99A7-230A1E8305D2}.Release|x64.ActiveCfg = Release|Win32
 		{F5D665F8-AE19-4F3F-99A7-230A1E8305D2}.Release|x86.ActiveCfg = Release|Win32
 		{F5D665F8-AE19-4F3F-99A7-230A1E8305D2}.Release|x86.Build.0 = Release|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Debug|ARM.ActiveCfg = Debug|ARM
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Debug|ARM.Build.0 = Debug|ARM
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Debug|Win32.Build.0 = Debug|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Debug|x64.ActiveCfg = Debug|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Debug|x86.ActiveCfg = Debug|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Debug|x86.Build.0 = Debug|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Release|Any CPU.ActiveCfg = Release|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Release|ARM.ActiveCfg = Release|ARM
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Release|ARM.Build.0 = Release|ARM
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Release|Win32.ActiveCfg = Release|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Release|Win32.Build.0 = Release|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Release|x64.ActiveCfg = Release|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Release|x86.ActiveCfg = Release|Win32
+		{271FEE84-9198-4C26-8567-4247C563B0B1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
