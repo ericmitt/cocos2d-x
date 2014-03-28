@@ -114,7 +114,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="libwebsockets.dll" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\ApplicationIcon.png">
