@@ -13,7 +13,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
-      <DisableSpecificWarnings>4056;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4056;4996;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalOptions>/IGNORE:4264 %(AdditionalOptions)</AdditionalOptions>
