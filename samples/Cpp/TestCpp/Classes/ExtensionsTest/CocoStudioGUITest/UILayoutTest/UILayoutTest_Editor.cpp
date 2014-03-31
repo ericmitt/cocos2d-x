@@ -349,7 +349,7 @@ bool UILayoutTest_Layout_Linear_Horizontal_Editor::init()
 {
     if (UIScene_Editor::init())
     {
-        _layout = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile("cocosgui/UIEditorTest/UILayout_Editor/UILayout_Linear_Horizontal_Layout_Editor/ui_layout_linear_horizontal_layout_editor.json"));
+        _layout = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile("cocosgui/UIEditorTest/UILayout_Editor/Linear_Horizontal_Layout/linear_horizontal_layout.json"));
         _touchGroup->addWidget(_layout);
         CCSize screenSize = CCDirector::sharedDirector()->getWinSize();
         CCSize rootSize = _layout->getSize();
@@ -460,7 +460,7 @@ bool UILayoutTest_Layout_Relative_Location_Editor::init()
 {
     if (UIScene_Editor::init())
     {
-        _layout = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile("cocosgui/UIEditorTest/UILayout_Editor/UILayout_Relative_Align_Location_Editor/ui_layout_relative_align_location_editor.json"));
+        _layout = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile("cocosgui/UIEditorTest/UILayout_Editor/Relative_Align_Locatio/relative_align_location.json"));
         _touchGroup->addWidget(_layout);
         CCSize screenSize = CCDirector::sharedDirector()->getWinSize();
         CCSize rootSize = _layout->getSize();
