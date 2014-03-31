@@ -37,6 +37,7 @@
 #include "CCEventDispatcher.h"
 #include "CCEventType.h"
 #include "CCEventCustom.h"
+#include "platform/CCFileUtils.h"
 
 NS_CC_BEGIN
 
@@ -76,7 +77,7 @@ Label* Label::create(const std::string& text, const std::string& fontName, float
     {
         do 
         {
-            if (fontName.find('.') != fontName.npos)
+            if (FileUtils::getInstance()->isFileExist(fontName))
             {
                 TTFConfig ttfConfig(fontName.c_str(),fontSize,GlyphCollection::DYNAMIC);
                 if (ret->setTTFConfig(ttfConfig))
@@ -278,6 +279,7 @@ Label::Label(FontAtlas *atlas /* = nullptr */, TextHAlignment hAlignment /* = Te
 , _currNumLines(-1)
 , _textSprite(nullptr)
 , _contentDirty(false)
+, _shadowDirty(false)
 {
     setAnchorPoint(Point::ANCHOR_MIDDLE);
     reset();
@@ -344,6 +346,7 @@ void Label::reset()
 
     _shadowEnabled = false;
     _clipEnabled = false;
+    _blendFuncDirty = false;
 }
 
 void Label::updateShaderProgram()
@@ -737,9 +740,6 @@ void Label::updateQuads()
             _reusedRect.size.width  = letterDef.width;
             _reusedRect.origin.x    = letterDef.U;
             _reusedRect.origin.y    = letterDef.V;
-
-            if(_reusedLetter->getBatchNode() != _batchNodes[letterDef.textureID])
-                _reusedLetter->setBatchNode(_batchNodes[letterDef.textureID]);
             _reusedLetter->setTextureRect(_reusedRect,false,_reusedRect.size);
 
             _reusedLetter->setPosition(_lettersInfo[ctr].position);
@@ -853,6 +853,7 @@ void Label::enableShadow(const Color4B& shadowColor /* = Color4B::BLACK */,const
 {
     _shadowEnabled = true;
     _fontDefinition._shadow._shadowEnabled = false;
+    _shadowDirty = true;
 
     _effectColor = shadowColor;
     _effectColorF.r = _effectColor.r / 255.0f;
@@ -929,13 +930,11 @@ void Label::onDraw(const kmMat4& transform, bool transformUpdated)
     }
     else if(_shadowEnabled && _shadowBlurRadius <= 0)
     {
-        trans = true;
-        kmGLPushMatrix();
         drawShadowWithoutBlur();
     }
 
     _shaderProgram->setUniformsForBuiltins(transform);
-   
+
     for(const auto &child: _children)
     {
         if(child->getTag() >= 0)
@@ -947,29 +946,17 @@ void Label::onDraw(const kmMat4& transform, bool transformUpdated)
         batchNode->getTextureAtlas()->drawQuads();
     }
 
-    if (trans)
-    {
-        kmGLPopMatrix();
-    }    
-
     CC_PROFILER_STOP("Label - draw");
 }
 
 void Label::drawShadowWithoutBlur()
 {
-    _position.x += _shadowOffset.width;
-    _position.y += _shadowOffset.height;
-    _transformDirty = _inverseDirty = true;
-    
     Color3B oldColor = _realColor;
     GLubyte oldOPacity = _displayedOpacity;
     _displayedOpacity = _effectColorF.a * _displayedOpacity;
     setColor(_shadowColor);
 
-    _modelViewTransform = transform(_parentTransform);
-    kmGLLoadMatrix(&_modelViewTransform);
-
-    _shaderProgram->setUniformsForBuiltins(_modelViewTransform);
+    _shaderProgram->setUniformsForBuiltins(_shadowTransform);
     for(const auto &child: _children)
     {
         child->updateTransform();
@@ -979,15 +966,8 @@ void Label::drawShadowWithoutBlur()
         batchNode->getTextureAtlas()->drawQuads();
     }
     
-    _position.x -= _shadowOffset.width;
-    _position.y -= _shadowOffset.height;
-    _transformDirty = _inverseDirty = true;
-    
     _displayedOpacity = oldOPacity;
     setColor(oldColor);
-
-    _modelViewTransform = transform(_parentTransform);
-    kmGLLoadMatrix(&_modelViewTransform);
 }
 
 void Label::draw(Renderer *renderer, const kmMat4 &transform, bool transformUpdated)
@@ -1015,6 +995,10 @@ void Label::createSpriteWithFontDefinition()
     _textSprite->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
     this->setContentSize(_textSprite->getContentSize());
     texture->release();
+    if (_blendFuncDirty)
+    {
+        _textSprite->setBlendFunc(_blendFunc);
+    }
 
     Node::addChild(_textSprite,0,Node::INVALID_TAG);
 
@@ -1053,7 +1037,7 @@ void Label::updateContent()
 
 void Label::updateFont()
 {
-    if (_fontName.find('.') != _fontName.npos)
+    if (FileUtils::getInstance()->isFileExist(_fontName))
     {
         _fontConfig.fontFilePath = _fontName;
         _fontConfig.fontSize = _fontSize;
@@ -1086,6 +1070,10 @@ void Label::drawTextSprite(Renderer *renderer, bool parentTransformUpdated)
     if (_shadowEnabled && _shadowNode == nullptr)
     {
         _shadowNode = Sprite::createWithTexture(_textSprite->getTexture());
+        if (_shadowNode)
+        {
+            _shadowNode->setBlendFunc(_blendFunc);
+        }
         _shadowNode->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
         _shadowNode->setColor(_shadowColor);
         _shadowNode->setOpacity(_effectColorF.a * _displayedOpacity);
@@ -1114,36 +1102,45 @@ void Label::visit(Renderer *renderer, const kmMat4 &parentTransform, bool parent
         updateContent();
     }
 
-    if (! _textSprite && _shadowEnabled && _shadowBlurRadius <= 0)
+    bool dirty = parentTransformUpdated || _transformUpdated;
+
+    if (_shadowEnabled && _shadowBlurRadius <= 0 && (_shadowDirty || dirty))
     {
-        _parentTransform = parentTransform;
-        draw(renderer, _modelViewTransform, true);
+        _position.x += _shadowOffset.width;
+        _position.y += _shadowOffset.height;
+        _transformDirty = _inverseDirty = true;
+
+        _shadowTransform = transform(parentTransform);
+
+        _position.x -= _shadowOffset.width;
+        _position.y -= _shadowOffset.height;
+        _transformDirty = _inverseDirty = true;
+
+        _shadowDirty = false;
+    }
+
+    if(dirty)
+    {
+        _modelViewTransform = transform(parentTransform);
+    }
+    _transformUpdated = false;
+
+    // IMPORTANT:
+    // To ease the migration to v3.0, we still support the kmGL stack,
+    // but it is deprecated and your code should not rely on it
+    kmGLPushMatrix();
+    kmGLLoadMatrix(&_modelViewTransform);
+
+    if (_textSprite)
+    {
+        drawTextSprite(renderer,dirty);
     }
     else
     {
-        bool dirty = parentTransformUpdated || _transformUpdated;
-        
-        if(dirty)
-            _modelViewTransform = transform(parentTransform);
-        _transformUpdated = false;
-
-        // IMPORTANT:
-        // To ease the migration to v3.0, we still support the kmGL stack,
-        // but it is deprecated and your code should not rely on it
-        kmGLPushMatrix();
-        kmGLLoadMatrix(&_modelViewTransform);
-
-        if (_textSprite)
-        {
-            drawTextSprite(renderer,dirty);
-        }
-        else
-        {
-            draw(renderer, _modelViewTransform, dirty);
-        }
-
-        kmGLPopMatrix();
+        draw(renderer, _modelViewTransform, dirty);
     }
+
+    kmGLPopMatrix();
     
     setOrderOfArrival(0);
 }
@@ -1391,4 +1388,17 @@ void Label::listenToFontAtlasPurge(EventCustom *event)
     }
 }
 
+void Label::setBlendFunc(const BlendFunc &blendFunc)
+{
+    _blendFunc = blendFunc;
+    _blendFuncDirty = true;
+    if (_textSprite)
+    {
+        _textSprite->setBlendFunc(blendFunc);
+        if (_shadowNode)
+        {
+            _shadowNode->setBlendFunc(blendFunc);
+        }
+    }
+}
 NS_CC_END
