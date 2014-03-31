@@ -1,4 +1,6 @@
-﻿#define DISPLAY_MEMORY
+﻿#if DEBUG
+#define DISPLAY_MEMORY
+#endif
 
 using System;
 using System.ComponentModel;
