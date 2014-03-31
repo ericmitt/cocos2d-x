@@ -217,14 +217,14 @@
     <ProjectReference Include="..\..\..\..\cocos\editor-support\spine\proj.wp8\libSpine.vcxproj">
       <Project>{7d4fc6eb-9497-4804-98f3-3eaedc896154}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\cocos\gui\proj.wp8\libGUI.vcxproj">
-      <Project>{08fb23e4-1517-4edc-b682-da238cdaa83d}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\cocos\network\proj.wp8\libNetwork.vcxproj">
       <Project>{7daa99e7-8e07-4fef-8374-8ec04e395d2e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\cocos\storage\local-storage\proj.wp8\libLocalStorage.vcxproj">
       <Project>{88982c27-5a7b-40a8-86e7-b3187b44b322}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\cocos\ui\proj.wp8\libGUI.vcxproj">
+      <Project>{08fb23e4-1517-4edc-b682-da238cdaa83d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\extensions\proj.wp8\libExtensions.vcxproj">
       <Project>{04a0c42f-23bb-469b-a9d8-ca49136adbd4}</Project>
