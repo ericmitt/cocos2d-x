@@ -3,25 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcocos2d", "..\cocos\2d\cocos2d_wp8.vcxproj", "{B5AF91B3-64EA-44E1-84B0-D759E93758FB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSpine", "..\cocos\editor-support\spine\proj.wp8\libSpine.vcxproj", "{7D4FC6EB-9497-4804-98F3-3EAEDC896154}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libCocosStudio", "..\cocos\editor-support\cocostudio\proj.wp8\libCocosStudio.vcxproj", "{51E5736E-E1A3-4C94-ABB7-E92ECEF9C12E}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libCocosBuilder", "..\cocos\editor-support\cocosbuilder\proj.wp8\libCocosBuilder.vcxproj", "{20D4035D-FD3F-4FD3-BABA-97BC1C38DFC2}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libExtensions", "..\extensions\proj.wp8\libExtensions.vcxproj", "{04A0C42F-23BB-469B-A9D8-CA49136ADBD4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B5AF91B3-64EA-44E1-84B0-D759E93758FB} = {B5AF91B3-64EA-44E1-84B0-D759E93758FB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libCocosStudio", "..\cocos\editor-support\cocostudio\proj.wp8\libCocosStudio.vcxproj", "{51E5736E-E1A3-4C94-ABB7-E92ECEF9C12E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{04A0C42F-23BB-469B-A9D8-CA49136ADBD4} = {04A0C42F-23BB-469B-A9D8-CA49136ADBD4}
 		{B5AF91B3-64EA-44E1-84B0-D759E93758FB} = {B5AF91B3-64EA-44E1-84B0-D759E93758FB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libCocosBuilder", "..\cocos\editor-support\cocosbuilder\proj.wp8\libCocosBuilder.vcxproj", "{20D4035D-FD3F-4FD3-BABA-97BC1C38DFC2}"
 	ProjectSection(ProjectDependencies) = postProject
-		{04A0C42F-23BB-469B-A9D8-CA49136ADBD4} = {04A0C42F-23BB-469B-A9D8-CA49136ADBD4}
 		{B5AF91B3-64EA-44E1-84B0-D759E93758FB} = {B5AF91B3-64EA-44E1-84B0-D759E93758FB}
 	EndProjectSection
 EndProject
@@ -35,6 +27,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chipmunk", "..\external\chipmunk\proj.wp8\chipmunk.vcxproj", "{BA568A33-98F9-4D2A-BFFF-C065ADCB447A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libLocalStorage", "..\cocos\storage\local-storage\proj.wp8\libLocalStorage.vcxproj", "{88982C27-5A7B-40A8-86E7-B3187B44B322}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B5AF91B3-64EA-44E1-84B0-D759E93758FB} = {B5AF91B3-64EA-44E1-84B0-D759E93758FB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CocosDenshion", "..\cocos\audio\proj.wp8\CocosDenshion.vcxproj", "{DF125891-EEE9-4466-B903-F828FD272158}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -65,8 +60,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpp-empty-testComponent", "..\tests\cpp-empty-test\proj-wp8-xaml\cpp-empty-testComponent\cpp-empty-testComponent.vcxproj", "{F5D665F8-AE19-4F3F-99A7-230A1E8305D2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CopyTemplateFiles", "..\cocos\2d\platform\wp8-xaml\CopyTemplateFiles.vcxproj", "{271FEE84-9198-4C26-8567-4247C563B0B1}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libGUI", "..\cocos\ui\proj.wp8\libGUI.vcxproj", "{08FB23E4-1517-4EDC-B682-DA238CDAA83D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5921FE12-7EF3-4847-8453-42EF286DDBE7} = {5921FE12-7EF3-4847-8453-42EF286DDBE7}
 		{60D53713-1675-4466-81DC-D67A031C3D21} = {60D53713-1675-4466-81DC-D67A031C3D21}
