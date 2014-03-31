@@ -140,7 +140,6 @@
     <ClCompile Include="..\GUI\CCScrollView\CCSorting.cpp" />
     <ClCompile Include="..\GUI\CCScrollView\CCTableView.cpp" />
     <ClCompile Include="..\GUI\CCScrollView\CCTableViewCell.cpp" />
-    <ClCompile Include="..\network\HttpClient.cpp" />
     <ClCompile Include="..\physics_nodes\CCPhysicsDebugNode.cpp" />
     <ClCompile Include="..\physics_nodes\CCPhysicsSprite.cpp" />
     <ClCompile Include="..\spine\Animation.cpp" />
@@ -301,9 +300,6 @@
     <ClInclude Include="..\GUI\CCScrollView\CCSorting.h" />
     <ClInclude Include="..\GUI\CCScrollView\CCTableView.h" />
     <ClInclude Include="..\GUI\CCScrollView\CCTableViewCell.h" />
-    <ClInclude Include="..\network\HttpClient.h" />
-    <ClInclude Include="..\network\HttpRequest.h" />
-    <ClInclude Include="..\network\HttpResponse.h" />
     <ClInclude Include="..\physics_nodes\CCPhysicsDebugNode.h" />
     <ClInclude Include="..\physics_nodes\CCPhysicsSprite.h" />
     <ClInclude Include="..\spine\Animation.h" />
