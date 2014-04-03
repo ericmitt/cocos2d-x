@@ -268,6 +268,13 @@
 -- @return Label#Label ret (return value: cc.Label)
         
 --------------------------------
+-- @function [parent=#Label] draw 
+-- @param self
+-- @param #cc.Renderer renderer
+-- @param #kmMat4 kmmat4
+-- @param #bool bool
+        
+--------------------------------
 -- @function [parent=#Label] addChild 
 -- @param self
 -- @param #cc.Node node
@@ -275,11 +282,9 @@
 -- @param #int int
         
 --------------------------------
--- @function [parent=#Label] draw 
+-- @function [parent=#Label] setScaleY 
 -- @param self
--- @param #cc.Renderer renderer
--- @param #kmMat4 kmmat4
--- @param #bool bool
+-- @param #float float
         
 --------------------------------
 -- @function [parent=#Label] setScaleX 
@@ -297,16 +302,6 @@
 -- @return float#float ret (return value: float)
         
 --------------------------------
--- @function [parent=#Label] getScaleX 
--- @param self
--- @return float#float ret (return value: float)
-        
---------------------------------
--- @function [parent=#Label] getDescription 
--- @param self
--- @return string#string ret (return value: string)
-        
---------------------------------
 -- @function [parent=#Label] setBlendFunc 
 -- @param self
 -- @param #cc.BlendFunc blendfunc
@@ -319,6 +314,16 @@
 -- @param #bool bool
         
 --------------------------------
+-- @function [parent=#Label] getScaleX 
+-- @param self
+-- @return float#float ret (return value: float)
+        
+--------------------------------
+-- @function [parent=#Label] getDescription 
+-- @param self
+-- @return string#string ret (return value: string)
+        
+--------------------------------
 -- @function [parent=#Label] setOpacityModifyRGB 
 -- @param self
 -- @param #bool bool
@@ -329,14 +334,13 @@
 -- @param #float float
         
 --------------------------------
+-- @function [parent=#Label] sortAllChildren 
+-- @param self
+        
+--------------------------------
 -- @function [parent=#Label] updateDisplayedOpacity 
 -- @param self
 -- @param #unsigned char char
-        
---------------------------------
--- @function [parent=#Label] setScaleY 
--- @param self
--- @param #float float
         
 --------------------------------
 -- @function [parent=#Label] getContentSize 
