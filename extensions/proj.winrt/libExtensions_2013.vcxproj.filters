@@ -550,6 +550,7 @@
     <ClCompile Include="..\GUI\CCEditBox\CCEditBoxImplWinrt.cpp">
       <Filter>GUI\CCEditBox</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AssetsManager\AssetsManager.h">
@@ -1029,5 +1030,6 @@
     <ClInclude Include="..\GUI\CCEditBox\CCEditBoxImplWinrt.h">
       <Filter>GUI\CCEditBox</Filter>
     </ClInclude>
+    <ClInclude Include="pch.h" />
   </ItemGroup>
 </Project>
