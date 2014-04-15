@@ -826,6 +826,12 @@
     <ClCompile Include="..\..\Classes\ExtensionsTest\NetworkTest\WebSocketTest.cpp">
       <Filter>Classes\ExtensionsTest\NetworkTest</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Classes\ConsoleTest\ConsoleTest.cpp">
+      <Filter>Classes\ConsoleTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\CurlTest\CurlTest.cpp">
+      <Filter>Classes\CurlTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Classes\AppDelegate.h">
@@ -1529,6 +1535,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Classes\ExtensionsTest\NetworkTest\WebSocketTest.h">
       <Filter>Classes\ExtensionsTest\NetworkTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\ConsoleTest\ConsoleTest.h">
+      <Filter>Classes\ConsoleTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\CurlTest\CurlTest.h">
+      <Filter>Classes\CurlTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -188,6 +188,8 @@
     <ClCompile Include="..\..\Classes\ChipmunkTest\ChipmunkTest.cpp" />
     <ClCompile Include="..\..\Classes\ClippingNodeTest\ClippingNodeTest.cpp" />
     <ClCompile Include="..\..\Classes\ConfigurationTest\ConfigurationTest.cpp" />
+    <ClCompile Include="..\..\Classes\ConsoleTest\ConsoleTest.cpp" />
+    <ClCompile Include="..\..\Classes\CurlTest\CurlTest.cpp" />
     <ClCompile Include="..\..\Classes\DataVisitorTest\DataVisitorTest.cpp" />
     <ClCompile Include="..\..\Classes\ExtensionsTest\CocosBuilderTest\AnimationsTest\AnimationsTestLayer.cpp" />
     <ClCompile Include="..\..\Classes\ExtensionsTest\CocosBuilderTest\TimelineCallbackTest\TimelineCallbackTestLayer.cpp" />
@@ -374,6 +376,8 @@
     <ClInclude Include="..\..\Classes\ChipmunkTest\ChipmunkTest.h" />
     <ClInclude Include="..\..\Classes\ClippingNodeTest\ClippingNodeTest.h" />
     <ClInclude Include="..\..\Classes\ConfigurationTest\ConfigurationTest.h" />
+    <ClInclude Include="..\..\Classes\ConsoleTest\ConsoleTest.h" />
+    <ClInclude Include="..\..\Classes\CurlTest\CurlTest.h" />
     <ClInclude Include="..\..\Classes\DataVisitorTest\DataVisitorTest.h" />
     <ClInclude Include="..\..\Classes\ExtensionsTest\CocosBuilderTest\AnimationsTest\AnimationsLayerLoader.h" />
     <ClInclude Include="..\..\Classes\ExtensionsTest\CocosBuilderTest\AnimationsTest\AnimationsTestLayer.h" />

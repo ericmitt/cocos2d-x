@@ -49,6 +49,10 @@ float getScaledDPIValue(float v);
 
 Concurrency::task<Platform::Array<byte>^> ReadDataAsync(Platform::String^ path);
 
+void CC_DLL CCLogIPAddresses();
+
+std::string CC_DLL getDeviceIPAddresses();
+
 
 NS_CC_END
 
