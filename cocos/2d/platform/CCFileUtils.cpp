@@ -500,7 +500,10 @@ void FileUtils::purgeCachedEntries()
 
 static Data getData(const std::string& filename, bool forString)
 {
-    CCASSERT(!filename.empty(), "Invalid filename!");
+    if (filename.empty())
+    {
+        return Data::Null;
+    }
     
     Data ret;
     unsigned char* buffer = nullptr;
@@ -554,6 +557,7 @@ std::string FileUtils::getStringFromFile(const std::string& filename)
     Data data = getData(filename, true);
     if (data.isNull())
     	return "";
+    
     std::string ret((const char*)data.getBytes());
     return ret;
 }
