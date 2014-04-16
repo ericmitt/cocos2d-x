@@ -88,5 +88,20 @@ void BackButtonEvent::execute(Cocos2dRenderer ^ renderer)
 }
 
 
+GenericEvent::GenericEvent(Platform::String^ s){
+
+	m_test = s;
+
+}
+
+void GenericEvent::execute(Cocos2dRenderer ^ renderer)
+{
+	int x = 10;
+	//renderer->OnGenericEvent();
+	renderer->OnGenericEvent(m_test);
+
+	
+}
+
 }
 

@@ -143,6 +143,16 @@ void Direct3DInterop::OnCocos2dEditboxEvent(Object^ sender, Platform::String^ ar
 	mInputEvents.push(e);
 }
 
+void Direct3DInterop::OnCocos2dGenericEvent(Platform::String^ s){
+
+	std::lock_guard<std::mutex> guard(mMutex);
+	std::shared_ptr<GenericEvent> e(new GenericEvent(s));
+	mInputEvents.push(e);
+	
+}
+
+
+
 void Direct3DInterop::ProcessEvents()
 {
     std::lock_guard<std::mutex> guard(mMutex);
@@ -200,6 +210,10 @@ void Direct3DInterop::SetCocos2dEditBoxDelegate(Cocos2dEditBoxDelegate ^ delegat
     m_renderer->SetXamlEditBoxDelegate(delegate);
 }
 
+void Direct3DInterop::SetCocos2dGenericEvent(Cocos2dGenericEventDelegate^ delegate){
+
+	m_renderer->SetXamlGenericEventDelegate(delegate);
+}
 
 bool Direct3DInterop::SendCocos2dEvent(Cocos2dEvent event)
 {

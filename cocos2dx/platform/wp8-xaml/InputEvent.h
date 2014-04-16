@@ -40,6 +40,8 @@ public delegate void Cocos2dMessageBoxDelegate(Platform::String^  title, Platfor
 
 public delegate void Cocos2dEditBoxDelegate(Platform::String^ strPlaceHolder, Platform::String^ strText, int maxLength, int inputMode, int inputFlag, Windows::Foundation::EventHandler<Platform::String^>^ receiveHandler);
 
+public delegate void Cocos2dGenericEventDelegate(Platform::String^ data);
+
 
 
 enum PointerEventType
@@ -89,6 +91,14 @@ public:
     virtual void execute(Cocos2dRenderer ^ renderer);
 };
 
+class GenericEvent : public InputEvent{
+
+public:
+	GenericEvent(Platform::String^ s);
+	virtual void execute(Cocos2dRenderer ^ renderer);
+private:
+	Platform::String^ m_test;
+};
 
 }
 

@@ -68,6 +68,8 @@ public:
     void SetCocos2dEventDelegate(Cocos2dEventDelegate^ delegate);
     void SetCocos2dMessageBoxDelegate(Cocos2dMessageBoxDelegate ^ delegate);
     void SetCocos2dEditBoxDelegate(Cocos2dEditBoxDelegate ^ delegate);
+	void SetCocos2dGenericEvent(Cocos2dGenericEventDelegate^ delegate);
+
 
 
 protected:
