@@ -30,6 +30,8 @@ THE SOFTWARE.
 #include "AppDelegate.h"
 #include <ppltasks.h>
 
+#include "helloworldScene.h"
+
 using namespace Concurrency;
 using namespace DirectX;
 using namespace Microsoft::WRL;
@@ -201,6 +203,52 @@ void Cocos2dRenderer::SetXamlEditBoxDelegate(PhoneDirect3DXamlAppComponent::Coco
         eglView->SetXamlEditBoxDelegate(delegate);
     }
 }
+
+
+void Cocos2dRenderer::SetXamlGenericEventDelegate(PhoneDirect3DXamlAppComponent::Cocos2dGenericEventDelegate^ delegate){
+	CCEGLView* eglView = CCEGLView::sharedOpenGLView();
+	if (eglView)
+	{
+		eglView->SetXamlGenericEventDelegate(delegate);
+	}
+}
+
+
+void Cocos2dRenderer::OnGenericEvent(Platform::String^ s){
+
+	//CCDirector::sharedDirector()->stopAnimation();
+
+	//auto x = CCApplication::sharedApplication();
+	//auto x = CCDirector::sharedDirector()->getRunningScene();
+	//auto x = CCDirector::sharedDirector()->getRunningScene();
+	//auto y =  x->getChildByTag(8);
+	
+	HelloWorld* hw = (HelloWorld*)(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(63));
+	if (hw->getChildByTag(8) == NULL)
+	{
+		hw->firework = CCParticleFireworks::create();
+		hw->firework->setTag(8);
+		hw->addChild(hw->firework);
+		return;
+	}
+	if (hw->firework->isActive())
+	{
+		//hw->firework->stopSystem();
+		//hw->firework->release();
+		hw->firework->removeFromParent();
+	}
+	else
+		hw->firework->resumeSchedulerAndActions();
+
+	
+
+	
+	
+}
+
+
+
+
 
 
 
