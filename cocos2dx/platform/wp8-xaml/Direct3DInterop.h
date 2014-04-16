@@ -61,6 +61,7 @@ public:
     void OnCocos2dKeyEvent(Cocos2dKeyEvent key);
     void OnCocos2dKeyEvent(Cocos2dKeyEvent key, Platform::String^ text);
 	void OnCocos2dEditboxEvent(Object^ sender, Platform::String^ args, Windows::Foundation::EventHandler<Platform::String^>^ handler);
+	void OnCocos2dGenericEvent(Platform::String^ s);
 
     property Windows::Graphics::Display::DisplayOrientations WindowOrientation;
     property Windows::Foundation::Size WindowBounds;

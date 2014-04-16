@@ -223,22 +223,22 @@ void Cocos2dRenderer::OnGenericEvent(Platform::String^ s){
 	//auto x = CCDirector::sharedDirector()->getRunningScene();
 	//auto y =  x->getChildByTag(8);
 	
-	HelloWorld* hw = (HelloWorld*)(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(63));
-	if (hw->getChildByTag(8) == NULL)
-	{
-		hw->firework = CCParticleFireworks::create();
-		hw->firework->setTag(8);
-		hw->addChild(hw->firework);
-		return;
-	}
-	if (hw->firework->isActive())
-	{
-		//hw->firework->stopSystem();
-		//hw->firework->release();
-		hw->firework->removeFromParent();
-	}
-	else
-		hw->firework->resumeSchedulerAndActions();
+	//HelloWorld* hw = (HelloWorld*)(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(63));
+	//if (hw->getChildByTag(8) == NULL)
+	//{
+	//	hw->firework = CCParticleFireworks::create();
+	//	hw->firework->setTag(8);
+	//	hw->addChild(hw->firework);
+	//	return;
+	//}
+	//if (hw->firework->isActive())
+	//{
+	//	//hw->firework->stopSystem();
+	//	//hw->firework->release();
+	//	hw->firework->removeFromParent();
+	//}
+	//else
+	//	hw->firework->resumeSchedulerAndActions();
 
 	
 

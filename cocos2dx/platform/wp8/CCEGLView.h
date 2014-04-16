@@ -104,7 +104,7 @@ public:
 	void OnResuming(Platform::Object^ sender, Platform::Object^ args);
 	void OnSuspending(Platform::Object^ sender, Windows::ApplicationModel::SuspendingEventArgs^ args);
     void OnOrientationChanged();
-    
+	void SetXamlGenericEventDelegate(PhoneDirect3DXamlAppComponent::Cocos2dGenericEventDelegate^ delegate){ m_genericDelegate = delegate; };
     void SetXamlEventDelegate(PhoneDirect3DXamlAppComponent::Cocos2dEventDelegate^ delegate) { m_delegate = delegate; };
     void SetXamlMessageBoxDelegate(PhoneDirect3DXamlAppComponent::Cocos2dMessageBoxDelegate^ delegate) { m_messageBoxDelegate = delegate; };
     void SetXamlEditBoxDelegate(PhoneDirect3DXamlAppComponent::Cocos2dEditBoxDelegate^ delegate) { m_editBoxDelegate = delegate; };
@@ -178,6 +178,7 @@ private:
 	EGLSurface m_eglSurface;
     bool m_isXamlWindow;
     PhoneDirect3DXamlAppComponent::Cocos2dEventDelegate^ m_delegate;
+	PhoneDirect3DXamlAppComponent::Cocos2dGenericEventDelegate^ m_genericDelegate;
     PhoneDirect3DXamlAppComponent::Cocos2dMessageBoxDelegate^ m_messageBoxDelegate;
     PhoneDirect3DXamlAppComponent::Cocos2dEditBoxDelegate^ m_editBoxDelegate;
 };
